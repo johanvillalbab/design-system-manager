@@ -90,6 +90,57 @@ export const githubService = {
   },
 
   /**
+   * Get bug issues (for audit page)
+   */
+  async getBugIssues(perPage: number = 30): Promise<GitHubIssue[]> {
+    return fetchGitHub<GitHubIssue[]>(
+      `/repos/${REPO_OWNER}/${REPO_NAME}/issues?state=open&labels=bug&per_page=${perPage}`,
+      `github_bugs_${perPage}`
+    )
+  },
+
+  /**
+   * Get feature request issues (for requests page)
+   */
+  async getFeatureRequests(perPage: number = 30): Promise<GitHubIssue[]> {
+    return fetchGitHub<GitHubIssue[]>(
+      `/repos/${REPO_OWNER}/${REPO_NAME}/issues?state=open&labels=Feature%20Request&per_page=${perPage}`,
+      `github_features_${perPage}`
+    )
+  },
+
+  /**
+   * Get issues by specific labels
+   */
+  async getIssuesByLabels(labels: string[], perPage: number = 30): Promise<GitHubIssue[]> {
+    const labelsParam = labels.map(l => encodeURIComponent(l)).join(',')
+    return fetchGitHub<GitHubIssue[]>(
+      `/repos/${REPO_OWNER}/${REPO_NAME}/issues?state=open&labels=${labelsParam}&per_page=${perPage}`,
+      `github_issues_labels_${labels.join('_')}_${perPage}`
+    )
+  },
+
+  /**
+   * Get closed issues (for resolved metrics)
+   */
+  async getClosedIssues(perPage: number = 30): Promise<GitHubIssue[]> {
+    return fetchGitHub<GitHubIssue[]>(
+      `/repos/${REPO_OWNER}/${REPO_NAME}/issues?state=closed&per_page=${perPage}&sort=updated&direction=desc`,
+      `github_closed_${perPage}`
+    )
+  },
+
+  /**
+   * Get all issue labels from repository
+   */
+  async getLabels(): Promise<Array<{ name: string; color: string; description: string | null }>> {
+    return fetchGitHub<Array<{ name: string; color: string; description: string | null }>>(
+      `/repos/${REPO_OWNER}/${REPO_NAME}/labels?per_page=100`,
+      'github_labels'
+    )
+  },
+
+  /**
    * Get recent releases
    */
   async getReleases(perPage: number = 10): Promise<GitHubRelease[]> {
@@ -129,5 +180,9 @@ export const githubService = {
     cache.remove('github_components_list')
     cache.remove('github_issues_30')
     cache.remove('github_releases_10')
+    cache.remove('github_bugs_30')
+    cache.remove('github_features_30')
+    cache.remove('github_closed_30')
+    cache.remove('github_labels')
   }
 }

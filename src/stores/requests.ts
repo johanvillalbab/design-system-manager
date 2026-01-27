@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { ComponentRequest, RequestStatus, RequestPriority } from '@/types'
 import { mockRequests, requestStats } from '@/data/requests'
+import { githubService, dataMapper } from '@/services'
 
 export const useRequestsStore = defineStore('requests', () => {
   // State
@@ -10,6 +11,11 @@ export const useRequestsStore = defineStore('requests', () => {
   const priorityFilter = ref<RequestPriority | null>(null)
   const currentWizardStep = ref(0)
   const newRequest = ref<Partial<ComponentRequest>>({})
+
+  // Loading and error states
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+  const dataSource = ref<'mock' | 'api'>('mock')
 
   // Getters
   const filteredRequests = computed(() => {
@@ -126,6 +132,50 @@ export const useRequestsStore = defineStore('requests', () => {
     priorityFilter.value = null
   }
 
+  /**
+   * Fetch feature requests from GitHub API
+   */
+  async function fetchRequests() {
+    loading.value = true
+    error.value = null
+
+    try {
+      // Fetch feature request issues from GitHub
+      const featureIssues = await githubService.getFeatureRequests(50)
+
+      // Map to our ComponentRequest format
+      requests.value = dataMapper.mapToComponentRequests(featureIssues)
+
+      dataSource.value = 'api'
+    } catch (e) {
+      console.error('Error fetching requests from GitHub:', e)
+      error.value = e instanceof Error ? e.message : 'Error loading requests'
+      
+      // Fallback to mock data
+      requests.value = mockRequests
+      dataSource.value = 'mock'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  /**
+   * Reset to mock data
+   */
+  function useMockData() {
+    requests.value = mockRequests
+    dataSource.value = 'mock'
+    error.value = null
+  }
+
+  /**
+   * Refresh data from API
+   */
+  async function refreshData() {
+    githubService.clearCache()
+    await fetchRequests()
+  }
+
   return {
     // State
     requests,
@@ -133,6 +183,9 @@ export const useRequestsStore = defineStore('requests', () => {
     priorityFilter,
     currentWizardStep,
     newRequest,
+    loading,
+    error,
+    dataSource,
     // Getters
     filteredRequests,
     requestsByStatus,
@@ -148,6 +201,9 @@ export const useRequestsStore = defineStore('requests', () => {
     resetWizard,
     updateNewRequest,
     submitRequest,
-    clearFilters
+    clearFilters,
+    fetchRequests,
+    useMockData,
+    refreshData
   }
 })

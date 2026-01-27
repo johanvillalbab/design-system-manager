@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted } from 'vue'
 import { useAuditStore } from '@/stores/audit'
 import IssueCard from '@/components/common/IssueCard.vue'
 import MetricCard from '@/components/common/MetricCard.vue'
@@ -11,17 +11,20 @@ import {
   Wand2, 
   Download, 
   RefreshCw,
-  CheckCircle2
+  CheckCircle2,
+  Cloud,
+  Database,
+  Bug
 } from 'lucide-vue-next'
 
 const store = useAuditStore()
 
-const severityFilters = [
+const severityFilters = computed(() => [
   { id: null, label: 'All', count: store.stats.totalIssues },
   { id: 'critical', label: 'Critical', count: store.stats.critical, icon: AlertTriangle, color: 'text-danger-500' },
   { id: 'high', label: 'High', count: store.stats.high, icon: AlertCircle, color: 'text-warning-500' },
   { id: 'medium', label: 'Medium', count: store.stats.medium, icon: Info, color: 'text-text-muted' }
-]
+])
 
 function handleFix(id: string) {
   store.fixIssue(id)
@@ -34,12 +37,89 @@ function handleIgnore(id: string) {
 function handleFixAll() {
   store.fixAllAutoFixable()
 }
+
+// Fetch data from API on mount
+onMounted(async () => {
+  await store.fetchAuditData()
+})
+
+// Toggle between API and mock data
+function toggleDataSource() {
+  if (store.dataSource === 'api') {
+    store.useMockData()
+  } else {
+    store.fetchAuditData()
+  }
+}
 </script>
 
 <template>
   <div class="space-y-6">
-    <!-- Stats Overview -->
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
+    <!-- Data Source Toggle & Status -->
+    <div class="flex items-center justify-between bg-surface-800 border border-border rounded-xl p-4">
+      <div class="flex items-center gap-3">
+        <div 
+          class="p-2 rounded-lg"
+          :class="store.dataSource === 'api' ? 'bg-danger-500/10' : 'bg-surface-700'"
+        >
+          <Bug v-if="store.dataSource === 'api'" class="w-5 h-5 text-danger-500" />
+          <Database v-else class="w-5 h-5 text-text-muted" />
+        </div>
+        <div>
+          <p class="text-sm font-medium text-text-primary">
+            {{ store.dataSource === 'api' ? 'GitHub Bug Issues' : 'Mock Data' }}
+          </p>
+          <p class="text-xs text-text-muted">
+            {{ store.dataSource === 'api' ? 'Real bug reports from ant-design/ant-design' : 'Using local sample data' }}
+          </p>
+        </div>
+      </div>
+      <div class="flex items-center gap-2">
+        <button
+          v-if="store.dataSource === 'api'"
+          @click="store.refreshData()"
+          :disabled="store.loading"
+          class="p-2 rounded-lg hover:bg-surface-700 transition-colors disabled:opacity-50"
+          title="Refresh data"
+        >
+          <RefreshCw class="w-5 h-5 text-text-secondary" :class="{ 'animate-spin': store.loading }" />
+        </button>
+        <button
+          @click="toggleDataSource()"
+          :disabled="store.loading"
+          class="px-4 py-2 text-sm font-medium rounded-lg transition-colors disabled:opacity-50"
+          :class="store.dataSource === 'api' 
+            ? 'bg-surface-700 text-text-secondary hover:bg-surface-600' 
+            : 'bg-primary-600 text-white hover:bg-primary-500'"
+        >
+          {{ store.dataSource === 'api' ? 'Use Mock Data' : 'Load from GitHub' }}
+        </button>
+      </div>
+    </div>
+
+    <!-- Error Alert -->
+    <div 
+      v-if="store.error" 
+      class="bg-danger-500/10 border border-danger-500/20 rounded-xl p-4 flex items-start gap-3"
+    >
+      <AlertTriangle class="w-5 h-5 text-danger-500 flex-shrink-0 mt-0.5" />
+      <div>
+        <p class="text-sm font-medium text-danger-500">Error loading audit data</p>
+        <p class="text-sm text-danger-400 mt-1">{{ store.error }}</p>
+      </div>
+    </div>
+
+    <!-- Loading State -->
+    <div v-if="store.loading" class="flex items-center justify-center py-12">
+      <div class="flex flex-col items-center gap-4">
+        <RefreshCw class="w-8 h-8 text-primary-500 animate-spin" />
+        <p class="text-text-secondary">Loading bug issues from GitHub...</p>
+      </div>
+    </div>
+
+    <template v-else>
+      <!-- Stats Overview -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
       <MetricCard 
         title="Total Issues"
         :value="store.stats.totalIssues"
@@ -231,5 +311,6 @@ function handleFixAll() {
         </div>
       </div>
     </div>
+    </template>
   </div>
 </template>

@@ -2,6 +2,7 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { AuditIssue, AuditProject, IssueSeverity } from '@/types'
 import { mockAuditIssues, mockProjects, auditStats } from '@/data/audit'
+import { githubService, dataMapper } from '@/services'
 
 export const useAuditStore = defineStore('audit', () => {
   // State
@@ -9,6 +10,11 @@ export const useAuditStore = defineStore('audit', () => {
   const projects = ref<AuditProject[]>(mockProjects)
   const selectedSeverity = ref<IssueSeverity | null>(null)
   const selectedProject = ref<string | null>(null)
+
+  // Loading and error states
+  const loading = ref(false)
+  const error = ref<string | null>(null)
+  const dataSource = ref<'mock' | 'api'>('mock')
 
   // Getters
   const filteredIssues = computed(() => {
@@ -20,7 +26,7 @@ export const useAuditStore = defineStore('audit', () => {
         const project = projects.value.find(p => p.id === selectedProject.value)
         if (project) {
           const projectPrefix = project.name.split(' ')[0] ?? ''
-          if (!issue.location.file.includes(projectPrefix)) {
+          if (!issue.location.file.toLowerCase().includes(projectPrefix.toLowerCase())) {
             return false
           }
         }
@@ -41,7 +47,10 @@ export const useAuditStore = defineStore('audit', () => {
     critical: issues.value.filter(i => i.severity === 'critical' && !i.fixed).length,
     high: issues.value.filter(i => i.severity === 'high' && !i.fixed).length,
     medium: issues.value.filter(i => i.severity === 'medium' && !i.fixed).length,
-    autoFixable: issues.value.filter(i => i.autoFixable && !i.fixed).length
+    autoFixable: issues.value.filter(i => i.autoFixable && !i.fixed).length,
+    avgCoverage: projects.value.length > 0 
+      ? Math.round(projects.value.reduce((acc, p) => acc + p.coverage, 0) / projects.value.length)
+      : 0
   }))
 
   const autoFixableIssues = computed(() => {
@@ -84,12 +93,62 @@ export const useAuditStore = defineStore('audit', () => {
     selectedProject.value = null
   }
 
+  /**
+   * Fetch audit data from GitHub API (bug issues)
+   */
+  async function fetchAuditData() {
+    loading.value = true
+    error.value = null
+
+    try {
+      // Fetch bug issues from GitHub
+      const bugIssues = await githubService.getBugIssues(50)
+
+      // Map to our audit format
+      issues.value = dataMapper.mapToAuditIssues(bugIssues)
+      projects.value = dataMapper.mapToAuditProjects(bugIssues)
+
+      dataSource.value = 'api'
+    } catch (e) {
+      console.error('Error fetching audit data from GitHub:', e)
+      error.value = e instanceof Error ? e.message : 'Error loading audit data'
+      
+      // Fallback to mock data
+      issues.value = mockAuditIssues
+      projects.value = mockProjects
+      dataSource.value = 'mock'
+    } finally {
+      loading.value = false
+    }
+  }
+
+  /**
+   * Reset to mock data
+   */
+  function useMockData() {
+    issues.value = mockAuditIssues
+    projects.value = mockProjects
+    dataSource.value = 'mock'
+    error.value = null
+  }
+
+  /**
+   * Refresh data from API
+   */
+  async function refreshData() {
+    githubService.clearCache()
+    await fetchAuditData()
+  }
+
   return {
     // State
     issues,
     projects,
     selectedSeverity,
     selectedProject,
+    loading,
+    error,
+    dataSource,
     // Getters
     filteredIssues,
     issuesBySeverity,
@@ -101,6 +160,9 @@ export const useAuditStore = defineStore('audit', () => {
     fixIssue,
     fixAllAutoFixable,
     ignoreIssue,
-    clearFilters
+    clearFilters,
+    fetchAuditData,
+    useMockData,
+    refreshData
   }
 })

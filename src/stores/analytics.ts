@@ -1,13 +1,13 @@
 import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
-import type { Platform, UsageMetric, ComponentUsage } from '@/types'
+import type { Platform, UsageMetric, ComponentUsage, Alert, Recommendation } from '@/types'
 import { 
   adoptionOverTime, 
   topComponents, 
   projectCoverage, 
   platformUsage,
-  alerts,
-  recommendations,
+  alerts as mockAlerts,
+  recommendations as mockRecommendations,
   analyticsStats,
   implementationTime,
   dependencyGraph
@@ -32,6 +32,8 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   // API data state
   const apiAdoptionData = ref<UsageMetric[]>([])
   const apiTopComponents = ref<ComponentUsage[]>([])
+  const apiAlerts = ref<Alert[]>([])
+  const apiRecommendations = ref<Recommendation[]>([])
   const apiStats = ref({
     totalComponents: analyticsStats.totalComponents,
     adoptionRate: analyticsStats.adoptionRate,
@@ -77,9 +79,17 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     return analyticsStats
   })
 
-  const activeAlerts = computed(() => alerts)
+  const activeAlerts = computed(() => {
+    return dataSource.value === 'api' && apiAlerts.value.length > 0
+      ? apiAlerts.value
+      : mockAlerts
+  })
 
-  const activeRecommendations = computed(() => recommendations)
+  const activeRecommendations = computed(() => {
+    return dataSource.value === 'api' && apiRecommendations.value.length > 0
+      ? apiRecommendations.value
+      : mockRecommendations
+  })
 
   const avgImplementationTime = computed(() => {
     const total = implementationTime.reduce((acc, item) => acc + item.days, 0)
@@ -136,9 +146,16 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   }
 
   function dismissAlert(alertId: string) {
-    const index = alerts.findIndex(a => a.id === alertId)
-    if (index !== -1) {
-      alerts.splice(index, 1)
+    if (dataSource.value === 'api') {
+      const index = apiAlerts.value.findIndex(a => a.id === alertId)
+      if (index !== -1) {
+        apiAlerts.value.splice(index, 1)
+      }
+    } else {
+      const index = mockAlerts.findIndex(a => a.id === alertId)
+      if (index !== -1) {
+        mockAlerts.splice(index, 1)
+      }
     }
   }
 
@@ -151,11 +168,13 @@ export const useAnalyticsStore = defineStore('analytics', () => {
 
     try {
       // Fetch data from APIs
-      const [downloadStats, dailyDownloads, packageInfo, repoInfo] = await Promise.all([
+      const [downloadStats, dailyDownloads, packageInfo, repoInfo, releases, bugIssues] = await Promise.all([
         npmService.getDownloadStats(),
         npmService.getDailyDownloads(),
         npmService.getPackageInfo(),
-        githubService.getRepoInfo()
+        githubService.getRepoInfo(),
+        githubService.getReleases(),
+        githubService.getBugIssues(30)
       ])
 
       // Get components store for component data
@@ -176,6 +195,12 @@ export const useAnalyticsStore = defineStore('analytics', () => {
         componentsCount
       )
 
+      // Generate real alerts from data
+      apiAlerts.value = dataMapper.generateAlerts(repoInfo, releases, bugIssues.length)
+
+      // Generate real recommendations from data
+      apiRecommendations.value = dataMapper.generateRecommendations(bugIssues, componentsStore.components)
+
       dataSource.value = 'api'
     } catch (e) {
       console.error('Error fetching analytics from APIs:', e)
@@ -192,6 +217,8 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   function useMockData() {
     apiAdoptionData.value = []
     apiTopComponents.value = []
+    apiAlerts.value = []
+    apiRecommendations.value = []
     apiStats.value = {
       ...analyticsStats,
       stars: 0,
