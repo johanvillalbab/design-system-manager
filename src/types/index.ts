@@ -183,3 +183,139 @@ export interface FilterState {
   categories: ComponentCategory[]
   statuses: ComponentStatus[]
 }
+
+// Issue Types (v2.5)
+export type IssueType = 'bug' | 'enhancement' | 'documentation' | 'question'
+export type IssueStatus = 'open' | 'in_progress' | 'resolved' | 'closed'
+export type IssuePriority = 'low' | 'medium' | 'high' | 'critical'
+
+export interface Issue {
+  id: string
+  title: string
+  description: string
+  type: IssueType
+  status: IssueStatus
+  priority: IssuePriority
+  componentId?: string
+  labels: string[]
+  assignee?: { name: string; avatar: string }
+  author: { name: string; avatar: string }
+  createdAt: string
+  updatedAt: string
+  comments: IssueComment[]
+}
+
+export interface IssueComment {
+  id: string
+  author: { name: string; avatar: string }
+  content: string
+  createdAt: string
+}
+
+// Contribution Types (v2.5)
+export type ContributionStatus = 'draft' | 'pending_review' | 'approved' | 'rejected' | 'merged'
+
+export interface Branch {
+  id: string
+  name: string
+  componentId: string
+  basedOn: string
+  author: { name: string; avatar: string }
+  createdAt: string
+  isDefault: boolean
+}
+
+export interface Contribution {
+  id: string
+  title: string
+  description: string
+  branchId: string
+  componentId: string
+  status: ContributionStatus
+  author: { name: string; avatar: string }
+  changes: ComponentChange[]
+  reviews: Review[]
+  createdAt: string
+  updatedAt: string
+}
+
+export interface ComponentChange {
+  field: 'props' | 'variants' | 'code' | 'docs' | 'styles'
+  before: string
+  after: string
+  description: string
+}
+
+export interface Review {
+  id: string
+  author: { name: string; avatar: string }
+  status: 'approved' | 'changes_requested' | 'commented'
+  comment: string
+  createdAt: string
+}
+
+// Lifecycle Types (v2.5)
+export type LifecycleStageType = 'design' | 'review' | 'development' | 'testing' | 'release'
+export type LifecycleStageStatus = 'pending' | 'in_progress' | 'completed' | 'blocked'
+
+export interface ComponentLifecycle {
+  componentId: string
+  stages: LifecycleStage[]
+}
+
+export interface LifecycleStage {
+  id: string
+  type: LifecycleStageType
+  status: LifecycleStageStatus
+  assignee?: { name: string; avatar: string }
+  startedAt?: string
+  completedAt?: string
+  artifacts: Artifact[]
+  notes: string
+}
+
+export interface Artifact {
+  type: 'figma' | 'sketch' | 'code' | 'storybook' | 'test'
+  url: string
+  label: string
+}
+
+// Documentation Types (v2.5)
+export type DocSectionType = 'overview' | 'usage' | 'api' | 'accessibility' | 'examples'
+
+export interface DocSection {
+  id: string
+  componentId: string
+  type: DocSectionType
+  content: string
+  aiMetadata: AIMetadata
+  lastUpdated: string
+}
+
+export interface AIMetadata {
+  summary: string
+  keywords: string[]
+  useCases: string[]
+  relatedComponents: string[]
+  codePatterns: string[]
+  constraints: string[]
+}
+
+// Team & Health Metrics (v2.5)
+export interface TeamAdoption {
+  teamId: string
+  teamName: string
+  coverage: number
+  componentsUsed: string[]
+  lastActivity: string
+}
+
+export interface ComponentHealth {
+  componentId: string
+  componentName: string
+  bugCount: number
+  openIssues: number
+  contributionsPending: number
+  lastUpdate: string
+  adoptionTrend: number
+}

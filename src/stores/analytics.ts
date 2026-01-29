@@ -10,7 +10,10 @@ import {
   recommendations as mockRecommendations,
   analyticsStats,
   implementationTime,
-  dependencyGraph
+  dependencyGraph,
+  teamAdoption,
+  componentHealth,
+  recentActivity
 } from '@/data/analytics'
 
 export const useAnalyticsStore = defineStore('analytics', () => {
@@ -89,6 +92,21 @@ export const useAnalyticsStore = defineStore('analytics', () => {
 
   const graph = computed(() => dependencyGraph)
 
+  // Team & Health Data (v2.5)
+  const teams = computed(() => teamAdoption)
+  const health = computed(() => componentHealth)
+  const activity = computed(() => recentActivity)
+
+  const avgTeamCoverage = computed(() => {
+    if (teamAdoption.length === 0) return 0
+    const total = teamAdoption.reduce((acc, team) => acc + team.coverage, 0)
+    return Math.round(total / teamAdoption.length)
+  })
+
+  const healthyComponents = computed(() => {
+    return componentHealth.filter(c => c.bugCount === 0 && c.openIssues <= 1).length
+  })
+
   // Actions
   function setDateRange(start: string, end: string) {
     dateRange.value = { start, end }
@@ -134,6 +152,12 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     avgImplementationTime,
     chartData,
     graph,
+    // v2.5 Getters
+    teams,
+    health,
+    activity,
+    avgTeamCoverage,
+    healthyComponents,
     // Actions
     setDateRange,
     selectDateRange,

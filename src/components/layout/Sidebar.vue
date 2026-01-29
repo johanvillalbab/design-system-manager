@@ -10,9 +10,12 @@ import {
   LayoutDashboard,
   AlertTriangle,
   GitPullRequest,
+  GitMerge,
   BarChart3,
   ChevronLeft,
-  ChevronRight
+  ChevronRight,
+  Bug,
+  BookOpen
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -30,9 +33,12 @@ const categories = computed(() => [
 
 const navigation = [
   { path: '/', name: 'Dashboard', icon: LayoutDashboard },
-  { path: '/audit', name: 'Audit', icon: AlertTriangle },
+  { path: '/issues', name: 'Issues', icon: Bug },
+  { path: '/contributions', name: 'Contributions', icon: GitMerge },
   { path: '/requests', name: 'Requests', icon: GitPullRequest },
-  { path: '/analytics', name: 'Analytics', icon: BarChart3 }
+  { path: '/audit', name: 'Audit', icon: AlertTriangle },
+  { path: '/analytics', name: 'Analytics', icon: BarChart3 },
+  { path: '/docs', name: 'Documentation', icon: BookOpen }
 ]
 
 function handleCategoryClick(categoryId: string) {
@@ -62,7 +68,7 @@ function isActiveNav(path: string) {
         </div>
         <div>
           <span class="font-display font-semibold text-text-primary text-sm tracking-tight">DS Manager</span>
-          <span class="block text-[10px] text-text-muted tracking-widest uppercase">v2.0</span>
+          <span class="block text-[10px] text-text-muted tracking-widest uppercase">v2.5</span>
         </div>
       </div>
       <div v-else class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center mx-auto shadow-lg shadow-accent-500/20">

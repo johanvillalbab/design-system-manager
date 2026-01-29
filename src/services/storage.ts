@@ -58,5 +58,9 @@ export const STORAGE_KEYS = {
   REQUESTS: 'requests',
   AUDIT_ISSUES: 'audit_issues',
   DISMISSED_ALERTS: 'dismissed_alerts',
-  USER_VOTES: 'user_votes'
+  USER_VOTES: 'user_votes',
+  // v2.5 keys
+  ISSUES: 'issues',
+  BRANCHES: 'branches',
+  CONTRIBUTIONS: 'contributions'
 } as const

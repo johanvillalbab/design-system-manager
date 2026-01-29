@@ -18,7 +18,11 @@ import {
   ArrowDownRight,
   Trash2,
   RefreshCw,
-  Star
+  Star,
+  Bug,
+  GitPullRequest,
+  Heart,
+  Zap
 } from 'lucide-vue-next'
 import {
   Chart as ChartJS,
@@ -444,6 +448,139 @@ function getRecommendationIcon(type: string) {
                 <p class="text-xs text-text-muted mt-1">{{ rec.reason }}</p>
                 <span class="inline-flex items-center gap-1 mt-2 px-2 py-0.5 bg-surface-600/30 rounded text-[10px] text-text-muted font-mono border border-border/30">
                   {{ rec.metric }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Team Adoption & Component Health (v2.5) -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-6">
+        <!-- Team Adoption -->
+        <div class="bg-surface-800/40 border border-border rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h3 class="font-display font-semibold text-text-primary text-sm tracking-tight">Team Adoption</h3>
+              <p class="text-xs text-text-muted mt-0.5">Design system usage by team</p>
+            </div>
+            <div class="text-right">
+              <p class="text-2xl font-semibold text-text-primary">{{ store.avgTeamCoverage }}%</p>
+              <p class="text-[10px] text-text-muted">Avg Coverage</p>
+            </div>
+          </div>
+          <div class="space-y-3">
+            <div
+              v-for="team in store.teams"
+              :key="team.teamId"
+              class="p-3 bg-surface-700/30 rounded-xl border border-border/50"
+            >
+              <div class="flex items-center justify-between mb-2">
+                <div class="flex items-center gap-2">
+                  <Users class="w-4 h-4 text-text-muted" />
+                  <span class="text-sm font-medium text-text-primary">{{ team.teamName }}</span>
+                </div>
+                <span class="text-sm font-mono" :class="team.coverage >= 80 ? 'text-success-400' : team.coverage >= 60 ? 'text-warning-400' : 'text-danger-400'">
+                  {{ team.coverage }}%
+                </span>
+              </div>
+              <div class="w-full h-1.5 bg-surface-600/50 rounded-full overflow-hidden">
+                <div 
+                  class="h-full rounded-full transition-all"
+                  :class="team.coverage >= 80 ? 'bg-success-500' : team.coverage >= 60 ? 'bg-warning-500' : 'bg-danger-500'"
+                  :style="{ width: `${team.coverage}%` }"
+                ></div>
+              </div>
+              <p class="text-[10px] text-text-muted mt-2">{{ team.componentsUsed.length }} components used</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- Component Health -->
+        <div class="bg-surface-800/40 border border-border rounded-2xl p-5">
+          <div class="flex items-center justify-between mb-5">
+            <div>
+              <h3 class="font-display font-semibold text-text-primary text-sm tracking-tight">Component Health</h3>
+              <p class="text-xs text-text-muted mt-0.5">Status of key components</p>
+            </div>
+            <div class="flex items-center gap-1 px-2 py-1 bg-success-500/10 rounded-lg">
+              <Heart class="w-3.5 h-3.5 text-success-400" />
+              <span class="text-xs font-medium text-success-400">{{ store.healthyComponents }}/{{ store.health.length }} healthy</span>
+            </div>
+          </div>
+          <div class="space-y-2">
+            <div
+              v-for="comp in store.health"
+              :key="comp.componentId"
+              class="flex items-center justify-between p-3 bg-surface-700/30 rounded-xl border border-border/50"
+            >
+              <div class="flex items-center gap-3">
+                <div 
+                  class="w-8 h-8 rounded-lg flex items-center justify-center"
+                  :class="comp.bugCount === 0 && comp.openIssues <= 1 ? 'bg-success-500/10' : comp.bugCount > 0 ? 'bg-danger-500/10' : 'bg-warning-500/10'"
+                >
+                  <Box 
+                    class="w-4 h-4"
+                    :class="comp.bugCount === 0 && comp.openIssues <= 1 ? 'text-success-400' : comp.bugCount > 0 ? 'text-danger-400' : 'text-warning-400'"
+                  />
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-text-primary">{{ comp.componentName }}</p>
+                  <div class="flex items-center gap-3 mt-0.5 text-[10px] text-text-muted">
+                    <span v-if="comp.bugCount > 0" class="flex items-center gap-1 text-danger-400">
+                      <Bug class="w-3 h-3" />
+                      {{ comp.bugCount }} bugs
+                    </span>
+                    <span v-if="comp.openIssues > 0" class="flex items-center gap-1">
+                      <AlertTriangle class="w-3 h-3" />
+                      {{ comp.openIssues }} issues
+                    </span>
+                    <span v-if="comp.contributionsPending > 0" class="flex items-center gap-1 text-accent-400">
+                      <GitPullRequest class="w-3 h-3" />
+                      {{ comp.contributionsPending }} PRs
+                    </span>
+                  </div>
+                </div>
+              </div>
+              <div class="flex items-center gap-1 text-xs" :class="comp.adoptionTrend >= 0 ? 'text-success-400' : 'text-danger-400'">
+                <component :is="comp.adoptionTrend >= 0 ? ArrowUpRight : ArrowDownRight" class="w-3 h-3" />
+                {{ Math.abs(comp.adoptionTrend) }}%
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Recent Activity Timeline -->
+      <div class="bg-surface-800/40 border border-border rounded-2xl p-5">
+        <div class="flex items-center justify-between mb-5">
+          <div>
+            <h3 class="font-display font-semibold text-text-primary text-sm tracking-tight">Recent Activity</h3>
+            <p class="text-xs text-text-muted mt-0.5">Latest updates across the design system</p>
+          </div>
+        </div>
+        <div class="relative">
+          <div class="absolute left-4 top-0 bottom-0 w-px bg-border"></div>
+          <div class="space-y-4">
+            <div
+              v-for="(item, index) in store.activity"
+              :key="index"
+              class="relative pl-10"
+            >
+              <div 
+                class="absolute left-2.5 w-3 h-3 rounded-full"
+                :class="{
+                  'bg-success-500': item.type === 'release',
+                  'bg-danger-500': item.type === 'issue',
+                  'bg-accent-500': item.type === 'contribution',
+                  'bg-violet-500': item.type === 'review',
+                  'bg-warning-500': item.type === 'adoption'
+                }"
+              ></div>
+              <div class="flex items-center justify-between">
+                <p class="text-sm text-text-secondary">{{ item.message }}</p>
+                <span class="text-[10px] text-text-muted font-mono">
+                  {{ new Date(item.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' }) }}
                 </span>
               </div>
             </div>

@@ -159,3 +159,100 @@ export const dependencyGraph = {
     { source: 'form-001', target: 'card-001' }
   ]
 }
+
+// Team Adoption Data (v2.5)
+import type { TeamAdoption, ComponentHealth } from '@/types'
+
+export const teamAdoption: TeamAdoption[] = [
+  {
+    teamId: 'team-001',
+    teamName: 'Mobile App',
+    coverage: 87,
+    componentsUsed: ['btn-001', 'inp-001', 'card-001', 'modal-001', 'nav-001'],
+    lastActivity: '2026-01-24T10:00:00Z'
+  },
+  {
+    teamId: 'team-002',
+    teamName: 'Web Platform',
+    coverage: 94,
+    componentsUsed: ['btn-001', 'inp-001', 'card-001', 'tab-001', 'form-001'],
+    lastActivity: '2026-01-24T14:30:00Z'
+  },
+  {
+    teamId: 'team-003',
+    teamName: 'Marketing',
+    coverage: 72,
+    componentsUsed: ['btn-001', 'card-001', 'badge-001'],
+    lastActivity: '2026-01-22T09:00:00Z'
+  },
+  {
+    teamId: 'team-004',
+    teamName: 'Admin Tools',
+    coverage: 65,
+    componentsUsed: ['btn-001', 'inp-001', 'tab-001'],
+    lastActivity: '2026-01-20T16:00:00Z'
+  },
+  {
+    teamId: 'team-005',
+    teamName: 'E-commerce',
+    coverage: 91,
+    componentsUsed: ['btn-001', 'inp-001', 'card-001', 'modal-001', 'form-001', 'badge-001'],
+    lastActivity: '2026-01-24T08:00:00Z'
+  }
+]
+
+export const componentHealth: ComponentHealth[] = [
+  {
+    componentId: 'btn-001',
+    componentName: 'Button',
+    bugCount: 2,
+    openIssues: 3,
+    contributionsPending: 1,
+    lastUpdate: '2026-01-22T00:00:00Z',
+    adoptionTrend: 5.2
+  },
+  {
+    componentId: 'inp-001',
+    componentName: 'Input Field',
+    bugCount: 1,
+    openIssues: 2,
+    contributionsPending: 1,
+    lastUpdate: '2026-01-20T00:00:00Z',
+    adoptionTrend: 4.1
+  },
+  {
+    componentId: 'card-001',
+    componentName: 'Card',
+    bugCount: 0,
+    openIssues: 2,
+    contributionsPending: 2,
+    lastUpdate: '2026-01-18T00:00:00Z',
+    adoptionTrend: -2.1
+  },
+  {
+    componentId: 'modal-001',
+    componentName: 'Modal',
+    bugCount: 0,
+    openIssues: 1,
+    contributionsPending: 0,
+    lastUpdate: '2026-01-15T00:00:00Z',
+    adoptionTrend: 1.5
+  },
+  {
+    componentId: 'tab-001',
+    componentName: 'Tabs',
+    bugCount: 0,
+    openIssues: 1,
+    contributionsPending: 0,
+    lastUpdate: '2026-01-10T00:00:00Z',
+    adoptionTrend: 3.5
+  }
+]
+
+export const recentActivity = [
+  { type: 'release', message: 'Button v3.2.1 released', date: '2026-01-22T10:00:00Z', componentId: 'btn-001' },
+  { type: 'issue', message: 'New bug reported for Input', date: '2026-01-24T09:15:00Z', componentId: 'inp-001' },
+  { type: 'contribution', message: 'PR merged: Card skeleton variant', date: '2026-01-23T15:00:00Z', componentId: 'card-001' },
+  { type: 'review', message: 'Design review completed for Modal', date: '2026-01-21T14:00:00Z', componentId: 'modal-001' },
+  { type: 'adoption', message: 'Mobile App team adopted 5 new components', date: '2026-01-20T11:00:00Z' }
+]

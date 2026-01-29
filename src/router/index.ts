@@ -15,6 +15,18 @@ const routes: RouteRecordRaw[] = [
     meta: { title: 'Component Detail' }
   },
   {
+    path: '/issues',
+    name: 'issues',
+    component: () => import('@/pages/IssuesPage.vue'),
+    meta: { title: 'Issues' }
+  },
+  {
+    path: '/contributions',
+    name: 'contributions',
+    component: () => import('@/pages/ContributionsPage.vue'),
+    meta: { title: 'Contributions' }
+  },
+  {
     path: '/audit',
     name: 'audit',
     component: () => import('@/pages/AuditPage.vue'),
@@ -31,6 +43,12 @@ const routes: RouteRecordRaw[] = [
     name: 'analytics',
     component: () => import('@/pages/AnalyticsPage.vue'),
     meta: { title: 'Analytics' }
+  },
+  {
+    path: '/docs',
+    name: 'docs',
+    component: () => import('@/pages/DocsPage.vue'),
+    meta: { title: 'Documentation' }
   }
 ]
 
