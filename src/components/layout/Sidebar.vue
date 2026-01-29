@@ -12,8 +12,7 @@ import {
   GitPullRequest,
   BarChart3,
   ChevronLeft,
-  ChevronRight,
-  Zap
+  ChevronRight
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -141,9 +140,11 @@ function isActiveNav(path: string) {
     <div v-if="!collapsed" class="p-4 border-t border-border">
       <div class="flex items-center gap-3">
         <div class="relative">
-          <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center ring-1 ring-accent-500/30">
-            <Zap class="w-5 h-5 text-surface-950" />
-          </div>
+          <img 
+            src="/profile.png" 
+            alt="Sho Villalba" 
+            class="w-9 h-9 rounded-xl object-cover ring-1 ring-border"
+          />
           <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-success-500 rounded-full ring-2 ring-surface-900"></span>
         </div>
         <div class="flex-1 min-w-0">

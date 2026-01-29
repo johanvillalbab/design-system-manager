@@ -38,6 +38,12 @@ const severityConfig = computed(() => {
   }
   return configs[props.issue.severity]
 })
+
+function openInFigma() {
+  // Open Figma file at the specific location
+  const figmaUrl = `https://www.figma.com/file/example?node-id=${encodeURIComponent(props.issue.location.frame)}`
+  window.open(figmaUrl, '_blank')
+}
 </script>
 
 <template>
@@ -116,6 +122,7 @@ const severityConfig = computed(() => {
         </button>
         <button
           v-else
+          @click="openInFigma"
           class="flex-1 flex items-center justify-center gap-2 px-4 py-2.5 bg-surface-700/50 hover:bg-surface-600/50 text-text-secondary font-medium rounded-xl transition-all text-sm border border-border"
         >
           <ExternalLink class="w-4 h-4" />

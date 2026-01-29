@@ -19,11 +19,29 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     start: '2025-07-01',
     end: '2026-01-31'
   })
+  const selectedDateRange = ref<'1m' | '3m' | '6m' | '1y'>('6m')
   const selectedPlatform = ref<Platform | null>(null)
   const selectedTeam = ref<string | null>(null)
 
   // Getters
-  const filteredAdoption = computed(() => adoptionOverTime)
+  const filteredAdoption = computed(() => {
+    const now = new Date()
+    let monthsBack = 6
+    
+    switch (selectedDateRange.value) {
+      case '1m': monthsBack = 1; break
+      case '3m': monthsBack = 3; break
+      case '6m': monthsBack = 6; break
+      case '1y': monthsBack = 12; break
+    }
+    
+    const cutoffDate = new Date(now.getFullYear(), now.getMonth() - monthsBack, 1)
+    
+    return adoptionOverTime.filter(item => {
+      const itemDate = new Date(item.date)
+      return itemDate >= cutoffDate
+    })
+  })
 
   const filteredTopComponents = computed(() => {
     if (!selectedPlatform.value) return topComponents
@@ -48,10 +66,11 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   })
 
   const chartData = computed(() => {
+    const adoptionData = filteredAdoption.value
     return {
       adoption: {
-        labels: adoptionOverTime.map(d => d.date),
-        data: adoptionOverTime.map(d => d.value)
+        labels: adoptionData.map(d => d.date),
+        data: adoptionData.map(d => d.value)
       },
       topComponents: {
         labels: topComponents.slice(0, 8).map(c => c.componentName),
@@ -73,6 +92,10 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   // Actions
   function setDateRange(start: string, end: string) {
     dateRange.value = { start, end }
+  }
+
+  function selectDateRange(range: '1m' | '3m' | '6m' | '1y') {
+    selectedDateRange.value = range
   }
 
   function setPlatformFilter(platform: Platform | null) {
@@ -98,6 +121,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
   return {
     // State
     dateRange,
+    selectedDateRange,
     selectedPlatform,
     selectedTeam,
     // Getters
@@ -112,6 +136,7 @@ export const useAnalyticsStore = defineStore('analytics', () => {
     graph,
     // Actions
     setDateRange,
+    selectDateRange,
     setPlatformFilter,
     setTeamFilter,
     clearFilters,

@@ -1,11 +1,18 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
+import { ref, computed, watch } from 'vue'
 import type { ComponentRequest, RequestStatus, RequestPriority } from '@/types'
 import { mockRequests, requestStats } from '@/data/requests'
+import { storage, STORAGE_KEYS } from '@/services/storage'
+
+// Load saved requests or use mock data
+function loadRequests(): ComponentRequest[] {
+  const saved = storage.get<ComponentRequest[]>(STORAGE_KEYS.REQUESTS)
+  return saved || [...mockRequests]
+}
 
 export const useRequestsStore = defineStore('requests', () => {
   // State
-  const requests = ref<ComponentRequest[]>(mockRequests)
+  const requests = ref<ComponentRequest[]>(loadRequests())
   const statusFilter = ref<RequestStatus | null>(null)
   const priorityFilter = ref<RequestPriority | null>(null)
   const currentWizardStep = ref(0)
@@ -55,11 +62,17 @@ export const useRequestsStore = defineStore('requests', () => {
     priorityFilter.value = priority
   }
 
+  // Persist changes to localStorage
+  function saveRequests() {
+    storage.set(STORAGE_KEYS.REQUESTS, requests.value)
+  }
+
   function voteForRequest(requestId: string, userId: string) {
     const request = requests.value.find(r => r.id === requestId)
     if (request && !request.votedBy.includes(userId)) {
       request.votes++
       request.votedBy.push(userId)
+      saveRequests()
     }
   }
 
@@ -68,6 +81,7 @@ export const useRequestsStore = defineStore('requests', () => {
     if (request && request.votedBy.includes(userId)) {
       request.votes--
       request.votedBy = request.votedBy.filter(id => id !== userId)
+      saveRequests()
     }
   }
 
@@ -118,6 +132,7 @@ export const useRequestsStore = defineStore('requests', () => {
     }
 
     requests.value.unshift(request)
+    saveRequests()
     resetWizard()
   }
 

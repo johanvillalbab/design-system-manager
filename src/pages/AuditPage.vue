@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useAuditStore } from '@/stores/audit'
 import IssueCard from '@/components/common/IssueCard.vue'
 import MetricCard from '@/components/common/MetricCard.vue'
@@ -11,10 +11,18 @@ import {
   Wand2,
   Download,
   RefreshCw,
-  CheckCircle2
+  CheckCircle2,
+  Check,
+  FileText
 } from 'lucide-vue-next'
 
 const store = useAuditStore()
+
+const isRunningAudit = ref(false)
+const isExporting = ref(false)
+const showToast = ref(false)
+const toastMessage = ref('')
+const toastType = ref<'success' | 'info'>('success')
 
 const severityFilters = computed(() => [
   { id: null, label: 'All', count: store.stats.totalIssues },
@@ -33,6 +41,40 @@ function handleIgnore(id: string) {
 
 function handleFixAll() {
   store.fixAllAutoFixable()
+  showNotification('All auto-fixable issues have been resolved!', 'success')
+}
+
+function showNotification(message: string, type: 'success' | 'info' = 'success') {
+  toastMessage.value = message
+  toastType.value = type
+  showToast.value = true
+  setTimeout(() => {
+    showToast.value = false
+  }, 3000)
+}
+
+async function runFullAudit() {
+  isRunningAudit.value = true
+  // Simulate audit process
+  await new Promise(resolve => setTimeout(resolve, 2000))
+  isRunningAudit.value = false
+  showNotification('Audit completed! Found ' + store.stats.totalIssues + ' issues.', 'info')
+}
+
+async function exportPDF() {
+  isExporting.value = true
+  // Simulate export process
+  await new Promise(resolve => setTimeout(resolve, 1500))
+  isExporting.value = false
+  showNotification('Audit report exported successfully!', 'success')
+}
+
+async function generateReport() {
+  isExporting.value = true
+  // Simulate report generation
+  await new Promise(resolve => setTimeout(resolve, 1500))
+  isExporting.value = false
+  showNotification('Report generated and ready for download!', 'success')
 }
 </script>
 
@@ -91,9 +133,13 @@ function handleFixAll() {
               <Wand2 class="w-4 h-4" />
               Fix All ({{ store.autoFixableIssues.length }})
             </button>
-            <button class="flex items-center gap-2 px-4 py-2 bg-surface-700/50 hover:bg-surface-600/50 text-text-secondary font-medium rounded-xl transition-all text-sm border border-border">
-              <Download class="w-4 h-4" />
-              Export PDF
+            <button 
+              @click="exportPDF"
+              :disabled="isExporting"
+              class="flex items-center gap-2 px-4 py-2 bg-surface-700/50 hover:bg-surface-600/50 text-text-secondary font-medium rounded-xl transition-all text-sm border border-border disabled:opacity-50"
+            >
+              <Download class="w-4 h-4" :class="{ 'animate-bounce': isExporting }" />
+              {{ isExporting ? 'Exporting...' : 'Export PDF' }}
             </button>
           </div>
         </div>
@@ -219,15 +265,23 @@ function handleFixAll() {
         <div class="bg-surface-800/40 border border-border rounded-2xl p-5 animate-fade-up stagger-8">
           <h3 class="font-display font-semibold text-text-primary mb-4 text-sm tracking-tight">Quick Actions</h3>
           <div class="space-y-2">
-            <button class="w-full flex items-center gap-3 p-3 bg-surface-700/30 hover:bg-surface-600/40 rounded-xl transition-all text-left border border-border/50 hover:border-border">
-              <RefreshCw class="w-4 h-4 text-accent-400" />
+            <button 
+              @click="runFullAudit"
+              :disabled="isRunningAudit"
+              class="w-full flex items-center gap-3 p-3 bg-surface-700/30 hover:bg-surface-600/40 rounded-xl transition-all text-left border border-border/50 hover:border-border disabled:opacity-50"
+            >
+              <RefreshCw class="w-4 h-4 text-accent-400" :class="{ 'animate-spin': isRunningAudit }" />
               <div>
-                <p class="text-sm font-medium text-text-primary">Run Full Audit</p>
+                <p class="text-sm font-medium text-text-primary">{{ isRunningAudit ? 'Running Audit...' : 'Run Full Audit' }}</p>
                 <p class="text-[10px] text-text-muted">Scan all Figma files</p>
               </div>
             </button>
-            <button class="w-full flex items-center gap-3 p-3 bg-surface-700/30 hover:bg-surface-600/40 rounded-xl transition-all text-left border border-border/50 hover:border-border">
-              <Download class="w-4 h-4 text-accent-400" />
+            <button 
+              @click="generateReport"
+              :disabled="isExporting"
+              class="w-full flex items-center gap-3 p-3 bg-surface-700/30 hover:bg-surface-600/40 rounded-xl transition-all text-left border border-border/50 hover:border-border disabled:opacity-50"
+            >
+              <FileText class="w-4 h-4 text-accent-400" />
               <div>
                 <p class="text-sm font-medium text-text-primary">Generate Report</p>
                 <p class="text-[10px] text-text-muted">Export for stakeholders</p>
@@ -237,5 +291,29 @@ function handleFixAll() {
         </div>
       </div>
     </div>
+
+    <!-- Toast Notification -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-300 ease-out"
+        enter-from-class="opacity-0 translate-y-4"
+        enter-to-class="opacity-100 translate-y-0"
+        leave-active-class="transition duration-200 ease-in"
+        leave-from-class="opacity-100 translate-y-0"
+        leave-to-class="opacity-0 translate-y-4"
+      >
+        <div
+          v-if="showToast"
+          class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl shadow-black/30 border"
+          :class="toastType === 'success' ? 'bg-success-500/15 border-success-500/20' : 'bg-accent-500/15 border-accent-500/20'"
+        >
+          <Check v-if="toastType === 'success'" class="w-5 h-5 text-success-400" />
+          <Info v-else class="w-5 h-5 text-accent-400" />
+          <p class="text-sm font-medium" :class="toastType === 'success' ? 'text-success-400' : 'text-accent-400'">
+            {{ toastMessage }}
+          </p>
+        </div>
+      </Transition>
+    </Teleport>
   </div>
 </template>

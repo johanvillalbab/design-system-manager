@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed, onMounted, watch } from 'vue'
+import { ref, computed, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useComponentsStore } from '@/stores/components'
 import StatusBadge from '@/components/common/StatusBadge.vue'
@@ -30,6 +30,7 @@ const activeDocTab = ref('usage')
 const activeCodePlatform = ref('web')
 const copiedCode = ref(false)
 const newComment = ref('')
+const commentSent = ref(false)
 
 // Props simulation
 const propsState = ref({
@@ -54,6 +55,10 @@ onMounted(() => {
   store.loadComponent(id)
 })
 
+onUnmounted(() => {
+  store.clearSelectedComponent()
+})
+
 watch(() => route.params.id, (newId) => {
   if (newId) {
     store.loadComponent(newId as string)
@@ -62,6 +67,31 @@ watch(() => route.params.id, (newId) => {
 
 function goBack() {
   router.push('/')
+}
+
+function openExternalDocs() {
+  // Open documentation in new tab (simulated URL)
+  const docsUrl = `https://design-system.example.com/components/${component.value?.id}`
+  window.open(docsUrl, '_blank')
+}
+
+function sendComment() {
+  if (!newComment.value.trim()) return
+  
+  // Add comment to component (would be saved to store in real implementation)
+  if (component.value?.comments) {
+    component.value.comments.push({
+      id: `c${Date.now()}`,
+      author: 'Sho Villalba',
+      avatar: 'https://i.pravatar.cc/40?img=25',
+      content: newComment.value,
+      date: new Date().toISOString().split('T')[0]
+    })
+  }
+  
+  newComment.value = ''
+  commentSent.value = true
+  setTimeout(() => commentSent.value = false, 2000)
 }
 
 function copyCode() {
@@ -109,7 +139,11 @@ function formatDate(dateStr: string) {
         <div class="flex gap-1.5">
           <PlatformBadge v-for="p in component.platforms" :key="p" :platform="p" />
         </div>
-        <button class="p-2.5 rounded-xl bg-surface-800/40 border border-border hover:bg-surface-700/50 text-text-muted hover:text-text-primary transition-all">
+        <button 
+          @click="openExternalDocs"
+          class="p-2.5 rounded-xl bg-surface-800/40 border border-border hover:bg-surface-700/50 text-text-muted hover:text-text-primary transition-all"
+          title="Open documentation"
+        >
           <ExternalLink class="w-[18px] h-[18px]" />
         </button>
       </div>
@@ -489,8 +523,13 @@ function formatDate(dateStr: string) {
             placeholder="Add a comment..."
             class="w-full px-4 py-3 pr-12 bg-surface-800/60 border border-border rounded-xl text-text-primary text-sm placeholder:text-text-muted focus:outline-none focus:border-accent-500/40 transition-colors"
           />
-          <button class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-accent-400 hover:text-accent-300 transition-colors">
-            <Send class="w-4 h-4" />
+          <button 
+            @click="sendComment"
+            :disabled="!newComment.trim()"
+            class="absolute right-3 top-1/2 -translate-y-1/2 p-1.5 text-accent-400 hover:text-accent-300 transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            <Check v-if="commentSent" class="w-4 h-4 text-success-400" />
+            <Send v-else class="w-4 h-4" />
           </button>
         </div>
       </div>

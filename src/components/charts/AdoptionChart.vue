@@ -52,10 +52,10 @@ const chartOptions = {
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: '#1a1a24',
-      titleColor: '#f1f5f9',
-      bodyColor: '#94a3b8',
-      borderColor: '#2e2e3a',
+      backgroundColor: '#09090b',
+      titleColor: '#f0f0f5',
+      bodyColor: '#9898a8',
+      borderColor: '#18181c',
       borderWidth: 1,
       padding: 12,
       displayColors: false

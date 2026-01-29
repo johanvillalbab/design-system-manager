@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
+import { computed } from 'vue'
 import { useAnalyticsStore } from '@/stores/analytics'
 import MetricCard from '@/components/common/MetricCard.vue'
 import {
@@ -50,8 +50,6 @@ ChartJS.register(
 
 const store = useAnalyticsStore()
 
-const dateRange = ref('6m')
-
 // Chart configurations — amber/gold theme
 const adoptionChartData = computed(() => ({
   labels: store.chartData.adoption.labels,
@@ -63,7 +61,7 @@ const adoptionChartData = computed(() => ({
     fill: true,
     tension: 0.4,
     pointBackgroundColor: '#fbbf24',
-    pointBorderColor: '#111118',
+    pointBorderColor: '#050507',
     pointBorderWidth: 2,
     pointRadius: 4,
     pointHoverRadius: 6
@@ -76,7 +74,7 @@ const adoptionChartOptions = {
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: '#18181f',
+      backgroundColor: '#09090b',
       titleColor: '#f0f0f5',
       bodyColor: '#9898a8',
       borderColor: 'rgba(255,255,255,0.06)',
@@ -88,11 +86,11 @@ const adoptionChartOptions = {
   scales: {
     x: {
       grid: { color: 'rgba(255, 255, 255, 0.03)' },
-      ticks: { color: '#5c5c6f', font: { family: 'Satoshi' } }
+      ticks: { color: '#5c5c6f', font: { family: 'Inter' } }
     },
     y: {
       grid: { color: 'rgba(255, 255, 255, 0.03)' },
-      ticks: { color: '#5c5c6f', font: { family: 'Satoshi' } },
+      ticks: { color: '#5c5c6f', font: { family: 'Inter' } },
       min: 0,
       max: 100
     }
@@ -126,7 +124,7 @@ const topComponentsChartOptions = {
   plugins: {
     legend: { display: false },
     tooltip: {
-      backgroundColor: '#18181f',
+      backgroundColor: '#09090b',
       titleColor: '#f0f0f5',
       bodyColor: '#9898a8',
       borderColor: 'rgba(255,255,255,0.06)',
@@ -137,11 +135,11 @@ const topComponentsChartOptions = {
   scales: {
     x: {
       grid: { color: 'rgba(255, 255, 255, 0.03)' },
-      ticks: { color: '#5c5c6f', font: { family: 'Satoshi' } }
+      ticks: { color: '#5c5c6f', font: { family: 'Inter' } }
     },
     y: {
       grid: { display: false },
-      ticks: { color: '#f0f0f5', font: { family: 'Satoshi' } }
+      ticks: { color: '#f0f0f5', font: { family: 'Inter' } }
     }
   }
 }
@@ -167,11 +165,11 @@ const platformChartOptions = {
         padding: 20,
         usePointStyle: true,
         pointStyle: 'circle',
-        font: { family: 'Satoshi' }
+        font: { family: 'Inter' }
       }
     },
     tooltip: {
-      backgroundColor: '#18181f',
+      backgroundColor: '#09090b',
       titleColor: '#f0f0f5',
       bodyColor: '#9898a8',
       borderColor: 'rgba(255,255,255,0.06)',
@@ -253,10 +251,10 @@ function getRecommendationIcon(type: string) {
           <button
             v-for="range in ['1m', '3m', '6m', '1y']"
             :key="range"
-            @click="dateRange = range"
+            @click="store.selectDateRange(range as any)"
             class="px-3.5 py-1.5 rounded-lg text-xs font-medium transition-all"
             :class="[
-              dateRange === range
+              store.selectedDateRange === range
                 ? 'bg-accent-500/15 text-accent-400'
                 : 'text-text-muted hover:text-text-secondary'
             ]"

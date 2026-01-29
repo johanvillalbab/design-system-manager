@@ -18,13 +18,20 @@ import {
   Inbox,
   Eye,
   Code,
-  CheckCircle
+  CheckCircle,
+  MessageSquare,
+  Calendar,
+  Users,
+  ArrowUp
 } from 'lucide-vue-next'
+import type { ComponentRequest } from '@/types'
 
 const store = useRequestsStore()
 const componentsStore = useComponentsStore()
 
 const showWizard = ref(false)
+const showDetailModal = ref(false)
+const selectedRequest = ref<ComponentRequest | null>(null)
 const currentUserId = 'current-user'
 
 const wizardSteps = [
@@ -72,6 +79,33 @@ function handleVote(requestId: string) {
   } else {
     store.voteForRequest(requestId, currentUserId)
   }
+}
+
+function handleViewRequest(requestId: string) {
+  const request = store.requests.find(r => r.id === requestId)
+  if (request) {
+    selectedRequest.value = request
+    showDetailModal.value = true
+  }
+}
+
+function closeDetailModal() {
+  showDetailModal.value = false
+  selectedRequest.value = null
+}
+
+function getStatusColor(status: string) {
+  const colors: Record<string, string> = {
+    submitted: 'bg-warning-500/15 text-warning-400 border-warning-500/20',
+    under_review: 'bg-accent-500/15 text-accent-400 border-accent-500/20',
+    in_development: 'bg-violet-500/15 text-violet-400 border-violet-500/20',
+    ready: 'bg-success-500/15 text-success-400 border-success-500/20'
+  }
+  return colors[status] || 'bg-surface-700/50 text-text-muted border-border'
+}
+
+function formatStatus(status: string) {
+  return status.replace(/_/g, ' ').replace(/\b\w/g, l => l.toUpperCase())
 }
 
 function openWizard() {
@@ -169,7 +203,7 @@ function submitRequest() {
             :request="request"
             :has-voted="hasVoted(request.id)"
             @vote="handleVote"
-            @view="(id) => console.log('View', id)"
+            @view="handleViewRequest"
             :style="{ animationDelay: `${Math.min(index * 0.05, 0.3)}s` }"
             class="animate-fade-up"
           />
@@ -427,6 +461,154 @@ function submitRequest() {
               >
                 <Send class="w-3.5 h-3.5" />
                 Submit Request
+              </button>
+            </div>
+          </div>
+        </div>
+      </Transition>
+    </Teleport>
+
+    <!-- Request Detail Modal -->
+    <Teleport to="body">
+      <Transition
+        enter-active-class="transition duration-200 ease-out"
+        enter-from-class="opacity-0"
+        enter-to-class="opacity-100"
+        leave-active-class="transition duration-150 ease-in"
+        leave-from-class="opacity-100"
+        leave-to-class="opacity-0"
+      >
+        <div
+          v-if="showDetailModal && selectedRequest"
+          class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-md"
+          @click.self="closeDetailModal"
+        >
+          <div class="w-full max-w-2xl bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden max-h-[90vh] flex flex-col">
+            <!-- Modal Header -->
+            <div class="flex items-start justify-between p-5 border-b border-border">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-3 mb-2">
+                  <span 
+                    class="px-2.5 py-1 text-xs font-medium rounded-lg border"
+                    :class="getStatusColor(selectedRequest.status)"
+                  >
+                    {{ formatStatus(selectedRequest.status) }}
+                  </span>
+                  <span 
+                    class="px-2.5 py-1 text-xs font-medium rounded-lg capitalize"
+                    :class="{
+                      'bg-danger-500/15 text-danger-400 border border-danger-500/20': selectedRequest.priority === 'critical',
+                      'bg-warning-500/15 text-warning-400 border border-warning-500/20': selectedRequest.priority === 'high',
+                      'bg-accent-500/15 text-accent-400 border border-accent-500/20': selectedRequest.priority === 'medium',
+                      'bg-surface-700/50 text-text-muted border border-border': selectedRequest.priority === 'low'
+                    }"
+                  >
+                    {{ selectedRequest.priority }}
+                  </span>
+                </div>
+                <h2 class="text-lg font-semibold text-text-primary">{{ selectedRequest.title }}</h2>
+              </div>
+              <button
+                @click="closeDetailModal"
+                class="p-2 rounded-xl hover:bg-surface-700/50 text-text-muted hover:text-text-primary transition-all"
+              >
+                <X class="w-4 h-4" />
+              </button>
+            </div>
+
+            <!-- Modal Content -->
+            <div class="flex-1 overflow-y-auto p-5 space-y-5">
+              <!-- Author & Date -->
+              <div class="flex items-center gap-4">
+                <div class="flex items-center gap-2">
+                  <img :src="selectedRequest.author.avatar" :alt="selectedRequest.author.name" class="w-8 h-8 rounded-full" />
+                  <div>
+                    <p class="text-sm font-medium text-text-primary">{{ selectedRequest.author.name }}</p>
+                    <p class="text-xs text-text-muted">Requested</p>
+                  </div>
+                </div>
+                <div class="flex items-center gap-2 text-text-muted">
+                  <Calendar class="w-4 h-4" />
+                  <span class="text-xs">{{ selectedRequest.createdAt }}</span>
+                </div>
+              </div>
+
+              <!-- Description -->
+              <div>
+                <h3 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">Description</h3>
+                <p class="text-sm text-text-secondary leading-relaxed">{{ selectedRequest.description }}</p>
+              </div>
+
+              <!-- User Story -->
+              <div v-if="selectedRequest.userStory">
+                <h3 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-2">User Story</h3>
+                <p class="text-sm text-text-secondary leading-relaxed italic bg-surface-700/30 p-3 rounded-xl border border-border/50">
+                  "{{ selectedRequest.userStory }}"
+                </p>
+              </div>
+
+              <!-- Stats -->
+              <div class="grid grid-cols-3 gap-4">
+                <div class="bg-surface-700/30 rounded-xl p-4 border border-border/50">
+                  <div class="flex items-center gap-2 mb-1">
+                    <ArrowUp class="w-4 h-4 text-accent-400" />
+                    <span class="text-xs text-text-muted">Votes</span>
+                  </div>
+                  <p class="text-xl font-semibold text-text-primary">{{ selectedRequest.votes }}</p>
+                </div>
+                <div class="bg-surface-700/30 rounded-xl p-4 border border-border/50">
+                  <div class="flex items-center gap-2 mb-1">
+                    <Users class="w-4 h-4 text-accent-400" />
+                    <span class="text-xs text-text-muted">Projects Affected</span>
+                  </div>
+                  <p class="text-xl font-semibold text-text-primary">{{ selectedRequest.affectedProjects }}</p>
+                </div>
+                <div class="bg-surface-700/30 rounded-xl p-4 border border-border/50">
+                  <div class="flex items-center gap-2 mb-1">
+                    <MessageSquare class="w-4 h-4 text-accent-400" />
+                    <span class="text-xs text-text-muted">Comments</span>
+                  </div>
+                  <p class="text-xl font-semibold text-text-primary">{{ selectedRequest.comments?.length || 0 }}</p>
+                </div>
+              </div>
+
+              <!-- Comments -->
+              <div v-if="selectedRequest.comments && selectedRequest.comments.length > 0">
+                <h3 class="text-xs font-semibold text-text-muted uppercase tracking-wider mb-3">Comments</h3>
+                <div class="space-y-3">
+                  <div 
+                    v-for="comment in selectedRequest.comments" 
+                    :key="comment.id"
+                    class="bg-surface-700/30 rounded-xl p-4 border border-border/50"
+                  >
+                    <div class="flex items-center gap-2 mb-2">
+                      <img :src="comment.author.avatar" :alt="comment.author.name" class="w-6 h-6 rounded-full" />
+                      <span class="text-sm font-medium text-text-primary">{{ comment.author.name }}</span>
+                      <span class="text-xs text-text-muted">{{ comment.date }}</span>
+                    </div>
+                    <p class="text-sm text-text-secondary">{{ comment.content }}</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Modal Footer -->
+            <div class="flex items-center justify-between p-5 border-t border-border">
+              <button
+                @click="handleVote(selectedRequest.id)"
+                class="flex items-center gap-2 px-4 py-2.5 rounded-xl transition-all text-sm font-medium border"
+                :class="hasVoted(selectedRequest.id) 
+                  ? 'bg-accent-500/15 text-accent-400 border-accent-500/20' 
+                  : 'bg-surface-700/50 text-text-secondary hover:bg-surface-600/50 border-border'"
+              >
+                <ArrowUp class="w-4 h-4" />
+                {{ hasVoted(selectedRequest.id) ? 'Voted' : 'Vote' }}
+              </button>
+              <button
+                @click="closeDetailModal"
+                class="px-5 py-2.5 bg-surface-700/50 hover:bg-surface-600/50 text-text-secondary font-medium rounded-xl transition-all text-sm border border-border"
+              >
+                Close
               </button>
             </div>
           </div>

@@ -2,10 +2,17 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { AuditIssue, AuditProject, IssueSeverity } from '@/types'
 import { mockAuditIssues, mockProjects, auditStats } from '@/data/audit'
+import { storage, STORAGE_KEYS } from '@/services/storage'
+
+// Load saved issues or use mock data
+function loadIssues(): AuditIssue[] {
+  const saved = storage.get<AuditIssue[]>(STORAGE_KEYS.AUDIT_ISSUES)
+  return saved || [...mockAuditIssues]
+}
 
 export const useAuditStore = defineStore('audit', () => {
   // State
-  const issues = ref<AuditIssue[]>(mockAuditIssues)
+  const issues = ref<AuditIssue[]>(loadIssues())
   const projects = ref<AuditProject[]>(mockProjects)
   const selectedSeverity = ref<IssueSeverity | null>(null)
   const selectedProject = ref<string | null>(null)
@@ -51,6 +58,11 @@ export const useAuditStore = defineStore('audit', () => {
     return filteredIssues.value.filter(i => i.autoFixable)
   })
 
+  // Persist changes to localStorage
+  function saveIssues() {
+    storage.set(STORAGE_KEYS.AUDIT_ISSUES, issues.value)
+  }
+
   // Actions
   function setSeverityFilter(severity: IssueSeverity | null) {
     selectedSeverity.value = severity
@@ -64,6 +76,7 @@ export const useAuditStore = defineStore('audit', () => {
     const issue = issues.value.find(i => i.id === issueId)
     if (issue) {
       issue.fixed = true
+      saveIssues()
     }
   }
 
@@ -73,12 +86,14 @@ export const useAuditStore = defineStore('audit', () => {
         issue.fixed = true
       }
     })
+    saveIssues()
   }
 
   function ignoreIssue(issueId: string) {
     const index = issues.value.findIndex(i => i.id === issueId)
     if (index !== -1) {
       issues.value.splice(index, 1)
+      saveIssues()
     }
   }
 

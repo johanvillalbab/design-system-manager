@@ -12,13 +12,13 @@
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
   /* Surface Colors — Deep obsidian spectrum */
-  --color-surface-950: #08080c;
-  --color-surface-900: #0c0c12;
-  --color-surface-800: #111118;
-  --color-surface-700: #18181f;
-  --color-surface-600: #1f1f28;
-  --color-surface-500: #2a2a35;
-  --color-surface-400: #363642;
+  --color-surface-950: #050507;
+  --color-surface-900: #09090b;
+  --color-surface-800: #0c0c0f;
+  --color-surface-700: #121215;
+  --color-surface-600: #18181c;
+  --color-surface-500: #222228;
+  --color-surface-400: #2c2c34;
 
   /* Primary Accent — Warm amber/gold */
   --color-accent-50: #fffbeb;
@@ -122,13 +122,13 @@ body {
 
 /* ──────────── Glass Morphism Utility ──────────── */
 .glass {
-  background: rgba(17, 17, 24, 0.6);
+  background: rgba(9, 9, 11, 0.7);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
 }
 
 .glass-subtle {
-  background: rgba(17, 17, 24, 0.4);
+  background: rgba(9, 9, 11, 0.5);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
 }
