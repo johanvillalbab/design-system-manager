@@ -41,8 +41,10 @@ export interface ComponentVersion {
 
 export interface ComponentComment {
   id: string
-  author: string
-  avatar: string
+  author: {
+    name: string
+    avatar: string
+  }
   content: string
   date: string
   replies?: ComponentComment[]

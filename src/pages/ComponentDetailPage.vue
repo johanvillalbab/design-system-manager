@@ -82,10 +82,12 @@ function sendComment() {
   if (component.value?.comments) {
     component.value.comments.push({
       id: `c${Date.now()}`,
-      author: 'Sho Villalba',
-      avatar: 'https://i.pravatar.cc/40?img=25',
+      author: {
+        name: 'Sho Villalba',
+        avatar: '/profile.png'
+      },
       content: newComment.value,
-      date: new Date().toISOString().split('T')[0]
+      date: new Date().toISOString().split('T')[0] || new Date().toISOString()
     })
   }
   
@@ -543,13 +545,13 @@ function formatDate(dateStr: string) {
         >
           <div class="flex items-start gap-3">
             <img
-              :src="comment.avatar"
-              :alt="comment.author"
+              :src="comment.author.avatar"
+              :alt="comment.author.name"
               class="w-8 h-8 rounded-xl object-cover"
             />
             <div class="flex-1 min-w-0">
               <div class="flex items-center gap-2 mb-1.5">
-                <span class="font-medium text-text-primary text-sm">{{ comment.author }}</span>
+                <span class="font-medium text-text-primary text-sm">{{ comment.author.name }}</span>
                 <span class="text-[10px] text-text-muted font-mono">{{ formatDate(comment.date) }}</span>
               </div>
               <p class="text-sm text-text-secondary leading-relaxed">{{ comment.content }}</p>
@@ -562,13 +564,13 @@ function formatDate(dateStr: string) {
                   class="flex items-start gap-3"
                 >
                   <img
-                    :src="reply.avatar"
-                    :alt="reply.author"
+                    :src="reply.author.avatar"
+                    :alt="reply.author.name"
                     class="w-6 h-6 rounded-lg object-cover"
                   />
                   <div>
                     <div class="flex items-center gap-2 mb-1">
-                      <span class="font-medium text-text-primary text-xs">{{ reply.author }}</span>
+                      <span class="font-medium text-text-primary text-xs">{{ reply.author.name }}</span>
                       <span class="text-[10px] text-text-muted font-mono">{{ formatDate(reply.date) }}</span>
                     </div>
                     <p class="text-sm text-text-secondary leading-relaxed">{{ reply.content }}</p>

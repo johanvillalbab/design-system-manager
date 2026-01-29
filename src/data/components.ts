@@ -301,15 +301,13 @@ export const mockComponentDetail: ComponentDetail = {
   comments: [
     {
       id: 'c1',
-      author: 'Alex Rivera',
-      avatar: 'https://i.pravatar.cc/40?img=1',
+      author: { name: 'Alex Rivera', avatar: 'https://i.pravatar.cc/40?img=1' },
       content: 'The new loading state is great! Can we add a progress variant for file uploads?',
       date: '2026-01-16',
       replies: [
         {
           id: 'c1r1',
-          author: 'Sarah Chen',
-          avatar: 'https://i.pravatar.cc/40?img=2',
+          author: { name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/40?img=2' },
           content: "Good idea! I'll add it to the backlog for v3.3.0",
           date: '2026-01-17'
         }
@@ -317,8 +315,7 @@ export const mockComponentDetail: ComponentDetail = {
     },
     {
       id: 'c2',
-      author: 'Jordan Kim',
-      avatar: 'https://i.pravatar.cc/40?img=3',
+      author: { name: 'Jordan Kim', avatar: 'https://i.pravatar.cc/40?img=3' },
       content: 'Touch targets are much better now. WCAG compliance confirmed.',
       date: '2026-01-15'
     }
