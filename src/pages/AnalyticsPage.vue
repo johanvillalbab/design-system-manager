@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { computed } from 'vue'
+import { ref, computed } from 'vue'
 import { useAnalyticsStore } from '@/stores/analytics'
 import MetricCard from '@/components/common/MetricCard.vue'
 import {
@@ -49,6 +49,40 @@ ChartJS.register(
 )
 
 const store = useAnalyticsStore()
+
+// Dependency graph hover state
+const hoveredNode = ref<string | null>(null)
+
+// Helper functions for dependency graph
+function getNodeName(nodeId: string): string {
+  const node = store.graph.nodes.find(n => n.id === nodeId)
+  return node?.name || nodeId
+}
+
+function getDependencies(nodeId: string): string[] {
+  return store.graph.links
+    .filter(link => link.source === nodeId)
+    .map(link => link.target)
+}
+
+function getDependents(nodeId: string): string[] {
+  return store.graph.links
+    .filter(link => link.target === nodeId)
+    .map(link => link.source)
+}
+
+function getConnectionCount(nodeId: string): number {
+  return store.graph.links.filter(link => link.target === nodeId).length
+}
+
+function isConnectedToHovered(nodeId: string): boolean {
+  if (!hoveredNode.value) return false
+  return store.graph.links.some(
+    link => 
+      (link.source === hoveredNode.value && link.target === nodeId) ||
+      (link.target === hoveredNode.value && link.source === nodeId)
+  )
+}
 
 // Chart configurations — amber/gold theme
 const adoptionChartData = computed(() => ({
@@ -422,46 +456,133 @@ function getRecommendationIcon(type: string) {
         <div class="flex items-center justify-between mb-5">
           <div>
             <h3 class="font-display font-semibold text-text-primary text-sm tracking-tight">Component Dependencies</h3>
-            <p class="text-xs text-text-muted mt-0.5">How components are connected</p>
+            <p class="text-xs text-text-muted mt-0.5">Hover over a component to see its connections</p>
+          </div>
+          <!-- Legend -->
+          <div class="flex gap-4 text-[10px] text-text-muted">
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded bg-amber-500/20 border border-amber-500/30"></span>
+              Foundations
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded bg-accent-500/20 border border-accent-500/30"></span>
+              Components
+            </span>
+            <span class="flex items-center gap-1.5">
+              <span class="w-2.5 h-2.5 rounded bg-success-500/20 border border-success-500/30"></span>
+              Patterns
+            </span>
           </div>
         </div>
-        <div class="h-[300px] flex items-center justify-center bg-surface-900/30 rounded-xl border border-border/50">
-          <!-- Simplified dependency visualization -->
-          <div class="relative w-full h-full">
-            <!-- Nodes -->
+        
+        <!-- Dependency Visualization -->
+        <div class="grid grid-cols-3 gap-6">
+          <!-- Foundations Column -->
+          <div class="space-y-3">
+            <p class="text-[10px] font-semibold text-amber-400 uppercase tracking-wider mb-3">Foundations</p>
             <div
-              v-for="(node, index) in store.graph.nodes"
+              v-for="node in store.graph.nodes.filter(n => n.group === 'foundations')"
               :key="node.id"
-              class="absolute w-16 h-16 rounded-xl flex items-center justify-center text-[10px] font-medium transition-all hover:scale-110 cursor-pointer border"
+              @mouseenter="hoveredNode = node.id"
+              @mouseleave="hoveredNode = null"
+              class="p-3 rounded-xl border transition-all duration-200 cursor-pointer"
               :class="[
-                node.group === 'foundations' ? 'bg-accent-500/10 text-accent-400 border-accent-500/20' :
-                node.group === 'patterns' ? 'bg-success-500/10 text-success-400 border-success-500/20' :
-                'bg-surface-700/50 text-text-primary border-border'
+                hoveredNode === node.id 
+                  ? 'bg-amber-500/20 border-amber-500/40 shadow-lg shadow-amber-500/10' 
+                  : isConnectedToHovered(node.id)
+                    ? 'bg-amber-500/10 border-amber-500/30'
+                    : 'bg-surface-700/30 border-border/50 hover:border-amber-500/30'
               ]"
-              :style="{
-                left: `${15 + (index % 4) * 22}%`,
-                top: `${20 + Math.floor(index / 4) * 35}%`
-              }"
             >
-              {{ node.name }}
-            </div>
-
-            <!-- Legend -->
-            <div class="absolute bottom-4 right-4 flex gap-4 text-[10px] text-text-muted">
-              <span class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded bg-accent-500/10 border border-accent-500/20"></span>
-                Foundations
-              </span>
-              <span class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded bg-surface-700/50 border border-border"></span>
-                Components
-              </span>
-              <span class="flex items-center gap-1.5">
-                <span class="w-2.5 h-2.5 rounded bg-success-500/10 border border-success-500/20"></span>
-                Patterns
-              </span>
+              <p class="text-sm font-medium text-text-primary">{{ node.name }}</p>
+              <p class="text-[10px] text-text-muted mt-1">
+                Used by {{ getConnectionCount(node.id) }} components
+              </p>
             </div>
           </div>
+
+          <!-- Components Column -->
+          <div class="space-y-3">
+            <p class="text-[10px] font-semibold text-accent-400 uppercase tracking-wider mb-3">Components</p>
+            <div
+              v-for="node in store.graph.nodes.filter(n => n.group === 'components')"
+              :key="node.id"
+              @mouseenter="hoveredNode = node.id"
+              @mouseleave="hoveredNode = null"
+              class="p-3 rounded-xl border transition-all duration-200 cursor-pointer"
+              :class="[
+                hoveredNode === node.id 
+                  ? 'bg-accent-500/20 border-accent-500/40 shadow-lg shadow-accent-500/10' 
+                  : isConnectedToHovered(node.id)
+                    ? 'bg-accent-500/10 border-accent-500/30'
+                    : 'bg-surface-700/30 border-border/50 hover:border-accent-500/30'
+              ]"
+            >
+              <p class="text-sm font-medium text-text-primary">{{ node.name }}</p>
+              <div class="flex flex-wrap gap-1 mt-2">
+                <span 
+                  v-for="dep in getDependencies(node.id)" 
+                  :key="dep"
+                  class="px-1.5 py-0.5 text-[9px] rounded bg-surface-600/50 text-text-muted"
+                >
+                  {{ getNodeName(dep) }}
+                </span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Patterns Column -->
+          <div class="space-y-3">
+            <p class="text-[10px] font-semibold text-success-400 uppercase tracking-wider mb-3">Patterns</p>
+            <div
+              v-for="node in store.graph.nodes.filter(n => n.group === 'patterns')"
+              :key="node.id"
+              @mouseenter="hoveredNode = node.id"
+              @mouseleave="hoveredNode = null"
+              class="p-3 rounded-xl border transition-all duration-200 cursor-pointer"
+              :class="[
+                hoveredNode === node.id 
+                  ? 'bg-success-500/20 border-success-500/40 shadow-lg shadow-success-500/10' 
+                  : isConnectedToHovered(node.id)
+                    ? 'bg-success-500/10 border-success-500/30'
+                    : 'bg-surface-700/30 border-border/50 hover:border-success-500/30'
+              ]"
+            >
+              <p class="text-sm font-medium text-text-primary">{{ node.name }}</p>
+              <p class="text-[10px] text-text-muted mt-1">Combines:</p>
+              <div class="flex flex-wrap gap-1 mt-1">
+                <span 
+                  v-for="dep in getDependencies(node.id)" 
+                  :key="dep"
+                  class="px-1.5 py-0.5 text-[9px] rounded bg-surface-600/50 text-text-muted"
+                >
+                  {{ getNodeName(dep) }}
+                </span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Connection Info -->
+        <div class="mt-4 p-3 bg-surface-700/30 rounded-xl border border-border/50 min-h-[42px] flex items-center">
+          <p v-if="hoveredNode" class="text-xs text-text-secondary">
+            <span class="font-semibold text-text-primary">{{ getNodeName(hoveredNode) }}</span>
+            <span v-if="getDependencies(hoveredNode).length > 0">
+              depends on: 
+              <span class="text-accent-400">{{ getDependencies(hoveredNode).map(d => getNodeName(d)).join(', ') }}</span>
+            </span>
+            <span v-if="getDependents(hoveredNode).length > 0">
+              {{ getDependencies(hoveredNode).length > 0 ? ' · ' : '' }}
+              used by: 
+              <span class="text-success-400">{{ getDependents(hoveredNode).map(d => getNodeName(d)).join(', ') }}</span>
+            </span>
+            <span v-if="getDependencies(hoveredNode).length === 0 && getDependents(hoveredNode).length === 0">
+              is a foundation element
+            </span>
+          </p>
+          <p v-else class="text-xs text-text-muted">
+            Hover over a component to see its dependencies and dependents
+          </p>
         </div>
       </div>
   </div>
