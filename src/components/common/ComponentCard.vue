@@ -4,7 +4,7 @@ import { useRouter } from 'vue-router'
 import type { DesignComponent } from '@/types'
 import StatusBadge from './StatusBadge.vue'
 import PlatformBadge from './PlatformBadge.vue'
-import { Clock, Users, ArrowUpRight } from 'lucide-vue-next'
+import { Clock, Users } from 'lucide-vue-next'
 
 const props = defineProps<{
   component: DesignComponent
@@ -12,16 +12,10 @@ const props = defineProps<{
 
 const router = useRouter()
 
-const statusColor = computed(() => {
-  if (props.component.status === 'deprecated') return 'border-danger-500/30'
-  if (props.component.needsUpdate) return 'border-warning-500/30'
-  return 'border-success-500/20'
-})
-
-const glowColor = computed(() => {
-  if (props.component.status === 'deprecated') return 'hover:shadow-danger-500/10'
-  if (props.component.needsUpdate) return 'hover:shadow-warning-500/10'
-  return 'hover:shadow-success-500/10'
+const borderAccent = computed(() => {
+  if (props.component.status === 'deprecated') return 'border-danger-500/15 hover:border-danger-500/25'
+  if (props.component.needsUpdate) return 'border-warning-500/15 hover:border-warning-500/25'
+  return 'border-border hover:border-accent-500/20'
 })
 
 function navigateToDetail() {
@@ -35,20 +29,15 @@ function formatDate(dateStr: string) {
 </script>
 
 <template>
-  <article 
+  <article
     @click="navigateToDetail"
-    class="group bg-surface-800 border rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:bg-surface-700/80 hover:shadow-xl hover:-translate-y-1"
-    :class="[statusColor, glowColor]"
+    class="group bg-surface-800/40 border rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:bg-surface-800/70 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 card-glow"
+    :class="borderAccent"
   >
     <!-- Preview Area -->
-    <div class="aspect-video bg-surface-700 rounded-xl mb-4 flex items-center justify-center overflow-hidden relative">
-      <div class="text-4xl font-bold text-text-muted/30 select-none">
+    <div class="aspect-[16/10] bg-surface-700/50 rounded-xl mb-4 flex items-center justify-center overflow-hidden border border-border/50">
+      <div class="text-5xl font-display font-bold text-text-muted/15 select-none">
         {{ component.name.charAt(0) }}
-      </div>
-      
-      <!-- Hover overlay -->
-      <div class="absolute inset-0 bg-primary-600/0 group-hover:bg-primary-600/10 transition-colors flex items-center justify-center">
-        <ArrowUpRight class="w-6 h-6 text-primary-400 opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
     </div>
 
@@ -57,46 +46,46 @@ function formatDate(dateStr: string) {
       <!-- Header -->
       <div class="flex items-start justify-between gap-2">
         <div>
-          <h3 class="font-semibold text-text-primary group-hover:text-primary-400 transition-colors">
+          <h3 class="font-semibold text-text-primary group-hover:text-accent-400 transition-colors text-[15px]">
             {{ component.name }}
           </h3>
-          <p class="text-sm text-text-muted mt-0.5">v{{ component.version }}</p>
+          <p class="text-xs text-text-muted mt-0.5 font-mono">v{{ component.version }}</p>
         </div>
         <StatusBadge :status="component.status" size="sm" />
       </div>
 
       <!-- Description -->
-      <p class="text-sm text-text-secondary line-clamp-2">
+      <p class="text-sm text-text-secondary/80 line-clamp-2 leading-relaxed">
         {{ component.description }}
       </p>
 
       <!-- Platforms -->
       <div class="flex flex-wrap gap-1.5">
-        <PlatformBadge 
-          v-for="platform in component.platforms" 
-          :key="platform" 
-          :platform="platform" 
+        <PlatformBadge
+          v-for="platform in component.platforms"
+          :key="platform"
+          :platform="platform"
         />
       </div>
 
       <!-- Footer -->
-      <div class="flex items-center justify-between pt-3 border-t border-border">
+      <div class="flex items-center justify-between pt-3 border-t border-border/50">
         <div class="flex items-center gap-1.5 text-xs text-text-muted">
-          <Clock class="w-3.5 h-3.5" />
+          <Clock class="w-3 h-3" />
           <span>{{ formatDate(component.lastUpdated) }}</span>
         </div>
         <div class="flex items-center gap-1.5 text-xs text-text-muted">
-          <Users class="w-3.5 h-3.5" />
-          <span>{{ component.usageCount.toLocaleString() }} instances</span>
+          <Users class="w-3 h-3" />
+          <span class="font-mono">{{ component.usageCount.toLocaleString() }}</span>
         </div>
       </div>
 
       <!-- Update indicator -->
-      <div 
+      <div
         v-if="component.needsUpdate && component.status !== 'deprecated'"
-        class="flex items-center gap-2 text-xs text-warning-500 bg-warning-500/10 px-3 py-2 rounded-lg"
+        class="flex items-center gap-2 text-xs text-warning-400 bg-warning-500/8 px-3 py-2 rounded-lg border border-warning-500/10"
       >
-        <span class="w-1.5 h-1.5 rounded-full bg-warning-500 animate-pulse"></span>
+        <span class="w-1.5 h-1.5 rounded-full bg-warning-400 animate-subtle-pulse"></span>
         Update available
       </div>
     </div>

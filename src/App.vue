@@ -14,29 +14,31 @@ import MainLayout from '@/components/layout/MainLayout.vue'
 </template>
 
 <style>
-/* Page Transitions */
+/* Page Transitions — refined editorial feel */
 .page-enter-active {
-  transition: all 0.3s ease-out;
+  transition: opacity 0.35s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.35s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .page-leave-active {
-  transition: all 0.2s ease-in;
+  transition: opacity 0.2s cubic-bezier(0.4, 0, 1, 1),
+              transform 0.2s cubic-bezier(0.4, 0, 1, 1);
 }
 
 .page-enter-from {
   opacity: 0;
-  transform: translateY(10px);
+  transform: translateY(8px);
 }
 
 .page-leave-to {
   opacity: 0;
-  transform: translateY(-10px);
+  transform: translateY(-4px);
 }
 
 /* Fade Transition */
 .fade-enter-active,
 .fade-leave-active {
-  transition: opacity 0.2s ease;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .fade-enter-from,
@@ -47,28 +49,30 @@ import MainLayout from '@/components/layout/MainLayout.vue'
 /* Slide Up Transition */
 .slide-up-enter-active,
 .slide-up-leave-active {
-  transition: all 0.3s ease;
+  transition: opacity 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.3s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .slide-up-enter-from {
   opacity: 0;
-  transform: translateY(20px);
+  transform: translateY(16px);
 }
 
 .slide-up-leave-to {
   opacity: 0;
-  transform: translateY(-20px);
+  transform: translateY(-8px);
 }
 
 /* Scale Transition */
 .scale-enter-active,
 .scale-leave-active {
-  transition: all 0.2s ease;
+  transition: opacity 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .scale-enter-from,
 .scale-leave-to {
   opacity: 0;
-  transform: scale(0.95);
+  transform: scale(0.97);
 }
 </style>

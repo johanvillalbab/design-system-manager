@@ -2,7 +2,6 @@ import { defineStore } from 'pinia'
 import { ref, computed } from 'vue'
 import type { DesignComponent, ComponentDetail, FilterState, ComponentCategory, ComponentStatus, Platform } from '@/types'
 import { mockComponents, getComponentById } from '@/data/components'
-import { githubService, dataMapper } from '@/services'
 
 export const useComponentsStore = defineStore('components', () => {
   // State
@@ -14,11 +13,6 @@ export const useComponentsStore = defineStore('components', () => {
     categories: [],
     statuses: []
   })
-  
-  // Loading and error states
-  const loading = ref(false)
-  const error = ref<string | null>(null)
-  const dataSource = ref<'mock' | 'api'>('mock')
 
   // Getters
   const filteredComponents = computed(() => {
@@ -68,10 +62,6 @@ export const useComponentsStore = defineStore('components', () => {
     return grouped
   })
 
-  // Additional state for API data
-  const openIssuesCount = ref(13)
-  const starsCount = ref(0)
-  
   const stats = computed(() => ({
     total: components.value.length,
     stable: components.value.filter(c => c.status === 'stable').length,
@@ -79,8 +69,7 @@ export const useComponentsStore = defineStore('components', () => {
     deprecated: components.value.filter(c => c.status === 'deprecated').length,
     needsUpdate: components.value.filter(c => c.needsUpdate).length,
     coverage: 84,
-    openIssues: openIssuesCount.value,
-    stars: starsCount.value
+    openIssues: 13
   }))
 
   const categoryStats = computed(() => ({
@@ -139,68 +128,11 @@ export const useComponentsStore = defineStore('components', () => {
     selectedComponent.value = null
   }
 
-  /**
-   * Fetch components from GitHub API (Ant Design repository)
-   */
-  async function fetchComponents() {
-    loading.value = true
-    error.value = null
-    
-    try {
-      // Fetch data from GitHub API
-      const [githubComponents, releases, repoInfo] = await Promise.all([
-        githubService.getComponentsList(),
-        githubService.getReleases(),
-        githubService.getRepoInfo()
-      ])
-
-      // Map to our DesignComponent format
-      components.value = dataMapper.mapToDesignComponents(githubComponents, releases)
-      
-      // Update stats from repo info
-      openIssuesCount.value = repoInfo.open_issues_count
-      starsCount.value = repoInfo.stargazers_count
-      
-      dataSource.value = 'api'
-    } catch (e) {
-      console.error('Error fetching components from GitHub:', e)
-      error.value = e instanceof Error ? e.message : 'Error loading components from API'
-      
-      // Fallback to mock data
-      components.value = mockComponents
-      dataSource.value = 'mock'
-    } finally {
-      loading.value = false
-    }
-  }
-
-  /**
-   * Reset to mock data
-   */
-  function useMockData() {
-    components.value = mockComponents
-    openIssuesCount.value = 13
-    starsCount.value = 0
-    dataSource.value = 'mock'
-    error.value = null
-  }
-
-  /**
-   * Refresh data from API
-   */
-  async function refreshData() {
-    githubService.clearCache()
-    await fetchComponents()
-  }
-
   return {
     // State
     components,
     selectedComponent,
     filters,
-    loading,
-    error,
-    dataSource,
     // Getters
     filteredComponents,
     componentsByCategory,
@@ -213,9 +145,6 @@ export const useComponentsStore = defineStore('components', () => {
     toggleStatus,
     clearFilters,
     loadComponent,
-    clearSelectedComponent,
-    fetchComponents,
-    useMockData,
-    refreshData
+    clearSelectedComponent
   }
 })

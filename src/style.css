@@ -1,74 +1,108 @@
 @import "tailwindcss";
 
-/* Custom Design System Theme */
+/* ═══════════════════════════════════════════════════
+   DESIGN SYSTEM MANAGER — Editorial Obsidian Theme
+   Aesthetic: Luxury editorial + Swiss precision
+   ═══════════════════════════════════════════════════ */
+
 @theme {
-  /* Fonts */
-  --font-sans: 'Plus Jakarta Sans', 'DM Sans', system-ui, sans-serif;
+  /* Typography */
+  --font-display: 'Inter', system-ui, sans-serif;
+  --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Custom Colors - Dark Theme Primary */
-  --color-surface-900: #0a0a0f;
-  --color-surface-800: #12121a;
-  --color-surface-700: #1a1a24;
-  --color-surface-600: #24242e;
-  --color-surface-500: #2e2e3a;
+  /* Surface Colors — Deep obsidian spectrum */
+  --color-surface-950: #08080c;
+  --color-surface-900: #0c0c12;
+  --color-surface-800: #111118;
+  --color-surface-700: #18181f;
+  --color-surface-600: #1f1f28;
+  --color-surface-500: #2a2a35;
+  --color-surface-400: #363642;
 
-  /* Accent Colors */
-  --color-primary-50: #eef2ff;
-  --color-primary-100: #e0e7ff;
-  --color-primary-200: #c7d2fe;
-  --color-primary-300: #a5b4fc;
-  --color-primary-400: #818cf8;
-  --color-primary-500: #6366f1;
-  --color-primary-600: #4f46e5;
-  --color-primary-700: #4338ca;
-  --color-primary-800: #3730a3;
-  --color-primary-900: #312e81;
+  /* Primary Accent — Warm amber/gold */
+  --color-accent-50: #fffbeb;
+  --color-accent-100: #fef3c7;
+  --color-accent-200: #fde68a;
+  --color-accent-300: #fcd34d;
+  --color-accent-400: #fbbf24;
+  --color-accent-500: #f59e0b;
+  --color-accent-600: #d97706;
+  --color-accent-700: #b45309;
+  --color-accent-800: #92400e;
+  --color-accent-900: #78350f;
+
+  /* Secondary Accent — Cool violet */
+  --color-violet-400: #a78bfa;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
 
   /* Status Colors */
-  --color-success-500: #10b981;
-  --color-success-600: #059669;
+  --color-success-400: #4ade80;
+  --color-success-500: #22c55e;
+  --color-success-600: #16a34a;
+  --color-warning-400: #fbbf24;
   --color-warning-500: #f59e0b;
   --color-warning-600: #d97706;
-  --color-danger-500: #ef4444;
-  --color-danger-600: #dc2626;
+  --color-danger-400: #fb7185;
+  --color-danger-500: #f43f5e;
+  --color-danger-600: #e11d48;
 
-  /* Text Colors */
-  --color-text-primary: #f1f5f9;
-  --color-text-secondary: #94a3b8;
-  --color-text-muted: #64748b;
+  /* Text */
+  --color-text-primary: #f0f0f5;
+  --color-text-secondary: #9898a8;
+  --color-text-muted: #5c5c6f;
 
-  /* Border */
-  --color-border: #2e2e3a;
-  --color-border-hover: #3f3f4a;
+  /* Borders */
+  --color-border: rgba(255, 255, 255, 0.06);
+  --color-border-hover: rgba(255, 255, 255, 0.12);
+  --color-border-accent: rgba(251, 191, 36, 0.15);
 }
 
-/* Base Styles */
+/* ──────────── Base Styles ──────────── */
 html {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  scroll-behavior: smooth;
 }
 
 body {
-  background-color: var(--color-surface-900);
+  background-color: var(--color-surface-950);
   color: var(--color-text-primary);
   font-family: var(--font-sans);
   margin: 0;
   min-height: 100vh;
+  letter-spacing: -0.011em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 #app {
   min-height: 100vh;
+  position: relative;
 }
 
-/* Scrollbar Styling */
+/* ──────────── Noise Texture Overlay ──────────── */
+#app::before {
+  content: '';
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  pointer-events: none;
+  opacity: 0.025;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 256px 256px;
+}
+
+/* ──────────── Scrollbar ──────────── */
 ::-webkit-scrollbar {
-  width: 8px;
-  height: 8px;
+  width: 6px;
+  height: 6px;
 }
 
 ::-webkit-scrollbar-track {
-  background-color: var(--color-surface-800);
+  background-color: transparent;
 }
 
 ::-webkit-scrollbar-thumb {
@@ -77,11 +111,376 @@ body {
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background-color: var(--color-surface-600);
+  background-color: var(--color-surface-400);
 }
 
-/* Selection */
+/* ──────────── Selection ──────────── */
 ::selection {
-  background-color: rgba(99, 102, 241, 0.4);
+  background-color: rgba(251, 191, 36, 0.25);
   color: white;
+}
+
+/* ──────────── Glass Morphism Utility ──────────── */
+.glass {
+  background: rgba(17, 17, 24, 0.6);
+  backdrop-filter: blur(24px) saturate(150%);
+  -webkit-backdrop-filter: blur(24px) saturate(150%);
+}
+
+.glass-subtle {
+  background: rgba(17, 17, 24, 0.4);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+}
+
+/* ──────────── Card Hover Glow ──────────── */
+.card-glow {
+  position: relative;
+}
+
+.card-glow::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(251, 191, 36, 0.04),
+    transparent 40%
+  );
+  pointer-events: none;
+}
+
+.card-glow:hover::after {
+  opacity: 1;
+}
+
+/* ──────────── Accent Glow Ring ──────────── */
+.glow-ring {
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.1),
+              0 0 20px rgba(251, 191, 36, 0.05);
+}
+
+/* ──────────── Editorial Dividers ──────────── */
+.divider-accent {
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-accent-500), transparent 60%);
+}
+
+/* ──────────── Animated gradient border ──────────── */
+@keyframes gradient-shift {
+  0%, 100% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+}
+
+.gradient-border {
+  background: linear-gradient(135deg, var(--color-accent-500), var(--color-violet-500), var(--color-accent-500));
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+/* ──────────── Staggered fade-in animation ──────────── */
+@keyframes fade-up {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.animate-fade-up {
+  animation: fade-up 0.5s ease-out both;
+}
+
+.stagger-1 { animation-delay: 0.05s; }
+.stagger-2 { animation-delay: 0.1s; }
+.stagger-3 { animation-delay: 0.15s; }
+.stagger-4 { animation-delay: 0.2s; }
+.stagger-5 { animation-delay: 0.25s; }
+.stagger-6 { animation-delay: 0.3s; }
+
+/* ──────────── Subtle pulse ──────────── */
+@keyframes subtle-pulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.6; }
+}
+
+.animate-subtle-pulse {
+  animation: subtle-pulse 2s ease-in-out infinite;
+}
+
+/* ──────────── Typography Helpers ──────────── */
+.heading-display {
+  font-family: var(--font-display);
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.2;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+/* ═══════════════════════════════════════════════════
+   VUE TRANSITIONS — Enhanced Animation Library
+   ═══════════════════════════════════════════════════ */
+
+/* ──────────── List/Grid Item Transitions ──────────── */
+.list-enter-active,
+.list-leave-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.list-enter-from {
+  opacity: 0;
+  transform: translateY(20px) scale(0.95);
+}
+
+.list-leave-to {
+  opacity: 0;
+  transform: translateY(-10px) scale(0.98);
+}
+
+.list-move {
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ──────────── Card Entrance ──────────── */
+.card-enter-active {
+  transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.card-leave-active {
+  transition: all 0.3s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.card-enter-from {
+  opacity: 0;
+  transform: translateY(24px) scale(0.96);
+}
+
+.card-leave-to {
+  opacity: 0;
+  transform: scale(0.95);
+}
+
+.card-move {
+  transition: transform 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+/* ──────────── Tab Content Transitions ──────────── */
+.tab-content-enter-active {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.tab-content-leave-active {
+  transition: all 0.2s cubic-bezier(0.4, 0, 1, 1);
+  position: absolute;
+  width: 100%;
+}
+
+.tab-content-enter-from {
+  opacity: 0;
+  transform: translateX(16px);
+}
+
+.tab-content-leave-to {
+  opacity: 0;
+  transform: translateX(-16px);
+}
+
+/* ──────────── Expand/Collapse Transition ──────────── */
+.expand-enter-active,
+.expand-leave-active {
+  transition: all 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+  overflow: hidden;
+}
+
+.expand-enter-from,
+.expand-leave-to {
+  opacity: 0;
+  max-height: 0;
+  padding-top: 0;
+  padding-bottom: 0;
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+/* ──────────── Pop/Bounce Transition ──────────── */
+.pop-enter-active {
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.pop-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.pop-enter-from {
+  opacity: 0;
+  transform: scale(0.8);
+}
+
+.pop-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* ──────────── Slide Fade (for modals, panels) ──────────── */
+.slide-fade-enter-active {
+  transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.slide-fade-leave-active {
+  transition: all 0.25s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.slide-fade-enter-from {
+  opacity: 0;
+  transform: translateY(30px) scale(0.98);
+}
+
+.slide-fade-leave-to {
+  opacity: 0;
+  transform: translateY(-15px) scale(0.99);
+}
+
+/* ──────────── Chip Selection Animation ──────────── */
+.chip-enter-active {
+  transition: all 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.chip-leave-active {
+  transition: all 0.15s ease-out;
+}
+
+.chip-enter-from {
+  opacity: 0;
+  transform: scale(0.85);
+}
+
+.chip-leave-to {
+  opacity: 0;
+  transform: scale(0.9);
+}
+
+/* ──────────── Skeleton Loading Animation ──────────── */
+@keyframes skeleton-shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
+.skeleton {
+  background: linear-gradient(
+    90deg,
+    var(--color-surface-700) 25%,
+    var(--color-surface-600) 50%,
+    var(--color-surface-700) 75%
+  );
+  background-size: 200% 100%;
+  animation: skeleton-shimmer 1.5s ease-in-out infinite;
+  border-radius: 8px;
+}
+
+/* ──────────── Stagger Animation Delays (Extended) ──────────── */
+.stagger-7 { animation-delay: 0.35s; }
+.stagger-8 { animation-delay: 0.4s; }
+.stagger-9 { animation-delay: 0.45s; }
+.stagger-10 { animation-delay: 0.5s; }
+.stagger-11 { animation-delay: 0.55s; }
+.stagger-12 { animation-delay: 0.6s; }
+
+/* ──────────── Indicator Slide Animation ──────────── */
+@keyframes indicator-slide {
+  from {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  to {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+}
+
+.animate-indicator-slide {
+  animation: indicator-slide 0.3s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform-origin: left center;
+}
+
+/* ──────────── Content Reveal Animation ──────────── */
+@keyframes content-reveal {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+    filter: blur(4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
+}
+
+.animate-content-reveal {
+  animation: content-reveal 0.4s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ──────────── Success Checkmark Animation ──────────── */
+@keyframes check-draw {
+  0% {
+    stroke-dashoffset: 100;
+  }
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.animate-check-draw {
+  stroke-dasharray: 100;
+  animation: check-draw 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* ──────────── Shake Animation (for errors) ──────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20% { transform: translateX(-6px); }
+  40% { transform: translateX(6px); }
+  60% { transform: translateX(-4px); }
+  80% { transform: translateX(4px); }
+}
+
+.animate-shake {
+  animation: shake 0.5s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+}
+
+/* ──────────── Float Animation ──────────── */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-6px); }
+}
+
+.animate-float {
+  animation: float 3s ease-in-out infinite;
+}
+
+/* ──────────── Glow Pulse Animation ──────────── */
+@keyframes glow-pulse {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(251, 191, 36, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(251, 191, 36, 0.4);
+  }
+}
+
+.animate-glow-pulse {
+  animation: glow-pulse 2s ease-in-out infinite;
 }
