@@ -4,9 +4,9 @@ import { ref, watch } from 'vue'
 export type ThemeMode = 'dark' | 'light'
 
 export const useThemeStore = defineStore('theme', () => {
-  // Initialize from localStorage or default to 'dark'
+  // Initialize from localStorage or default to 'light'
   const stored = localStorage.getItem('dsm-theme') as ThemeMode | null
-  const mode = ref<ThemeMode>(stored || 'dark')
+  const mode = ref<ThemeMode>(stored || 'light')
 
   // Apply theme to DOM
   function applyTheme(theme: ThemeMode) {
