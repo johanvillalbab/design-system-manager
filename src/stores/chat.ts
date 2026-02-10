@@ -174,7 +174,7 @@ export const useChatStore = defineStore('chat', () => {
       {
         items: [
           { label: 'Tasa de adopción', value: `${stats.adoptionRate}%`, status: 'success' },
-          { label: 'Componentes usados', value: stats.componentsUsed },
+          { label: 'Componentes totales', value: stats.totalComponents },
           { label: 'Proyectos activos', value: stats.activeProjects },
           { label: 'Cobertura promedio', value: `${store.avgTeamCoverage}%`, status: 'info' },
           { label: 'Componentes sanos', value: store.healthyComponents, status: 'success' },
