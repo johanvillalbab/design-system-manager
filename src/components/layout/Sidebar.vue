@@ -15,7 +15,8 @@ import {
   ChevronLeft,
   ChevronRight,
   Bug,
-  BookOpen
+  BookOpen,
+  MessageSquare
 } from 'lucide-vue-next'
 
 const route = useRoute()
@@ -38,7 +39,8 @@ const navigation = [
   { path: '/requests', name: 'Requests', icon: GitPullRequest },
   { path: '/audit', name: 'Audit', icon: AlertTriangle },
   { path: '/analytics', name: 'Analytics', icon: BarChart3 },
-  { path: '/docs', name: 'Documentation', icon: BookOpen }
+  { path: '/docs', name: 'Documentation', icon: BookOpen },
+  { path: '/chat', name: 'Chat', icon: MessageSquare }
 ]
 
 function handleCategoryClick(categoryId: string) {

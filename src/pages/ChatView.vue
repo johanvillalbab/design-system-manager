@@ -45,7 +45,6 @@ async function handleSend(text: string) {
   const navigateTo = await chatStore.sendMessage(text)
   if (navigateTo) {
     setTimeout(() => {
-      chatStore.deactivate()
       router.push(navigateTo)
     }, 800)
   }
@@ -56,7 +55,7 @@ function handleTrigger(command: string) {
 }
 
 function exitChat() {
-  chatStore.deactivate()
+  router.back()
 }
 
 function formatTime(date: Date): string {

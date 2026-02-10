@@ -100,14 +100,14 @@ function viewAllNotifications() {
     <!-- Right: Actions -->
     <div class="flex items-center gap-1">
       <!-- Chat Mode Toggle -->
-      <button
-        @click="chatStore.activate()"
+      <router-link
+        to="/chat"
         class="flex items-center gap-2 px-3 py-1.5 rounded-xl border transition-all duration-200 mr-1 bg-surface-800/50 border-border hover:bg-accent-500/10 hover:border-accent-500/25 hover:text-accent-400 text-text-muted"
         title="Modo Chat"
       >
         <MessageSquare class="w-4 h-4" />
         <span class="text-xs font-medium hidden sm:inline">Modo Chat</span>
-      </button>
+      </router-link>
 
       <!-- Theme Toggle -->
       <button

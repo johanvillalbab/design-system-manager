@@ -21,7 +21,6 @@ const isUser = computed(() => props.message.role === 'user')
 
 function handleAction(action: ChatAction) {
   if (action.type === 'navigate') {
-    chatStore.deactivate()
     router.push(action.payload)
   } else if (action.type === 'trigger') {
     chatStore.sendMessage(action.payload)
