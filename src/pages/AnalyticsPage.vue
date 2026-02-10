@@ -649,7 +649,7 @@ function getRecommendationIcon(type: string) {
               class="p-3 rounded-xl border transition-all duration-200 cursor-pointer"
               :class="[
                 hoveredNode === node.id 
-                  ? 'bg-accent-500/20 border-accent-500/40 shadow-lg shadow-accent-500/10' 
+                  ? 'bg-accent-500/20 border-accent-500/40' 
                   : isConnectedToHovered(node.id)
                     ? 'bg-accent-500/10 border-accent-500/30'
                     : 'bg-surface-700/30 border-border/50 hover:border-accent-500/30'

@@ -153,7 +153,7 @@ async function generateReport() {
             class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all border"
             :class="[
               store.selectedSeverity === filter.id
-                ? 'bg-accent-500/15 text-accent-400 border-accent-500/25 shadow-sm shadow-accent-500/10'
+                ? 'bg-accent-500/15 text-accent-400 border-accent-500/25'
                 : 'bg-surface-800/40 text-text-muted hover:bg-surface-700/50 border-border'
             ]"
           >

@@ -1,10 +1,23 @@
 <script setup lang="ts">
 import { RouterView } from 'vue-router'
 import MainLayout from '@/components/layout/MainLayout.vue'
+import ChatView from '@/pages/ChatView.vue'
+import { useChatStore } from '@/stores/chat'
+import { useThemeStore } from '@/stores/theme'
+
+const chatStore = useChatStore()
+// Initialize theme — applies data-theme attribute on mount via the store's watcher
+const themeStore = useThemeStore()
 </script>
 
 <template>
-  <MainLayout>
+  <!-- Chat Mode: Fullscreen -->
+  <Transition name="chat-mode">
+    <ChatView v-if="chatStore.isActive" />
+  </Transition>
+
+  <!-- Normal Mode: Layout + Router -->
+  <MainLayout v-show="!chatStore.isActive">
     <RouterView v-slot="{ Component }">
       <transition name="page" mode="out-in">
         <component :is="Component" />
@@ -74,5 +87,26 @@ import MainLayout from '@/components/layout/MainLayout.vue'
 .scale-leave-to {
   opacity: 0;
   transform: scale(0.97);
+}
+
+/* Chat Mode Transition */
+.chat-mode-enter-active {
+  transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1),
+              transform 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.chat-mode-leave-active {
+  transition: opacity 0.25s cubic-bezier(0.4, 0, 1, 1),
+              transform 0.25s cubic-bezier(0.4, 0, 1, 1);
+}
+
+.chat-mode-enter-from {
+  opacity: 0;
+  transform: scale(1.02);
+}
+
+.chat-mode-leave-to {
+  opacity: 0;
+  transform: scale(0.98);
 }
 </style>

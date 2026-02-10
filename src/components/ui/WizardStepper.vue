@@ -45,7 +45,7 @@ function isRecentlyCompleted(index: number) {
             class="relative flex items-center justify-center w-9 h-9 rounded-xl border step-circle"
             :class="{
               'bg-accent-500/20 border-accent-500/40': getStepStatus(index) === 'completed',
-              'bg-accent-500/10 border-accent-500/30 shadow-sm shadow-accent-500/10 step-current': getStepStatus(index) === 'current',
+              'bg-accent-500/10 border-accent-500/30 step-current': getStepStatus(index) === 'current',
               'bg-surface-700/50 border-border': getStepStatus(index) === 'upcoming',
               'step-complete-animation': isRecentlyCompleted(index)
             }"

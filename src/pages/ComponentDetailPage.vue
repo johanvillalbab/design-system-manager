@@ -786,7 +786,7 @@ function formatDate(dateStr: string) {
           >
             <div
               class="absolute left-2.5 w-3 h-3 rounded-full border-2"
-              :class="index === 0 ? 'bg-accent-500 border-accent-500 shadow-sm shadow-accent-500/30' : 'bg-surface-700 border-surface-500'"
+              :class="index === 0 ? 'bg-accent-500 border-accent-500' : 'bg-surface-700 border-surface-500'"
             ></div>
             <div class="bg-surface-700/30 border border-border/50 rounded-xl p-4">
               <div class="flex items-center justify-between mb-2">

@@ -11,16 +11,18 @@
   --font-sans: 'Inter', system-ui, sans-serif;
   --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
 
-  /* Surface Colors — Deep obsidian spectrum */
-  --color-surface-950: #050507;
-  --color-surface-900: #09090b;
-  --color-surface-800: #0c0c0f;
-  --color-surface-700: #121215;
-  --color-surface-600: #18181c;
-  --color-surface-500: #222228;
-  --color-surface-400: #2c2c34;
+  /* ── Surface Colors — Enhanced depth hierarchy ──
+     Wider steps between levels for clearer visual layering
+     Inspired by deep editorial dark UIs with warmer undertones */
+  --color-surface-950: #060608;   /* Deepest void — page background */
+  --color-surface-900: #0b0b10;   /* Main background — subtle blue-black */
+  --color-surface-800: #111118;   /* Card base — clear lift from bg */
+  --color-surface-700: #1a1a23;   /* Elevated card — distinct from base */
+  --color-surface-600: #232330;   /* Interactive surface — hover panels */
+  --color-surface-500: #2e2e3d;   /* Active states — selected items */
+  --color-surface-400: #3b3b4d;   /* Highest elevation — popovers/modals */
 
-  /* Primary Accent — Warm amber/gold */
+  /* ── Primary Accent — Warm amber/gold ── */
   --color-accent-50: #fffbeb;
   --color-accent-100: #fef3c7;
   --color-accent-200: #fde68a;
@@ -32,31 +34,106 @@
   --color-accent-800: #92400e;
   --color-accent-900: #78350f;
 
-  /* Secondary Accent — Cool violet */
+  /* ── Secondary Accent — Cool violet ── */
   --color-violet-400: #a78bfa;
   --color-violet-500: #8b5cf6;
   --color-violet-600: #7c3aed;
 
-  /* Status Colors */
-  --color-success-400: #4ade80;
-  --color-success-500: #22c55e;
-  --color-success-600: #16a34a;
+  /* ── Tertiary Accent — Lime/Chartreuse (dashboard-inspired) ──
+     High-contrast neon for data viz, badges, live indicators */
+  --color-lime-300: #d9f956;
+  --color-lime-400: #c8f030;
+  --color-lime-500: #a8d410;
+  --color-lime-600: #89ad0e;
+
+  /* ── Status Colors — Refined for dark bg readability ── */
+  --color-success-400: #5fe892;
+  --color-success-500: #34d072;
+  --color-success-600: #1aaa55;
   --color-warning-400: #fbbf24;
   --color-warning-500: #f59e0b;
   --color-warning-600: #d97706;
-  --color-danger-400: #fb7185;
+  --color-danger-400: #ff7a8f;
   --color-danger-500: #f43f5e;
   --color-danger-600: #e11d48;
 
-  /* Text */
-  --color-text-primary: #f0f0f5;
-  --color-text-secondary: #9898a8;
-  --color-text-muted: #5c5c6f;
+  /* ── Text — Sharper 4-level hierarchy ──
+     Wider contrast gaps for clearer information scanning
+     +20% contrast boost on gray tones */
+  --color-text-primary: #f4f4f9;     /* Headings, key values — near-white */
+  --color-text-secondary: #b2b2c8;   /* Body text, descriptions — boosted mid */
+  --color-text-muted: #7a7a98;       /* Captions, timestamps — clearer */
+  --color-text-dim: #505068;         /* Disabled, placeholders — more visible */
 
-  /* Borders */
-  --color-border: rgba(255, 255, 255, 0.06);
-  --color-border-hover: rgba(255, 255, 255, 0.12);
-  --color-border-accent: rgba(251, 191, 36, 0.15);
+  /* ── Borders — Better definition with layered opacity ── */
+  --color-border: rgba(255, 255, 255, 0.08);
+  --color-border-hover: rgba(255, 255, 255, 0.16);
+  --color-border-accent: rgba(251, 191, 36, 0.20);
+  --color-border-lime: rgba(200, 240, 48, 0.15);
+}
+
+/* ═══════════════════════════════════════════════════
+   LIGHT MODE — Refined editorial light palette
+   Applied via [data-theme="light"] on <html>
+   Same semantic scale, inverted for light backgrounds
+   ═══════════════════════════════════════════════════ */
+
+[data-theme="light"] {
+  /* ── Surfaces — Warm paper tones (harmonized with gradient bg) ── */
+  --color-surface-950: #fffdf7;       /* Page background — warm white */
+  --color-surface-900: #faf8f2;       /* Main background — parchment */
+  --color-surface-800: #f4f2ec;       /* Card base — soft warm lift */
+  --color-surface-700: #eceae4;       /* Elevated card — clear step */
+  --color-surface-600: #e3e1db;       /* Interactive surface */
+  --color-surface-500: #d6d4ce;       /* Active states */
+  --color-surface-400: #c8c6c0;       /* Highest elevation — popovers */
+
+  /* ── Accent — Vibrant amber, AA-adjacent on warm white (#fffdf7) ──
+     +25% brightness vs previous, max saturation at each level */
+  --color-accent-50: #fef8e8;
+  --color-accent-100: #fcefc5;
+  --color-accent-200: #f5d978;
+  --color-accent-300: #b8900f;        /* ~3.6:1 — hover/secondary accent */
+  --color-accent-400: #a07c0c;        /* ~4.3:1 — primary accent text */
+  --color-accent-500: #8a6b09;        /* ~5.3:1 — strong accent text */
+  --color-accent-600: #765b07;        /* ~6.3:1 — high emphasis */
+  --color-accent-700: #634d05;
+  --color-accent-800: #523f03;
+  --color-accent-900: #423302;
+
+  /* ── Violet — Brighter +25% ── */
+  --color-violet-400: #7d5ad0;        /* ~4.3:1 */
+  --color-violet-500: #6a4abc;        /* ~5.5:1 */
+  --color-violet-600: #5940a8;        /* ~6.7:1 */
+
+  /* ── Lime — Brighter +25% ── */
+  --color-lime-300: #6e8e14;          /* ~3.6:1 */
+  --color-lime-400: #608010;          /* ~4.2:1 */
+  --color-lime-500: #536e0d;          /* ~5.2:1 */
+  --color-lime-600: #475f0b;          /* ~6.2:1 */
+
+  /* ── Status — Brighter +25% ── */
+  --color-success-400: #21904a;       /* ~4.1:1 */
+  --color-success-500: #1a7a3d;       /* ~5.2:1 */
+  --color-success-600: #146632;       /* ~6.5:1 */
+  --color-warning-400: #a07c0c;       /* ~4.3:1 (synced w/ accent) */
+  --color-warning-500: #8a6b09;       /* ~5.3:1 */
+  --color-warning-600: #765b07;       /* ~6.3:1 */
+  --color-danger-400: #d43050;        /* ~4.0:1 */
+  --color-danger-500: #b82640;        /* ~5.2:1 */
+  --color-danger-600: #9e2036;        /* ~6.5:1 */
+
+  /* ── Text — Dark on light hierarchy (+20% contrast boost) ── */
+  --color-text-primary: #111118;       /* Headings — near-black */
+  --color-text-secondary: #393952;     /* Body text — deeper for readability */
+  --color-text-muted: #6e6e8a;         /* Captions — sharper against warm bg */
+  --color-text-dim: #9898b2;           /* Disabled — more legible */
+
+  /* ── Borders — Subtle dark strokes ── */
+  --color-border: rgba(0, 0, 0, 0.08);
+  --color-border-hover: rgba(0, 0, 0, 0.15);
+  --color-border-accent: rgba(140, 107, 8, 0.22);
+  --color-border-lime: rgba(80, 107, 12, 0.20);
 }
 
 /* ──────────── Base Styles ──────────── */
@@ -77,6 +154,16 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
+/* Light mode — warm editorial gradient background */
+[data-theme="light"] body {
+  background:
+    radial-gradient(ellipse 120% 80% at 0% 0%, rgba(253, 230, 138, 0.35) 0%, transparent 50%),
+    radial-gradient(ellipse 80% 100% at 100% 0%, rgba(254, 243, 199, 0.30) 0%, transparent 45%),
+    radial-gradient(ellipse 60% 60% at 50% 100%, rgba(253, 230, 138, 0.12) 0%, transparent 50%),
+    linear-gradient(180deg, #fffdf7 0%, #faf8f4 40%, #f6f4f0 100%);
+  background-attachment: fixed;
+}
+
 #app {
   min-height: 100vh;
   position: relative;
@@ -93,6 +180,10 @@ body {
   background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
   background-repeat: repeat;
   background-size: 256px 256px;
+}
+
+[data-theme="light"] #app::before {
+  opacity: 0.015;
 }
 
 /* ──────────── Scrollbar ──────────── */
@@ -114,23 +205,59 @@ body {
   background-color: var(--color-surface-400);
 }
 
+[data-theme="light"] ::-webkit-scrollbar-thumb {
+  background-color: var(--color-surface-500);
+}
+
+[data-theme="light"] ::-webkit-scrollbar-thumb:hover {
+  background-color: var(--color-surface-400);
+}
+
 /* ──────────── Selection ──────────── */
 ::selection {
-  background-color: rgba(251, 191, 36, 0.25);
+  background-color: rgba(200, 240, 48, 0.25);
   color: white;
+}
+
+[data-theme="light"] ::selection {
+  background-color: rgba(140, 107, 8, 0.18);
+  color: #111118;
 }
 
 /* ──────────── Glass Morphism Utility ──────────── */
 .glass {
-  background: rgba(9, 9, 11, 0.7);
+  background: rgba(11, 11, 16, 0.75);
   backdrop-filter: blur(24px) saturate(150%);
   -webkit-backdrop-filter: blur(24px) saturate(150%);
+  border: 1px solid rgba(255, 255, 255, 0.06);
 }
 
 .glass-subtle {
-  background: rgba(9, 9, 11, 0.5);
+  background: rgba(11, 11, 16, 0.55);
   backdrop-filter: blur(16px) saturate(120%);
   -webkit-backdrop-filter: blur(16px) saturate(120%);
+}
+
+.glass-elevated {
+  background: rgba(17, 17, 24, 0.85);
+  backdrop-filter: blur(32px) saturate(160%);
+  -webkit-backdrop-filter: blur(32px) saturate(160%);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Light mode glass — warm translucency */
+[data-theme="light"] .glass {
+  background: rgba(255, 253, 247, 0.80);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .glass-subtle {
+  background: rgba(255, 253, 247, 0.55);
+}
+
+[data-theme="light"] .glass-elevated {
+  background: rgba(255, 253, 247, 0.90);
+  border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
 /* ──────────── Card Hover Glow ──────────── */
@@ -157,16 +284,44 @@ body {
   opacity: 1;
 }
 
+[data-theme="light"] .card-glow::after {
+  background: radial-gradient(
+    600px circle at var(--mouse-x, 50%) var(--mouse-y, 50%),
+    rgba(140, 107, 8, 0.05),
+    transparent 40%
+  );
+}
+
 /* ──────────── Accent Glow Ring ──────────── */
 .glow-ring {
-  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.1),
-              0 0 20px rgba(251, 191, 36, 0.05);
+  box-shadow: 0 0 0 1px rgba(251, 191, 36, 0.12),
+              0 0 24px rgba(251, 191, 36, 0.06);
+}
+
+.glow-ring-lime {
+  box-shadow: 0 0 0 1px rgba(200, 240, 48, 0.12),
+              0 0 24px rgba(200, 240, 48, 0.06);
+}
+
+[data-theme="light"] .glow-ring {
+  box-shadow: 0 0 0 1px rgba(140, 107, 8, 0.18),
+              0 0 16px rgba(140, 107, 8, 0.08);
+}
+
+[data-theme="light"] .glow-ring-lime {
+  box-shadow: 0 0 0 1px rgba(80, 107, 12, 0.18),
+              0 0 16px rgba(80, 107, 12, 0.08);
 }
 
 /* ──────────── Editorial Dividers ──────────── */
 .divider-accent {
   height: 1px;
   background: linear-gradient(90deg, var(--color-accent-500), transparent 60%);
+}
+
+.divider-lime {
+  height: 1px;
+  background: linear-gradient(90deg, var(--color-lime-400), transparent 60%);
 }
 
 /* ──────────── Animated gradient border ──────────── */
@@ -177,6 +332,12 @@ body {
 
 .gradient-border {
   background: linear-gradient(135deg, var(--color-accent-500), var(--color-violet-500), var(--color-accent-500));
+  background-size: 200% 200%;
+  animation: gradient-shift 4s ease infinite;
+}
+
+.gradient-border-lime {
+  background: linear-gradient(135deg, var(--color-lime-400), var(--color-accent-400), var(--color-lime-400));
   background-size: 200% 200%;
   animation: gradient-shift 4s ease infinite;
 }
@@ -381,9 +542,9 @@ body {
 .skeleton {
   background: linear-gradient(
     90deg,
-    var(--color-surface-700) 25%,
-    var(--color-surface-600) 50%,
-    var(--color-surface-700) 75%
+    var(--color-surface-800) 25%,
+    var(--color-surface-700) 50%,
+    var(--color-surface-800) 75%
   );
   background-size: 200% 100%;
   animation: skeleton-shimmer 1.5s ease-in-out infinite;
@@ -483,4 +644,48 @@ body {
 
 .animate-glow-pulse {
   animation: glow-pulse 2s ease-in-out infinite;
+}
+
+@keyframes glow-pulse-lime {
+  0%, 100% {
+    box-shadow: 0 0 8px rgba(200, 240, 48, 0.2);
+  }
+  50% {
+    box-shadow: 0 0 20px rgba(200, 240, 48, 0.35);
+  }
+}
+
+.animate-glow-pulse-lime {
+  animation: glow-pulse-lime 2s ease-in-out infinite;
+}
+
+/* ──────────── Surface Elevation Shadows ──────────── */
+.elevation-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.4),
+              0 1px 2px rgba(0, 0, 0, 0.3);
+}
+
+.elevation-2 {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4),
+              0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.elevation-3 {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.45),
+              0 4px 8px rgba(0, 0, 0, 0.35);
+}
+
+[data-theme="light"] .elevation-1 {
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08),
+              0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+[data-theme="light"] .elevation-2 {
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08),
+              0 2px 4px rgba(0, 0, 0, 0.04);
+}
+
+[data-theme="light"] .elevation-3 {
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.10),
+              0 4px 8px rgba(0, 0, 0, 0.06);
 }

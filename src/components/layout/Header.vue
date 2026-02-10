@@ -2,11 +2,15 @@
 import { ref, computed } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import { useComponentsStore } from '@/stores/components'
-import { Search, Bell, Settings, HelpCircle, ExternalLink } from 'lucide-vue-next'
+import { useChatStore } from '@/stores/chat'
+import { useThemeStore } from '@/stores/theme'
+import { Search, Bell, Settings, HelpCircle, ExternalLink, MessageSquare, Sun, Moon } from 'lucide-vue-next'
 
 const route = useRoute()
 const router = useRouter()
 const store = useComponentsStore()
+const chatStore = useChatStore()
+const themeStore = useThemeStore()
 
 const searchQuery = ref('')
 const showHelpModal = ref(false)
@@ -95,6 +99,36 @@ function viewAllNotifications() {
 
     <!-- Right: Actions -->
     <div class="flex items-center gap-1">
+      <!-- Chat Mode Toggle -->
+      <button
+        @click="chatStore.activate()"
+        class="flex items-center gap-2 px-3 py-1.5 rounded-xl border transition-all duration-200 mr-1 bg-surface-800/50 border-border hover:bg-accent-500/10 hover:border-accent-500/25 hover:text-accent-400 text-text-muted"
+        title="Modo Chat"
+      >
+        <MessageSquare class="w-4 h-4" />
+        <span class="text-xs font-medium hidden sm:inline">Modo Chat</span>
+      </button>
+
+      <!-- Theme Toggle -->
+      <button
+        @click="themeStore.toggle()"
+        class="p-2.5 rounded-xl hover:bg-surface-700/50 text-text-muted hover:text-accent-400 transition-all duration-300 relative"
+        :title="themeStore.mode === 'dark' ? 'Cambiar a Light Mode' : 'Cambiar a Dark Mode'"
+      >
+        <Transition
+          enter-active-class="transition-all duration-300 ease-out"
+          enter-from-class="opacity-0 rotate-[-90deg] scale-50"
+          enter-to-class="opacity-100 rotate-0 scale-100"
+          leave-active-class="transition-all duration-200 ease-in absolute"
+          leave-from-class="opacity-100 rotate-0 scale-100"
+          leave-to-class="opacity-0 rotate-90 scale-50"
+          mode="out-in"
+        >
+          <Moon v-if="themeStore.mode === 'dark'" :key="'dark'" class="w-[18px] h-[18px]" />
+          <Sun v-else :key="'light'" class="w-[18px] h-[18px]" />
+        </Transition>
+      </button>
+
       <button
         @click="openHelp"
         class="p-2.5 rounded-xl hover:bg-surface-700/50 text-text-muted hover:text-text-secondary transition-all duration-200"
@@ -252,13 +286,26 @@ function viewAllNotifications() {
           </div>
           <div class="p-5 space-y-4">
             <div class="flex items-center justify-between">
-              <div>
-                <p class="text-sm font-medium text-text-primary">Dark Mode</p>
-                <p class="text-xs text-text-muted">Use dark theme</p>
+              <div class="flex items-center gap-3">
+                <div class="p-1.5 rounded-lg bg-surface-600/50">
+                  <Moon v-if="themeStore.mode === 'dark'" class="w-4 h-4 text-accent-400" />
+                  <Sun v-else class="w-4 h-4 text-accent-500" />
+                </div>
+                <div>
+                  <p class="text-sm font-medium text-text-primary">{{ themeStore.mode === 'dark' ? 'Dark Mode' : 'Light Mode' }}</p>
+                  <p class="text-xs text-text-muted">{{ themeStore.mode === 'dark' ? 'Switch to light theme' : 'Switch to dark theme' }}</p>
+                </div>
               </div>
-              <div class="w-10 h-6 bg-accent-500 rounded-full relative cursor-pointer">
-                <span class="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></span>
-              </div>
+              <button
+                @click="themeStore.toggle()"
+                class="w-11 h-6 rounded-full relative cursor-pointer transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-accent-500/30"
+                :class="themeStore.mode === 'dark' ? 'bg-accent-500' : 'bg-surface-500'"
+              >
+                <span
+                  class="absolute top-1 w-4 h-4 bg-white rounded-full shadow-sm transition-all duration-300"
+                  :class="themeStore.mode === 'dark' ? 'right-1' : 'left-1'"
+                ></span>
+              </button>
             </div>
             <div class="flex items-center justify-between">
               <div>

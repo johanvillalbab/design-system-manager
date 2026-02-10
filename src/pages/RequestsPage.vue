@@ -167,7 +167,7 @@ function submitRequest() {
       </div>
       <button
         @click="openWizard"
-        class="flex items-center gap-2 px-5 py-2.5 bg-accent-500/15 hover:bg-accent-500/25 text-accent-400 font-medium rounded-xl transition-all text-sm border border-accent-500/20 shadow-sm shadow-accent-500/10"
+        class="flex items-center gap-2 px-5 py-2.5 bg-accent-500/15 hover:bg-accent-500/25 text-accent-400 font-medium rounded-xl transition-all text-sm border border-accent-500/20"
       >
         <Plus class="w-4 h-4" />
         New Request
@@ -183,7 +183,7 @@ function submitRequest() {
         class="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium whitespace-nowrap transition-all border"
         :class="[
           store.statusFilter === filter.id
-            ? 'bg-accent-500/15 text-accent-400 border-accent-500/25 shadow-sm shadow-accent-500/10'
+            ? 'bg-accent-500/15 text-accent-400 border-accent-500/25'
             : 'bg-surface-800/40 text-text-muted hover:bg-surface-700/50 border-border'
         ]"
       >

@@ -60,7 +60,7 @@ function isAnimating(id: string) {
         class="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg text-xs font-medium border chip-button"
         :class="[
           isSelected(option.id)
-            ? 'bg-accent-500/15 text-accent-400 border-accent-500/25 shadow-sm shadow-accent-500/10'
+            ? 'bg-accent-500/15 text-accent-400 border-accent-500/25'
             : 'bg-surface-700/30 text-text-muted hover:bg-surface-600/40 hover:text-text-secondary border-border/50 hover:border-border',
           isAnimating(option.id) && isSelected(option.id) ? 'animate-pop-in' : '',
           isAnimating(option.id) && !isSelected(option.id) ? 'animate-pop-out' : ''

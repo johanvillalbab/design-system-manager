@@ -63,7 +63,7 @@ function isActiveNav(path: string) {
     <!-- Logo -->
     <div class="h-18 flex items-center justify-between px-4 border-b border-border">
       <div v-if="!collapsed" class="flex items-center gap-3">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center shadow-lg shadow-accent-500/20">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center ">
           <Box class="w-5 h-5 text-surface-950" />
         </div>
         <div>
@@ -71,7 +71,7 @@ function isActiveNav(path: string) {
           <span class="block text-[10px] text-text-muted tracking-widest uppercase">v2.5</span>
         </div>
       </div>
-      <div v-else class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center mx-auto shadow-lg shadow-accent-500/20">
+      <div v-else class="w-9 h-9 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center mx-auto ">
         <Box class="w-5 h-5 text-surface-950" />
       </div>
       <button
