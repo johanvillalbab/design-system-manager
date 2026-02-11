@@ -240,7 +240,7 @@ function formatTime(date: Date): string {
       <!-- ═══ Bottom: Triggers + Input (grouped together) ═══ -->
       <div class="relative z-10 border-t border-border/50">
         <!-- Gradient fade above -->
-        <div class="absolute -top-16 left-0 right-0 h-16 bg-gradient-to-t from-surface-950 to-transparent pointer-events-none"></div>
+        <div class="absolute -top-16 left-0 right-0 h-16 bg-gradient-to-t from-[var(--color-surface-950)] to-transparent pointer-events-none"></div>
 
         <div class="max-w-3xl mx-auto px-6 pt-4 pb-5">
           <!-- Trigger cards: only when no messages -->

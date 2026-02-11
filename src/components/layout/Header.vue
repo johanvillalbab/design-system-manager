@@ -167,7 +167,7 @@ function viewAllNotifications() {
         >
           <div
             v-if="showNotifications"
-            class="absolute right-0 mt-3 w-80 bg-surface-900/90 backdrop-blur-xl border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden"
+            class="absolute right-0 mt-3 w-80 bg-surface-900/90 backdrop-blur-xl border border-border rounded-2xl shadow-2xl shadow-surface-400/25 overflow-hidden"
           >
             <div class="p-4 border-b border-border flex items-center justify-between">
               <h3 class="font-semibold text-text-primary text-sm">Notifications</h3>
@@ -225,7 +225,7 @@ function viewAllNotifications() {
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-md"
         @click.self="showHelpModal = false"
       >
-        <div class="w-full max-w-md bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden">
+        <div class="w-full max-w-md bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-surface-400/25 overflow-hidden">
           <div class="p-5 border-b border-border">
             <h2 class="text-lg font-semibold text-text-primary">Help & Resources</h2>
           </div>
@@ -280,7 +280,7 @@ function viewAllNotifications() {
         class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-md"
         @click.self="showSettingsModal = false"
       >
-        <div class="w-full max-w-md bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden">
+        <div class="w-full max-w-md bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-surface-400/25 overflow-hidden">
           <div class="p-5 border-b border-border">
             <h2 class="text-lg font-semibold text-text-primary">Settings</h2>
           </div>

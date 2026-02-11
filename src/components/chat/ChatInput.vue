@@ -77,7 +77,7 @@ defineExpose({
     >
       <div
         v-if="showSuggestions && filteredTriggers.length > 0"
-        class="absolute bottom-full left-0 right-0 mb-2 bg-surface-800/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl shadow-black/30 overflow-hidden z-10"
+        class="absolute bottom-full left-0 right-0 mb-2 bg-surface-800/95 backdrop-blur-xl border border-border rounded-2xl shadow-2xl shadow-surface-400/25 overflow-hidden z-10"
       >
         <div class="p-2">
           <p class="px-3 py-1.5 text-[10px] font-semibold text-text-muted uppercase tracking-[0.15em]">Comandos</p>

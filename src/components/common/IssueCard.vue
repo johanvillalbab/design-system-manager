@@ -48,7 +48,7 @@ function openInFigma() {
 
 <template>
   <article
-    class="bg-surface-800/40 border rounded-2xl overflow-hidden transition-all duration-200 hover:bg-surface-800/70 hover:shadow-lg hover:shadow-black/20 card-glow"
+    class="bg-surface-800/40 border rounded-2xl overflow-hidden transition-all duration-200 hover:bg-surface-800/70 hover:shadow-lg hover:shadow-surface-400/20 card-glow"
     :class="severityConfig.border"
   >
     <!-- Screenshot Preview -->
@@ -58,7 +58,7 @@ function openInFigma() {
         :alt="issue.title"
         class="w-full h-full object-cover"
       />
-      <div class="absolute inset-0 bg-gradient-to-t from-surface-950/90 via-surface-950/20 to-transparent"></div>
+      <div class="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent"></div>
 
       <!-- Severity Badge -->
       <span

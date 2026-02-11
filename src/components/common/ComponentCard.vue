@@ -31,7 +31,7 @@ function formatDate(dateStr: string) {
 <template>
   <article
     @click="navigateToDetail"
-    class="group bg-surface-800/40 border rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:bg-surface-800/70 hover:shadow-xl hover:shadow-black/20 hover:-translate-y-0.5 card-glow"
+    class="group bg-surface-800/40 border rounded-2xl p-5 cursor-pointer transition-all duration-300 hover:bg-surface-800/70 hover:shadow-xl hover:shadow-surface-400/20 hover:-translate-y-0.5 card-glow"
     :class="borderAccent"
   >
     <!-- Preview Area -->
