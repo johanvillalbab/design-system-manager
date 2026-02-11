@@ -300,7 +300,7 @@ function submitRequest() {
           class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-md"
           @click.self="closeWizard"
         >
-          <div class="w-full max-w-2xl bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-surface-400/25 overflow-hidden">
+          <div class="w-full max-w-2xl bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden">
             <!-- Modal Header -->
             <div class="flex items-center justify-between p-5 border-b border-border">
               <h2 class="text-lg font-display font-semibold text-text-primary tracking-tight">New Component Request</h2>
@@ -483,7 +483,7 @@ function submitRequest() {
           class="fixed inset-0 z-50 flex items-center justify-center p-4 bg-surface-950/80 backdrop-blur-md"
           @click.self="closeDetailModal"
         >
-          <div class="w-full max-w-2xl bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-surface-400/25 overflow-hidden max-h-[90vh] flex flex-col">
+          <div class="w-full max-w-2xl bg-surface-800 border border-border rounded-2xl shadow-2xl shadow-black/40 overflow-hidden max-h-[90vh] flex flex-col">
             <!-- Modal Header -->
             <div class="flex items-start justify-between p-5 border-b border-border">
               <div class="flex-1 min-w-0">

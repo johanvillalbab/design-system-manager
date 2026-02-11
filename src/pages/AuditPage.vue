@@ -304,7 +304,7 @@ async function generateReport() {
       >
         <div
           v-if="showToast"
-          class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl shadow-surface-400/25 border"
+          class="fixed bottom-6 right-6 z-50 flex items-center gap-3 px-4 py-3 rounded-xl shadow-xl shadow-black/30 border"
           :class="toastType === 'success' ? 'bg-success-500/15 border-success-500/20' : 'bg-accent-500/15 border-accent-500/20'"
         >
           <Check v-if="toastType === 'success'" class="w-5 h-5 text-success-400" />

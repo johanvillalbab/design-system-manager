@@ -260,6 +260,15 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
+/* ──────────── Card Preview Gradient ──────────── */
+.card-preview-gradient {
+  background: linear-gradient(to top, var(--color-surface-950) 0%, rgba(6, 6, 8, 0.2) 50%, transparent 100%);
+}
+
+[data-theme="light"] .card-preview-gradient {
+  background: linear-gradient(to top, rgba(160, 124, 12, 0.18) 0%, rgba(160, 124, 12, 0.06) 40%, transparent 100%);
+}
+
 /* ──────────── Card Hover Glow ──────────── */
 .card-glow {
   position: relative;
