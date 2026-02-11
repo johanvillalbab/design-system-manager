@@ -14,7 +14,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Replace with Button component from DS Library',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/6366f1?text=Button+Issue'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/6b4ec0?text=Button+Issue'
   },
   {
     id: 'iss-002',
@@ -29,7 +29,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Relink to Card component v2.1.0',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/f59e0b?text=Card+Issue'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/a07c0c?text=Card+Issue'
   },
   {
     id: 'iss-003',
@@ -44,7 +44,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Replace with --color-primary-500 token',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/3b82f6?text=Color+Override'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/4a6fa5?text=Color+Override'
   },
   {
     id: 'iss-004',
@@ -59,7 +59,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Use text-sm (14px) or text-base (16px)',
     autoFixable: false,
-    screenshot: 'https://placehold.co/400x200/1a1a24/94a3b8?text=Typography+Issue'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/6e6e8a?text=Typography+Issue'
   },
   {
     id: 'iss-005',
@@ -74,7 +74,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Replace with Select component v2.0.0',
     autoFixable: false,
-    screenshot: 'https://placehold.co/400x200/1a1a24/ef4444?text=Deprecated+Dropdown'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/bf2a40?text=Deprecated+Dropdown'
   },
   {
     id: 'iss-006',
@@ -89,7 +89,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Rename to follow naming convention: Component/Variant',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/64748b?text=Naming+Issue'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/6e6e8a?text=Naming+Issue'
   },
   {
     id: 'iss-007',
@@ -104,7 +104,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Provide semantic name like "ReportChart/Container"',
     autoFixable: false,
-    screenshot: 'https://placehold.co/400x200/1a1a24/64748b?text=Frame+Naming'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/6e6e8a?text=Frame+Naming'
   },
   {
     id: 'iss-008',
@@ -119,7 +119,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Use spacing-4 (16px) or spacing-5 (20px)',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/64748b?text=Spacing+Issue'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/6e6e8a?text=Spacing+Issue'
   },
   {
     id: 'iss-009',
@@ -134,7 +134,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Replace with Input Field component v2.8.0',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/6366f1?text=Input+Issue'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/6b4ec0?text=Input+Issue'
   },
   {
     id: 'iss-010',
@@ -149,7 +149,7 @@ export const mockAuditIssues: AuditIssue[] = [
     },
     suggestion: 'Use --radius-md (8px) token',
     autoFixable: true,
-    screenshot: 'https://placehold.co/400x200/1a1a24/f59e0b?text=Radius+Override'
+    screenshot: 'https://placehold.co/400x200/f4f2ec/a07c0c?text=Radius+Override'
   }
 ]
 

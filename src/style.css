@@ -260,25 +260,16 @@ body {
   border: 1px solid rgba(0, 0, 0, 0.06);
 }
 
-/* ──────────── Card Preview (dark screenshots on light mode) ──────────── */
+/* ──────────── Card Preview Gradient ──────────── */
 .card-preview-gradient {
   background: linear-gradient(to top, var(--color-surface-950) 0%, rgba(6, 6, 8, 0.2) 50%, transparent 100%);
-}
-
-[data-theme="light"] .card-preview-img {
-  opacity: 0.22;
-  filter: saturate(0.2);
-}
-
-[data-theme="light"] .card-preview-area {
-  background: var(--color-surface-700);
 }
 
 [data-theme="light"] .card-preview-gradient {
   background: linear-gradient(
     to top,
     var(--color-surface-800) 0%,
-    rgba(236, 234, 228, 0.6) 50%,
+    rgba(244, 242, 236, 0.3) 50%,
     transparent 100%
   );
 }
