@@ -52,11 +52,11 @@ function openInFigma() {
     :class="severityConfig.border"
   >
     <!-- Screenshot Preview -->
-    <div v-if="issue.screenshot" class="relative aspect-video bg-surface-700">
+    <div v-if="issue.screenshot" class="relative aspect-video bg-surface-700 card-preview-area">
       <img
         :src="issue.screenshot"
         :alt="issue.title"
-        class="w-full h-full object-cover"
+        class="w-full h-full object-cover card-preview-img"
       />
       <div class="absolute inset-0 card-preview-gradient"></div>
 
