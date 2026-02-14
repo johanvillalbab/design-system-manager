@@ -1,413 +1,508 @@
 import type { DesignComponent, ComponentDetail } from '@/types'
 
 export const mockComponents: DesignComponent[] = [
+  // ── Foundations ──
   {
-    id: 'btn-001',
-    name: 'Button',
-    description: 'Primary interactive element for user actions',
-    category: 'components',
-    version: '3.2.1',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2026-01-15',
-    usageCount: 1842,
-    needsUpdate: false,
-    tags: ['interactive', 'action', 'core']
-  },
-  {
-    id: 'inp-001',
-    name: 'Input Field',
-    description: 'Text input with validation states',
-    category: 'components',
-    version: '2.8.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2026-01-10',
-    usageCount: 1256,
-    needsUpdate: false,
-    tags: ['form', 'input', 'text']
-  },
-  {
-    id: 'card-001',
-    name: 'Card',
-    description: 'Container for grouped content',
-    category: 'components',
-    version: '2.1.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-12-20',
-    usageCount: 987,
-    needsUpdate: true,
-    tags: ['container', 'layout']
-  },
-  {
-    id: 'modal-001',
-    name: 'Modal',
-    description: 'Overlay dialog for focused interactions',
-    category: 'components',
-    version: '1.5.2',
-    status: 'beta',
-    platforms: ['web'],
-    lastUpdated: '2026-01-18',
-    usageCount: 432,
-    needsUpdate: false,
-    tags: ['overlay', 'dialog', 'focus']
-  },
-  {
-    id: 'nav-001',
-    name: 'Navigation Bar',
-    description: 'Primary navigation component',
-    category: 'patterns',
-    version: '2.0.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-11-30',
-    usageCount: 756,
-    needsUpdate: true,
-    tags: ['navigation', 'header']
-  },
-  {
-    id: 'tab-001',
-    name: 'Tabs',
-    description: 'Tabbed navigation for content sections',
-    category: 'components',
-    version: '1.2.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-12-05',
-    usageCount: 621,
-    needsUpdate: false,
-    tags: ['navigation', 'tabs']
-  },
-  {
-    id: 'avatar-001',
-    name: 'Avatar',
-    description: 'User profile image or placeholder',
-    category: 'components',
-    version: '1.0.3',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-10-15',
-    usageCount: 534,
-    needsUpdate: false,
-    tags: ['user', 'image', 'profile']
-  },
-  {
-    id: 'badge-001',
-    name: 'Badge',
-    description: 'Small status indicator',
-    category: 'components',
-    version: '1.1.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-11-20',
-    usageCount: 892,
-    needsUpdate: false,
-    tags: ['status', 'indicator']
-  },
-  {
-    id: 'toast-001',
-    name: 'Toast',
-    description: 'Temporary notification messages',
-    category: 'components',
-    version: '0.9.0',
-    status: 'beta',
-    platforms: ['web'],
-    lastUpdated: '2026-01-05',
-    usageCount: 287,
-    needsUpdate: false,
-    tags: ['notification', 'feedback']
-  },
-  {
-    id: 'dropdown-001',
-    name: 'Dropdown',
-    description: 'Selectable options menu',
-    category: 'components',
-    version: '1.0.0',
-    status: 'deprecated',
-    platforms: ['web'],
-    lastUpdated: '2024-08-10',
-    usageCount: 12,
-    needsUpdate: false,
-    tags: ['select', 'menu', 'options']
-  },
-  {
-    id: 'color-001',
-    name: 'Color Tokens',
-    description: 'Brand and semantic color palette',
+    id: 'token-001',
+    name: 'Design Tokens',
+    description: 'Design tokens are the single source of truth to name and store design decisions for color, spacing, typography, and elevation.',
     category: 'foundations',
-    version: '4.0.0',
+    version: '4.2.0',
     status: 'stable',
     platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2026-01-01',
-    usageCount: 2456,
+    lastUpdated: '2026-01-28',
+    usageCount: 3842,
     needsUpdate: false,
-    tags: ['color', 'tokens', 'brand']
+    tags: ['tokens', 'variables', 'theming', 'color', 'spacing']
   },
   {
     id: 'typo-001',
     name: 'Typography',
-    description: 'Font scales and text styles',
+    description: 'A system of fonts and text styles that provides hierarchy and readability across all products and platforms.',
     category: 'foundations',
-    version: '3.1.0',
+    version: '3.4.0',
     status: 'stable',
     platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-12-15',
-    usageCount: 2134,
+    lastUpdated: '2026-01-10',
+    usageCount: 2890,
     needsUpdate: false,
-    tags: ['font', 'text', 'scale']
+    tags: ['font', 'text', 'heading', 'body', 'scale']
   },
   {
     id: 'spacing-001',
-    name: 'Spacing System',
-    description: '8px grid-based spacing tokens',
+    name: 'Spacing',
+    description: 'A spacing scale based on an 8px grid that simplifies the creation of page layouts and maintains visual consistency.',
     category: 'foundations',
-    version: '2.0.0',
+    version: '2.1.0',
     status: 'stable',
     platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-10-01',
-    usageCount: 1987,
+    lastUpdated: '2025-11-15',
+    usageCount: 2456,
     needsUpdate: false,
-    tags: ['spacing', 'grid', 'layout']
+    tags: ['spacing', 'grid', 'layout', 'padding', 'margin']
   },
   {
     id: 'icon-001',
-    name: 'Icon Library',
-    description: '500+ consistent iconography',
+    name: 'Iconography',
+    description: 'A comprehensive icon library with 600+ glyphs designed for clarity at small sizes. Supports multiple sizes and color tokens.',
     category: 'foundations',
-    version: '5.2.0',
+    version: '5.8.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2026-02-01',
+    usageCount: 4210,
+    needsUpdate: false,
+    tags: ['icons', 'glyphs', 'symbols', 'svg']
+  },
+
+  // ── Components ──
+  {
+    id: 'btn-001',
+    name: 'Button',
+    description: 'A button triggers an event or action. They let users know what will happen next and guide them through a workflow.',
+    category: 'components',
+    version: '3.2.1',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2026-01-20',
+    usageCount: 2145,
+    needsUpdate: false,
+    tags: ['button', 'action', 'cta', 'submit', 'interactive']
+  },
+  {
+    id: 'textfield-001',
+    name: 'Textfield',
+    description: 'A text field is an input that allows a user to write or edit text. It supports labels, helper text, and validation states.',
+    category: 'components',
+    version: '2.9.0',
     status: 'stable',
     platforms: ['ios', 'android', 'web'],
     lastUpdated: '2026-01-12',
-    usageCount: 3421,
+    usageCount: 1654,
     needsUpdate: false,
-    tags: ['icons', 'symbols']
-  },
-  {
-    id: 'form-001',
-    name: 'Form Pattern',
-    description: 'Complete form layout with validation',
-    category: 'patterns',
-    version: '2.3.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-12-28',
-    usageCount: 445,
-    needsUpdate: false,
-    tags: ['form', 'validation', 'layout']
-  },
-  {
-    id: 'search-001',
-    name: 'Search Pattern',
-    description: 'Search input with filters and results',
-    category: 'patterns',
-    version: '1.8.0',
-    status: 'stable',
-    platforms: ['web'],
-    lastUpdated: '2025-11-15',
-    usageCount: 312,
-    needsUpdate: true,
-    tags: ['search', 'filter', 'results']
-  },
-  {
-    id: 'empty-001',
-    name: 'Empty States',
-    description: 'Placeholder content for empty views',
-    category: 'patterns',
-    version: '1.2.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-09-20',
-    usageCount: 234,
-    needsUpdate: false,
-    tags: ['empty', 'placeholder', 'state']
-  },
-  {
-    id: 'dash-001',
-    name: 'Dashboard Template',
-    description: 'Analytics dashboard layout',
-    category: 'templates',
-    version: '1.0.0',
-    status: 'beta',
-    platforms: ['web'],
-    lastUpdated: '2026-01-20',
-    usageCount: 45,
-    needsUpdate: false,
-    tags: ['dashboard', 'analytics', 'layout']
-  },
-  {
-    id: 'profile-001',
-    name: 'Profile Template',
-    description: 'User profile page layout',
-    category: 'templates',
-    version: '1.1.0',
-    status: 'stable',
-    platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2025-11-10',
-    usageCount: 89,
-    needsUpdate: false,
-    tags: ['profile', 'user', 'settings']
+    tags: ['input', 'text', 'form', 'field', 'validation']
   },
   {
     id: 'select-001',
     name: 'Select',
-    description: 'Modern dropdown replacement',
+    description: 'Select allows users to make a single selection or multiple selections from a list of options.',
+    category: 'components',
+    version: '2.3.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2026-01-08',
+    usageCount: 987,
+    needsUpdate: false,
+    tags: ['select', 'dropdown', 'form', 'options', 'picker']
+  },
+  {
+    id: 'checkbox-001',
+    name: 'Checkbox',
+    description: 'A checkbox allows a user to select one or more options from a set. Supports indeterminate state for partial selections.',
+    category: 'components',
+    version: '1.8.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-12-18',
+    usageCount: 876,
+    needsUpdate: false,
+    tags: ['checkbox', 'form', 'selection', 'toggle', 'input']
+  },
+  {
+    id: 'toggle-001',
+    name: 'Toggle',
+    description: 'A toggle is used to view or switch between enabled or disabled states. It should be used for binary settings that take effect immediately.',
+    category: 'components',
+    version: '1.5.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-11-28',
+    usageCount: 623,
+    needsUpdate: false,
+    tags: ['toggle', 'switch', 'boolean', 'settings', 'on-off']
+  },
+  {
+    id: 'avatar-001',
+    name: 'Avatar',
+    description: 'An avatar is a visual representation of a user or entity. Supports images, initials fallback, and presence indicators.',
+    category: 'components',
+    version: '2.1.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-12-05',
+    usageCount: 1432,
+    needsUpdate: false,
+    tags: ['avatar', 'user', 'image', 'profile', 'presence']
+  },
+  {
+    id: 'badge-001',
+    name: 'Badge',
+    description: 'A badge is a visual indicator for numeric values such as tallies and scores. Use it to display counts that need attention.',
+    category: 'components',
+    version: '1.3.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-11-20',
+    usageCount: 1087,
+    needsUpdate: false,
+    tags: ['badge', 'count', 'indicator', 'notification']
+  },
+  {
+    id: 'lozenge-001',
+    name: 'Lozenge',
+    description: 'A lozenge is a visual indicator used to highlight an item\'s status for quick recognition. Comes in subtle and bold appearances.',
+    category: 'components',
+    version: '1.6.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-12-12',
+    usageCount: 945,
+    needsUpdate: true,
+    tags: ['lozenge', 'status', 'label', 'tag', 'pill']
+  },
+  {
+    id: 'modal-001',
+    name: 'Modal Dialog',
+    description: 'A modal dialog displays content that requires user interaction in a layer above the page. It blocks interaction with the page until dismissed.',
     category: 'components',
     version: '2.0.0',
     status: 'stable',
     platforms: ['ios', 'android', 'web'],
-    lastUpdated: '2026-01-08',
+    lastUpdated: '2026-01-25',
+    usageCount: 534,
+    needsUpdate: false,
+    tags: ['modal', 'dialog', 'overlay', 'popup', 'confirmation']
+  },
+  {
+    id: 'tooltip-001',
+    name: 'Tooltip',
+    description: 'A tooltip is a floating, non-actionable label used to explain a user interface element or feature on hover or focus.',
+    category: 'components',
+    version: '1.4.0',
+    status: 'stable',
+    platforms: ['web'],
+    lastUpdated: '2025-10-30',
+    usageCount: 756,
+    needsUpdate: true,
+    tags: ['tooltip', 'hover', 'popover', 'hint', 'info']
+  },
+  {
+    id: 'banner-001',
+    name: 'Banner',
+    description: 'A banner displays a prominent message at the top of the screen. Use banners to inform users about important changes or persistent conditions.',
+    category: 'components',
+    version: '1.2.0',
+    status: 'beta',
+    platforms: ['web'],
+    lastUpdated: '2026-02-03',
+    usageCount: 312,
+    needsUpdate: false,
+    tags: ['banner', 'alert', 'message', 'notification', 'announcement']
+  },
+  {
+    id: 'tabs-001',
+    name: 'Tabs',
+    description: 'Tabs are used to organize content by grouping similar information on the same page. They help reduce cognitive load by letting users switch between views.',
+    category: 'components',
+    version: '2.0.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-12-22',
+    usageCount: 823,
+    needsUpdate: false,
+    tags: ['tabs', 'navigation', 'content', 'panels', 'sections']
+  },
+  {
+    id: 'progress-001',
+    name: 'Progress Bar',
+    description: 'A progress bar communicates the status of a system process. It visually indicates how much of a task has been completed.',
+    category: 'components',
+    version: '1.1.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-10-18',
+    usageCount: 389,
+    needsUpdate: false,
+    tags: ['progress', 'loading', 'status', 'bar', 'indicator']
+  },
+  {
+    id: 'dropdown-001',
+    name: 'Dropdown Menu',
+    description: 'A dropdown menu displays a list of actions or options to a user. Deprecated in favor of the new Popup + Menu composition.',
+    category: 'components',
+    version: '1.0.0',
+    status: 'deprecated',
+    platforms: ['web'],
+    lastUpdated: '2024-09-15',
+    usageCount: 28,
+    needsUpdate: false,
+    tags: ['dropdown', 'menu', 'actions', 'deprecated']
+  },
+
+  // ── Patterns ──
+  {
+    id: 'form-001',
+    name: 'Form Pattern',
+    description: 'A standard form layout that combines text fields, selects, checkboxes, and buttons with built-in validation, error handling, and accessibility.',
+    category: 'patterns',
+    version: '2.5.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2026-01-18',
     usageCount: 567,
     needsUpdate: false,
-    tags: ['select', 'dropdown', 'form']
+    tags: ['form', 'validation', 'layout', 'input', 'submit']
+  },
+  {
+    id: 'nav-001',
+    name: 'Navigation Pattern',
+    description: 'Defines the primary and secondary navigation structure for applications including top bar, side navigation, and breadcrumbs.',
+    category: 'patterns',
+    version: '2.2.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-12-30',
+    usageCount: 445,
+    needsUpdate: true,
+    tags: ['navigation', 'sidebar', 'breadcrumbs', 'routing', 'menu']
+  },
+  {
+    id: 'empty-001',
+    name: 'Empty State',
+    description: 'An empty state appears when there is no data to display and describes what the user can do next. Includes illustration, title, description, and action.',
+    category: 'patterns',
+    version: '1.4.0',
+    status: 'stable',
+    platforms: ['ios', 'android', 'web'],
+    lastUpdated: '2025-11-05',
+    usageCount: 278,
+    needsUpdate: false,
+    tags: ['empty', 'placeholder', 'zero-state', 'onboarding']
+  },
+  {
+    id: 'inline-edit-001',
+    name: 'Inline Edit',
+    description: 'An inline edit displays a custom input component that switches between reading and editing modes on the same page without navigating away.',
+    category: 'patterns',
+    version: '1.7.0',
+    status: 'beta',
+    platforms: ['web'],
+    lastUpdated: '2026-01-30',
+    usageCount: 189,
+    needsUpdate: false,
+    tags: ['inline-edit', 'editable', 'in-place', 'toggle-edit']
+  },
+
+  // ── Templates ──
+  {
+    id: 'page-layout-001',
+    name: 'Page Layout',
+    description: 'A collection of components that define the overall page structure including header, sidebar, main content area, and footer regions.',
+    category: 'templates',
+    version: '1.3.0',
+    status: 'stable',
+    platforms: ['web'],
+    lastUpdated: '2025-12-15',
+    usageCount: 134,
+    needsUpdate: false,
+    tags: ['page', 'layout', 'structure', 'grid', 'regions']
+  },
+  {
+    id: 'settings-001',
+    name: 'Settings Page',
+    description: 'A pre-built settings page template with grouped preferences, toggles, form sections, and save/cancel actions.',
+    category: 'templates',
+    version: '1.0.0',
+    status: 'beta',
+    platforms: ['web'],
+    lastUpdated: '2026-02-01',
+    usageCount: 56,
+    needsUpdate: false,
+    tags: ['settings', 'preferences', 'configuration', 'admin']
   }
 ]
 
 export const mockComponentDetail: ComponentDetail = {
   id: 'btn-001',
   name: 'Button',
-  description: 'Primary interactive element for user actions. Supports multiple variants, sizes, and states for comprehensive UI coverage.',
+  description: 'A button triggers an event or action. They let users know what will happen next and guide them through a workflow. Buttons support multiple variants, sizes, icon placement, and loading states for comprehensive UI coverage across all platforms.',
   category: 'components',
   version: '3.2.1',
   status: 'stable',
   platforms: ['ios', 'android', 'web'],
-  lastUpdated: '2026-01-15',
-  usageCount: 1842,
+  lastUpdated: '2026-01-20',
+  usageCount: 2145,
   needsUpdate: false,
-  tags: ['interactive', 'action', 'core'],
+  tags: ['button', 'action', 'cta', 'submit', 'interactive'],
   variants: [
-    { id: 'default', name: 'Default', description: 'Standard button state' },
-    { id: 'hover', name: 'Hover', description: 'Mouse over state' },
-    { id: 'active', name: 'Active', description: 'Pressed/clicked state' },
-    { id: 'disabled', name: 'Disabled', description: 'Non-interactive state' },
-    { id: 'loading', name: 'Loading', description: 'Processing state with spinner' }
+    { id: 'default', name: 'Default', description: 'Standard button used for most actions' },
+    { id: 'primary', name: 'Primary', description: 'High-emphasis button for the main call-to-action' },
+    { id: 'subtle', name: 'Subtle', description: 'Low-emphasis button that blends with surrounding content' },
+    { id: 'link', name: 'Link', description: 'Button styled as an inline text link' },
+    { id: 'danger', name: 'Danger', description: 'Destructive action that requires confirmation' },
+    { id: 'disabled', name: 'Disabled', description: 'Non-interactive state when action is unavailable' },
+    { id: 'loading', name: 'Loading', description: 'Processing state with a spinner overlay' }
   ],
   props: [
-    { name: 'variant', type: "'primary' | 'secondary' | 'ghost' | 'danger'", default: "'primary'", required: false, description: 'Visual style of the button' },
-    { name: 'size', type: "'sm' | 'md' | 'lg'", default: "'md'", required: false, description: 'Button size' },
-    { name: 'disabled', type: 'boolean', default: 'false', required: false, description: 'Disables button interaction' },
-    { name: 'loading', type: 'boolean', default: 'false', required: false, description: 'Shows loading spinner' },
-    { name: 'icon', type: 'IconName', required: false, description: 'Optional leading icon' },
-    { name: 'iconPosition', type: "'left' | 'right'", default: "'left'", required: false, description: 'Icon placement' },
-    { name: 'fullWidth', type: 'boolean', default: 'false', required: false, description: 'Expands to container width' },
-    { name: 'onClick', type: '() => void', required: true, description: 'Click handler function' }
+    { name: 'appearance', type: "'default' | 'primary' | 'subtle' | 'link' | 'subtle-link' | 'warning' | 'danger'", default: "'default'", required: false, description: 'The visual style that controls the button appearance' },
+    { name: 'spacing', type: "'compact' | 'default'", default: "'default'", required: false, description: 'Controls the amount of internal padding' },
+    { name: 'isDisabled', type: 'boolean', default: 'false', required: false, description: 'Set the button to a disabled state, preventing user interaction' },
+    { name: 'isLoading', type: 'boolean', default: 'false', required: false, description: 'Shows a spinner overlay and prevents interaction while loading' },
+    { name: 'isSelected', type: 'boolean', default: 'false', required: false, description: 'Applies a pressed/active visual treatment for toggle-style buttons' },
+    { name: 'iconBefore', type: 'ReactNode', required: false, description: 'Icon displayed before the button label' },
+    { name: 'iconAfter', type: 'ReactNode', required: false, description: 'Icon displayed after the button label' },
+    { name: 'shouldFitContainer', type: 'boolean', default: 'false', required: false, description: 'When true, the button expands to fill its parent container width' },
+    { name: 'onClick', type: '(e: MouseEvent) => void', required: true, description: 'Handler called when the button is clicked' }
   ],
   versions: [
-    { version: '3.2.1', date: '2026-01-15', changes: ['Fixed focus ring visibility', 'Improved touch target size'], author: 'Sarah Chen' },
-    { version: '3.2.0', date: '2025-12-20', changes: ['Added loading state', 'New ghost variant'], author: 'Marcus Johnson' },
-    { version: '3.1.0', date: '2025-11-05', changes: ['Icon support added', 'RTL improvements'], author: 'Sarah Chen' },
-    { version: '3.0.0', date: '2025-09-01', changes: ['Breaking: New API structure', 'Accessibility overhaul'], author: 'Design Team' }
+    { version: '3.2.1', date: '2026-01-20', changes: ['Fixed focus ring visibility on Safari', 'Improved touch target size to meet WCAG 2.2 requirements'], author: 'Sarah Chen' },
+    { version: '3.2.0', date: '2025-12-20', changes: ['Added isLoading prop with spinner overlay', 'New subtle-link appearance variant'], author: 'Marcus Johnson' },
+    { version: '3.1.0', date: '2025-11-05', changes: ['Icon placement support (iconBefore/iconAfter)', 'RTL layout improvements for bidirectional text'], author: 'Sarah Chen' },
+    { version: '3.0.0', date: '2025-09-01', changes: ['BREAKING: Renamed variant prop to appearance', 'Full accessibility audit — WCAG AA compliance', 'New danger appearance for destructive actions'], author: 'Design Systems Team' }
   ],
   comments: [
     {
       id: 'c1',
       author: { name: 'Alex Rivera', avatar: 'https://i.pravatar.cc/40?img=1' },
-      content: 'The new loading state is great! Can we add a progress variant for file uploads?',
-      date: '2026-01-16',
+      content: 'The new loading state is excellent for our checkout flow. One request: could we add a progress variant that shows a percentage for file uploads?',
+      date: '2026-01-22',
       replies: [
         {
           id: 'c1r1',
           author: { name: 'Sarah Chen', avatar: 'https://i.pravatar.cc/40?img=2' },
-          content: "Good idea! I'll add it to the backlog for v3.3.0",
-          date: '2026-01-17'
+          content: 'Great idea! I\'ve added it to the v3.3.0 roadmap. In the meantime, you can compose Button with ProgressBar for a similar effect.',
+          date: '2026-01-23'
         }
       ]
     },
     {
       id: 'c2',
       author: { name: 'Jordan Kim', avatar: 'https://i.pravatar.cc/40?img=3' },
-      content: 'Touch targets are much better now. WCAG compliance confirmed.',
-      date: '2026-01-15'
+      content: 'Touch targets have been verified at 44x44pt minimum. WCAG 2.2 Target Size (Level AAA) compliance confirmed across all platforms.',
+      date: '2026-01-21'
     }
   ],
   usage: {
     doList: [
-      'Use for primary actions like "Submit", "Save", "Continue"',
-      'Provide clear, action-oriented labels',
-      'Use loading state during async operations',
-      'Maintain consistent sizing within a section',
-      'Use icon + text for improved scannability'
+      'Use the primary appearance for the single most important action on the page',
+      'Provide clear, action-oriented labels like "Save changes" or "Create project"',
+      'Use the loading state during async operations to prevent double-submission',
+      'Pair iconBefore with text labels for improved scannability',
+      'Use the danger appearance for destructive actions like "Delete" or "Remove"'
     ],
     dontList: [
-      "Don't use for navigation (use Link instead)",
-      "Don't disable without explaining why",
-      "Don't use more than one primary button per section",
-      "Don't make buttons look like links",
-      "Don't use vague labels like 'Click here'"
+      'Don\'t use a button for navigation — use a Link component instead',
+      'Don\'t disable a button without providing a reason via tooltip or helper text',
+      'Don\'t place more than one primary button in the same section or dialog',
+      'Don\'t use vague labels like "Click here" or "Submit" without context',
+      'Don\'t override token-based colors with custom CSS'
     ]
   },
   accessibility: {
     wcagLevel: 'AA',
     keyboardNav: [
       'Enter or Space activates the button',
-      'Tab moves focus to/from the button',
-      'Disabled buttons are not focusable'
+      'Tab moves focus to the next focusable element',
+      'Shift + Tab moves focus to the previous focusable element',
+      'Disabled buttons are removed from the tab order'
     ],
     screenReader: [
-      'Announces button label and role',
-      'Loading state announces "Loading, please wait"',
-      'Disabled state announces "disabled"'
+      'Announces the button label, role, and current state',
+      'Loading state announces "Loading, please wait" via aria-live',
+      'Disabled state announces "dimmed" or "unavailable"',
+      'Icon-only buttons require an aria-label for screen reader context'
     ]
   },
   codeSnippets: [
     {
       platform: 'web',
       language: 'tsx',
-      code: `import { Button } from '@ds/components'
+      code: `import Button from '@atlaskit/button/new'
+import AddIcon from '@atlaskit/icon/core/add'
 
-<Button 
-  variant="primary"
-  size="md"
-  onClick={() => handleSubmit()}
->
-  Submit Form
+// Primary call-to-action
+<Button appearance="primary" onClick={handleSave}>
+  Save changes
 </Button>
 
-<Button 
-  variant="secondary"
-  icon="download"
-  loading={isDownloading}
+// Button with icon
+<Button
+  appearance="default"
+  iconBefore={AddIcon}
+  onClick={handleCreate}
 >
-  Download Report
+  Create project
+</Button>
+
+// Loading state
+<Button
+  appearance="primary"
+  isLoading={isSaving}
+  onClick={handleSubmit}
+>
+  {isSaving ? 'Saving...' : 'Save'}
+</Button>
+
+// Danger action
+<Button appearance="danger" onClick={handleDelete}>
+  Delete repository
 </Button>`
     },
     {
       platform: 'ios',
       language: 'swift',
-      code: `import DesignSystem
+      code: `import AtlasKit
 
+// Primary button
 DSButton(
-  title: "Submit Form",
-  variant: .primary,
-  size: .medium
-) {
-  handleSubmit()
-}
+  title: "Save changes",
+  appearance: .primary,
+  action: { viewModel.save() }
+)
 
+// Button with icon
 DSButton(
-  title: "Download Report",
-  variant: .secondary,
-  icon: .download,
-  isLoading: isDownloading
+  title: "Create project",
+  appearance: .default,
+  iconBefore: .add,
+  action: { viewModel.create() }
+)
+
+// Loading state
+DSButton(
+  title: "Saving...",
+  appearance: .primary,
+  isLoading: viewModel.isSaving,
+  action: { viewModel.submit() }
 )`
     },
     {
       platform: 'android',
       language: 'kotlin',
-      code: `import com.company.designsystem.components.DSButton
+      code: `import com.atlassian.designsystem.button.DSButton
+import com.atlassian.designsystem.button.ButtonAppearance
 
+// Primary button
 DSButton(
-  text = "Submit Form",
-  variant = ButtonVariant.Primary,
-  size = ButtonSize.Medium,
-  onClick = { handleSubmit() }
+  text = "Save changes",
+  appearance = ButtonAppearance.Primary,
+  onClick = { viewModel.save() }
 )
 
+// Button with icon
 DSButton(
-  text = "Download Report",
-  variant = ButtonVariant.Secondary,
-  icon = DSIcon.Download,
-  isLoading = isDownloading
+  text = "Create project",
+  appearance = ButtonAppearance.Default,
+  iconBefore = DSIcon.Add,
+  onClick = { viewModel.create() }
+)
+
+// Loading state
+DSButton(
+  text = "Saving...",
+  appearance = ButtonAppearance.Primary,
+  isLoading = viewModel.isSaving,
+  onClick = { viewModel.submit() }
 )`
     }
   ]
@@ -416,8 +511,7 @@ DSButton(
 export function getComponentById(id: string): ComponentDetail | undefined {
   const basic = mockComponents.find(c => c.id === id)
   if (!basic) return undefined
-  
-  // For demo purposes, return the detailed button for any component
+
   return {
     ...mockComponentDetail,
     ...basic
