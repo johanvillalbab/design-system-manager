@@ -240,7 +240,7 @@ export interface Contribution {
 }
 
 export interface ComponentChange {
-  field: 'props' | 'variants' | 'code' | 'docs' | 'styles'
+  field: 'props' | 'variants' | 'code' | 'docs' | 'styles' | 'accessibility' | 'structure' | 'tokens' | 'tests'
   before: string
   after: string
   description: string
