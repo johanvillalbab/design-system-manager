@@ -5,7 +5,7 @@ import { useChatStore } from '@/stores/chat'
 import ChatMessage from '@/components/chat/ChatMessage.vue'
 import ChatInput from '@/components/chat/ChatInput.vue'
 import ChatTriggerCards from '@/components/chat/ChatTriggerCards.vue'
-import { Box, X, Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
+import { X, Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
 
 const router = useRouter()
 const chatStore = useChatStore()
@@ -157,9 +157,6 @@ function formatTime(date: Date): string {
             <PanelLeft v-else class="w-[18px] h-[18px]" />
           </button>
 
-          <div class="w-8 h-8 rounded-lg bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center">
-            <Box class="w-4 h-4 text-surface-950" />
-          </div>
           <div>
             <h1 class="font-display font-semibold text-text-primary text-sm tracking-tight">DS Manager Chat</h1>
             <p class="text-[10px] text-text-muted tracking-widest uppercase">Modo conversacional</p>
@@ -197,8 +194,8 @@ function formatTime(date: Date): string {
             class="flex flex-col items-center justify-center min-h-[50vh]"
           >
             <div class="text-center animate-fade-up">
-              <div class="w-14 h-14 rounded-2xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center mx-auto mb-5">
-                <Sparkles class="w-7 h-7 text-surface-950" />
+              <div class="w-14 h-14 rounded-2xl bg-surface-700/60 border border-border flex items-center justify-center mx-auto mb-5">
+                <Sparkles class="w-7 h-7 text-text-muted" />
               </div>
               <h2 class="text-2xl font-display font-bold text-text-primary tracking-tight mb-2">
                 Hola, Sho
@@ -222,8 +219,8 @@ function formatTime(date: Date): string {
               v-if="chatStore.isTyping"
               class="flex gap-3 justify-start animate-fade-up"
             >
-              <div class="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center flex-shrink-0">
-                <span class="text-surface-950 font-bold text-xs">DS</span>
+              <div class="w-8 h-8 rounded-xl bg-surface-700/60 border border-border flex items-center justify-center flex-shrink-0">
+                <span class="text-text-muted font-bold text-xs">DS</span>
               </div>
               <div class="bg-surface-800/60 border border-border rounded-2xl rounded-bl-md px-4 py-3">
                 <div class="flex items-center gap-1.5">

@@ -64,9 +64,9 @@ function formatText(text: string): string {
     <!-- Assistant avatar -->
     <div
       v-if="!isUser"
-      class="w-8 h-8 rounded-xl bg-gradient-to-br from-accent-400 to-accent-600 flex items-center justify-center flex-shrink-0 mt-0.5"
+      class="w-8 h-8 rounded-xl bg-surface-700/60 border border-border flex items-center justify-center flex-shrink-0 mt-0.5"
     >
-      <span class="text-surface-950 font-bold text-xs">DS</span>
+      <span class="text-text-muted font-bold text-xs">DS</span>
     </div>
 
     <!-- Message bubble -->
