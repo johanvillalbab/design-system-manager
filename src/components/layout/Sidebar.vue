@@ -64,9 +64,9 @@ function isActiveNav(path: string) {
 
     <!-- Logo -->
     <div class="h-18 flex items-center justify-between px-4 border-b border-border">
-      <div v-if="!collapsed" class="flex items-center gap-2">
-        <span class="font-display font-semibold text-text-primary text-sm tracking-tight">DS Manager</span>
-        <span class="text-[10px] text-text-muted tracking-widest uppercase">v2.5</span>
+      <div v-if="!collapsed" class="flex items-center justify-center gap-2">
+        <span class="font-display font-semibold text-text-primary text-xl tracking-tight">DS Manager</span>
+        <span class="text-xs text-text-muted tracking-widest uppercase">v2.5</span>
       </div>
       <span v-else class="font-display font-bold text-text-primary text-sm mx-auto">DS</span>
       <button
