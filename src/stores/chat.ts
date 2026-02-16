@@ -36,9 +36,12 @@ export const useChatStore = defineStore('chat', () => {
 
   // Quick suggestions for empty state
   const suggestions: ChatSuggestion[] = [
-    { id: 'status', label: 'Ver estado del sistema', description: 'Resumen general de componentes, issues y métricas', icon: 'Activity', trigger: '/status' },
-    { id: 'audit', label: 'Revisar audit', description: 'Issues de inconsistencia de diseño pendientes', icon: 'AlertTriangle', trigger: '/audit' },
-    { id: 'components', label: 'Explorar componentes', description: 'Buscar y filtrar componentes disponibles', icon: 'Box', trigger: '/components' },
+    { id: 'status', label: 'Estado del sistema', description: 'Resumen general de componentes, issues activas y métricas de adopción del design system', icon: 'Activity', trigger: '/status' },
+    { id: 'audit', label: 'Design Audit', description: 'Revisa inconsistencias de diseño, issues críticas pendientes y oportunidades de auto-fix', icon: 'AlertTriangle', trigger: '/audit' },
+    { id: 'components', label: 'Explorar componentes', description: 'Busca, filtra y navega la librería completa de componentes con su estado actual', icon: 'Box', trigger: '/components' },
+    { id: 'issues', label: 'Issues activas', description: 'Bugs, mejoras y tareas pendientes organizadas por prioridad y estado', icon: 'Bug', trigger: '/issues' },
+    { id: 'analytics', label: 'Métricas de adopción', description: 'Tasa de adopción, proyectos activos y cobertura por equipo del design system', icon: 'BarChart3', trigger: '/analytics' },
+    { id: 'contributions', label: 'Contribuciones y PRs', description: 'Pull requests pendientes de review, aprobados y mergeados por el equipo', icon: 'GitMerge', trigger: '/contributions' },
   ]
 
   // Getters
@@ -111,7 +114,7 @@ export const useChatStore = defineStore('chat', () => {
       'assistant',
       `Aquí tienes un resumen de la **Component Library**:`,
       [
-        { type: 'navigate', label: 'Ver librería completa', payload: '/' }
+        { type: 'navigate', label: 'Ver librería completa', payload: '/dashboard' }
       ],
       {
         items: [
@@ -281,9 +284,10 @@ export const useChatStore = defineStore('chat', () => {
 
   function handleNavigate(target?: string): { message: ChatMessage; route?: string } {
     const routes: Record<string, { path: string; label: string }> = {
-      dashboard: { path: '/', label: 'Dashboard' },
-      home: { path: '/', label: 'Dashboard' },
-      components: { path: '/', label: 'Component Library' },
+      dashboard: { path: '/dashboard', label: 'Dashboard' },
+      home: { path: '/', label: 'Chat' },
+      chat: { path: '/', label: 'Chat' },
+      components: { path: '/dashboard', label: 'Component Library' },
       issues: { path: '/issues', label: 'Issues' },
       contributions: { path: '/contributions', label: 'Contributions' },
       audit: { path: '/audit', label: 'Design Audit' },

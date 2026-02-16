@@ -4,6 +4,12 @@ import type { RouteRecordRaw } from 'vue-router'
 const routes: RouteRecordRaw[] = [
   {
     path: '/',
+    name: 'chat',
+    component: () => import('@/pages/ChatView.vue'),
+    meta: { title: 'Chat' }
+  },
+  {
+    path: '/dashboard',
     name: 'dashboard',
     component: () => import('@/pages/DashboardPage.vue'),
     meta: { title: 'Dashboard' }
@@ -49,12 +55,6 @@ const routes: RouteRecordRaw[] = [
     name: 'docs',
     component: () => import('@/pages/DocsPage.vue'),
     meta: { title: 'Documentation' }
-  },
-  {
-    path: '/chat',
-    name: 'chat',
-    component: () => import('@/pages/ChatView.vue'),
-    meta: { title: 'Chat' }
   }
 ]
 

@@ -5,16 +5,15 @@ import { useChatStore } from '@/stores/chat'
 import ChatMessage from '@/components/chat/ChatMessage.vue'
 import ChatInput from '@/components/chat/ChatInput.vue'
 import ChatTriggerCards from '@/components/chat/ChatTriggerCards.vue'
-import { X, Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
+import { Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
 
 const router = useRouter()
 const chatStore = useChatStore()
 
 const messagesContainer = ref<HTMLDivElement | null>(null)
 const chatInputRef = ref<InstanceType<typeof ChatInput> | null>(null)
-const showSidebar = ref(true)
+const showSidebar = ref(false)
 
-// Auto-scroll on new messages
 watch(
   () => chatStore.messages.length,
   async () => {
@@ -54,10 +53,6 @@ function handleTrigger(command: string) {
   handleSend(command)
 }
 
-function exitChat() {
-  router.back()
-}
-
 function formatTime(date: Date): string {
   const now = new Date()
   const diffH = Math.floor((now.getTime() - date.getTime()) / 3600000)
@@ -69,9 +64,9 @@ function formatTime(date: Date): string {
 </script>
 
 <template>
-  <div class="fixed inset-0 z-50 bg-surface-950 flex">
+  <div class="flex h-[calc(100vh-0px)] bg-surface-950">
 
-    <!-- ═══ Sidebar: Conversation History ═══ -->
+    <!-- History Sidebar -->
     <Transition
       enter-active-class="transition-all duration-300 ease-out"
       enter-from-class="-translate-x-full opacity-0"
@@ -84,7 +79,6 @@ function formatTime(date: Date): string {
         v-show="showSidebar"
         class="w-[260px] flex-shrink-0 bg-surface-900 border-r border-border flex flex-col h-full"
       >
-        <!-- Sidebar header -->
         <div class="p-4 border-b border-border flex items-center justify-between">
           <h2 class="text-xs font-semibold text-text-muted uppercase tracking-[0.15em]">Historial</h2>
           <button
@@ -96,7 +90,6 @@ function formatTime(date: Date): string {
           </button>
         </div>
 
-        <!-- Conversation list -->
         <div class="flex-1 overflow-y-auto p-2 space-y-0.5">
           <button
             v-for="conv in chatStore.conversations"
@@ -124,7 +117,6 @@ function formatTime(date: Date): string {
             </div>
           </button>
 
-          <!-- Empty state -->
           <div v-if="chatStore.conversations.length === 0" class="px-4 py-8 text-center">
             <MessageSquare class="w-8 h-8 text-text-dim mx-auto mb-2" />
             <p class="text-xs text-text-muted">Sin conversaciones aún</p>
@@ -133,21 +125,18 @@ function formatTime(date: Date): string {
       </aside>
     </Transition>
 
-    <!-- ═══ Main Chat Area ═══ -->
+    <!-- Main Chat Area -->
     <div class="flex-1 flex flex-col min-w-0 relative">
 
-      <!-- Dot pattern background -->
       <div class="absolute inset-0 pointer-events-none opacity-[0.4]"
         style="background-image: radial-gradient(circle, var(--color-surface-500) 0.5px, transparent 0.5px); background-size: 24px 24px;"
       ></div>
 
-      <!-- Top accent line -->
       <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-500/30 to-transparent z-10"></div>
 
       <!-- Header -->
       <header class="relative z-10 flex items-center justify-between px-5 py-3.5 border-b border-border/50 glass">
         <div class="flex items-center gap-3">
-          <!-- Sidebar toggle -->
           <button
             @click="showSidebar = !showSidebar"
             class="p-2 rounded-xl hover:bg-surface-700/50 text-text-muted hover:text-text-secondary transition-all duration-200"
@@ -172,13 +161,6 @@ function formatTime(date: Date): string {
           >
             <Trash2 class="w-4 h-4" />
           </button>
-          <button
-            @click="exitChat"
-            class="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-800/60 border border-border hover:bg-surface-700/60 hover:border-accent-500/20 text-text-secondary text-sm font-medium transition-all duration-200"
-          >
-            <X class="w-4 h-4" />
-            Salir
-          </button>
         </div>
       </header>
 
@@ -188,7 +170,7 @@ function formatTime(date: Date): string {
         class="flex-1 overflow-y-auto relative z-[1]"
       >
         <div class="max-w-3xl mx-auto px-6 py-8">
-          <!-- Empty state: just greeting -->
+          <!-- Empty state -->
           <div
             v-if="!chatStore.hasMessages"
             class="flex flex-col items-center justify-center min-h-[50vh]"
@@ -234,18 +216,15 @@ function formatTime(date: Date): string {
         </div>
       </div>
 
-      <!-- ═══ Bottom: Triggers + Input (grouped together) ═══ -->
+      <!-- Bottom: Triggers + Input -->
       <div class="relative z-10 border-t border-border/50">
-        <!-- Gradient fade above -->
         <div class="absolute -top-16 left-0 right-0 h-16 bg-gradient-to-t from-surface-950 to-transparent pointer-events-none"></div>
 
         <div class="max-w-3xl mx-auto px-6 pt-4 pb-5">
-          <!-- Trigger cards: only when no messages -->
-          <div v-if="!chatStore.hasMessages" class="mb-3 animate-fade-up stagger-2">
+          <div v-if="!chatStore.hasMessages" class="mb-4 animate-fade-up stagger-2">
             <ChatTriggerCards @trigger="handleTrigger" />
           </div>
 
-          <!-- Chat input -->
           <ChatInput
             ref="chatInputRef"
             @send="handleSend"

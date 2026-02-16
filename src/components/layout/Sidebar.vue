@@ -3,6 +3,7 @@ import { ref } from 'vue'
 import { useRoute } from 'vue-router'
 import {
   LayoutDashboard,
+  MessageSquare,
   AlertTriangle,
   GitPullRequest,
   GitMerge,
@@ -18,7 +19,8 @@ const route = useRoute()
 const collapsed = ref(false)
 
 const navigation = [
-  { path: '/', name: 'Dashboard', icon: LayoutDashboard },
+  { path: '/', name: 'Chat', icon: MessageSquare },
+  { path: '/dashboard', name: 'Dashboard', icon: LayoutDashboard },
   { path: '/issues', name: 'Issues', icon: Bug },
   { path: '/contributions', name: 'Contributions', icon: GitMerge },
   { path: '/requests', name: 'Requests', icon: GitPullRequest },

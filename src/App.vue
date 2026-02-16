@@ -1,26 +1,14 @@
 <script setup lang="ts">
-import { computed } from 'vue'
-import { RouterView, useRoute } from 'vue-router'
+import { RouterView } from 'vue-router'
 import MainLayout from '@/components/layout/MainLayout.vue'
 import { useThemeStore } from '@/stores/theme'
 
 // Initialize theme — applies data-theme attribute on mount via the store's watcher
 const themeStore = useThemeStore()
-
-const route = useRoute()
-const isChatRoute = computed(() => route.name === 'chat')
 </script>
 
 <template>
-  <!-- Chat Mode: Fullscreen (no layout wrapper) -->
-  <RouterView v-if="isChatRoute" v-slot="{ Component }">
-    <Transition name="chat-mode" mode="out-in">
-      <component :is="Component" />
-    </Transition>
-  </RouterView>
-
-  <!-- Normal Mode: Layout + Router -->
-  <MainLayout v-else>
+  <MainLayout>
     <RouterView v-slot="{ Component }">
       <transition name="page" mode="out-in">
         <component :is="Component" />
