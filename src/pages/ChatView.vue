@@ -5,7 +5,7 @@ import { useChatStore } from '@/stores/chat'
 import ChatMessage from '@/components/chat/ChatMessage.vue'
 import ChatInput from '@/components/chat/ChatInput.vue'
 import ChatTriggerCards from '@/components/chat/ChatTriggerCards.vue'
-import { Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
+import { LayoutDashboard, Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
 
 const router = useRouter()
 const chatStore = useChatStore()
@@ -53,6 +53,10 @@ function handleTrigger(command: string) {
   handleSend(command)
 }
 
+function goToDashboard() {
+  router.push('/dashboard')
+}
+
 function formatTime(date: Date): string {
   const now = new Date()
   const diffH = Math.floor((now.getTime() - date.getTime()) / 3600000)
@@ -64,7 +68,7 @@ function formatTime(date: Date): string {
 </script>
 
 <template>
-  <div class="flex h-[calc(100vh-0px)] bg-surface-950">
+  <div class="fixed inset-0 z-50 bg-surface-950 flex">
 
     <!-- History Sidebar -->
     <Transition
@@ -160,6 +164,13 @@ function formatTime(date: Date): string {
             title="Limpiar conversación"
           >
             <Trash2 class="w-4 h-4" />
+          </button>
+          <button
+            @click="goToDashboard"
+            class="flex items-center gap-2 px-4 py-2 rounded-xl bg-surface-800/60 border border-border hover:bg-surface-700/60 hover:border-accent-500/20 text-text-secondary text-sm font-medium transition-all duration-200"
+          >
+            <LayoutDashboard class="w-4 h-4" />
+            Vista Dashboard
           </button>
         </div>
       </header>
