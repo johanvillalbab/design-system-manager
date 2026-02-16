@@ -10,7 +10,11 @@ export const useThemeStore = defineStore('theme', () => {
 
   // Apply theme to DOM
   function applyTheme(theme: ThemeMode) {
-    document.documentElement.setAttribute('data-theme', theme)
+    if (theme === 'dark') {
+      document.documentElement.classList.add('dark')
+    } else {
+      document.documentElement.classList.remove('dark')
+    }
   }
 
   // Toggle between dark and light
