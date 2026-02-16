@@ -17,8 +17,21 @@ const iconMap: Record<string, any> = {
   GitMerge,
 }
 
+const styleMap: Record<string, { iconColor: string; boxBg: string; boxBorder: string }> = {
+  Activity:      { iconColor: 'text-accent-400',  boxBg: 'bg-accent-500/8',   boxBorder: 'border-accent-500/15' },
+  AlertTriangle: { iconColor: 'text-warning-400', boxBg: 'bg-warning-500/8',  boxBorder: 'border-warning-500/15' },
+  Box:           { iconColor: 'text-violet-400',  boxBg: 'bg-violet-500/8',   boxBorder: 'border-violet-500/15' },
+  Bug:           { iconColor: 'text-danger-400',  boxBg: 'bg-danger-500/8',   boxBorder: 'border-danger-500/15' },
+  BarChart3:     { iconColor: 'text-success-400', boxBg: 'bg-success-500/8',  boxBorder: 'border-success-500/15' },
+  GitMerge:      { iconColor: 'text-accent-300',  boxBg: 'bg-accent-500/8',   boxBorder: 'border-accent-500/15' },
+}
+
 function getIcon(iconName: string) {
   return iconMap[iconName] || Box
+}
+
+function getStyle(iconName: string) {
+  return styleMap[iconName] || styleMap.Activity
 }
 </script>
 
@@ -32,14 +45,21 @@ function getIcon(iconName: string) {
         v-for="suggestion in chatStore.suggestions"
         :key="suggestion.id"
         @click="emit('trigger', suggestion.trigger)"
-        class="group flex flex-col gap-2.5 p-4 bg-surface-800/40 border border-border rounded-2xl hover:bg-surface-800/70 hover:border-accent-500/30 transition-all duration-200 text-left"
+        class="group flex flex-col gap-2.5 p-4 bg-surface-800/40 border border-border rounded-2xl hover:bg-surface-800/70 hover:border-border-hover transition-all duration-200 text-left"
       >
-        <div class="w-8 h-8 rounded-xl bg-surface-700/60 border border-border/50 flex items-center justify-center group-hover:bg-accent-500/10 group-hover:border-accent-500/20 transition-all duration-200">
-          <component :is="getIcon(suggestion.icon)" class="w-4 h-4 text-text-muted group-hover:text-accent-400 transition-colors" />
+        <div
+          class="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"
+          :class="[getStyle(suggestion.icon).boxBg, getStyle(suggestion.icon).boxBorder, 'border']"
+        >
+          <component
+            :is="getIcon(suggestion.icon)"
+            class="w-4 h-4 transition-colors"
+            :class="getStyle(suggestion.icon).iconColor"
+          />
         </div>
         <div class="min-w-0">
-          <p class="text-sm font-medium text-text-primary group-hover:text-accent-300 transition-colors leading-tight mb-1">{{ suggestion.label }}</p>
-          <p class="text-[11px] text-text-muted leading-relaxed line-clamp-2">{{ suggestion.description }}</p>
+          <p class="text-sm font-medium text-text-primary leading-tight mb-1">{{ suggestion.label }}</p>
+          <p class="text-xs text-text-secondary leading-relaxed">{{ suggestion.description }}</p>
         </div>
       </button>
     </div>
