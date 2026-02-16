@@ -17,6 +17,8 @@ const iconMap: Record<string, any> = {
   GitMerge,
 }
 
+const defaultStyle = { iconColor: 'text-accent-400', boxBg: 'bg-accent-500/8', boxBorder: 'border-accent-500/15' }
+
 const styleMap: Record<string, { iconColor: string; boxBg: string; boxBorder: string }> = {
   Activity:      { iconColor: 'text-accent-400',  boxBg: 'bg-accent-500/8',   boxBorder: 'border-accent-500/15' },
   AlertTriangle: { iconColor: 'text-warning-400', boxBg: 'bg-warning-500/8',  boxBorder: 'border-warning-500/15' },
@@ -27,11 +29,11 @@ const styleMap: Record<string, { iconColor: string; boxBg: string; boxBorder: st
 }
 
 function getIcon(iconName: string) {
-  return iconMap[iconName] || Box
+  return iconMap[iconName] ?? Box
 }
 
 function getStyle(iconName: string) {
-  return styleMap[iconName] || styleMap.Activity
+  return styleMap[iconName] ?? defaultStyle
 }
 </script>
 
