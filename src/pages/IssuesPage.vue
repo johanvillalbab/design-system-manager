@@ -102,7 +102,7 @@ function createIssue() {
     priority: newIssue.value.priority,
     componentId: newIssue.value.componentId || undefined,
     labels: newIssue.value.labels,
-    author: { name: 'Sho Villalba', avatar: '/profile.png' }
+    author: { name: 'Sho Villalba', avatar: '/profile.svg' }
   })
   
   showCreateModal.value = false
@@ -124,7 +124,7 @@ function addComment() {
   store.addComment(
     store.selectedIssue.id,
     newComment.value,
-    { name: 'Sho Villalba', avatar: '/profile.png' }
+    { name: 'Sho Villalba', avatar: '/profile.svg' }
   )
   newComment.value = ''
 }
@@ -544,7 +544,7 @@ function getComponentName(componentId?: string) {
 
                   <!-- Add Comment -->
                   <div class="flex gap-3 mt-4">
-                    <img src="/profile.png" class="w-8 h-8 rounded-lg flex-shrink-0" />
+                    <img src="/profile.svg" class="w-8 h-8 rounded-lg flex-shrink-0" />
                     <div class="flex-1 relative">
                       <input
                         v-model="newComment"

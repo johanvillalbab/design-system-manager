@@ -78,7 +78,7 @@ function createContribution() {
     name: newContribution.value.branchName || `feat/${newContribution.value.title.toLowerCase().replace(/\s+/g, '-')}`,
     componentId: newContribution.value.componentId,
     basedOn: 'main',
-    author: { name: 'Sho Villalba', avatar: '/profile.png' }
+    author: { name: 'Sho Villalba', avatar: '/profile.svg' }
   })
   
   // Create contribution
@@ -88,7 +88,7 @@ function createContribution() {
     branchId: branch.id,
     componentId: newContribution.value.componentId,
     status: 'draft',
-    author: { name: 'Sho Villalba', avatar: '/profile.png' },
+    author: { name: 'Sho Villalba', avatar: '/profile.svg' },
     changes: []
   })
   
@@ -121,7 +121,7 @@ function handleApprove() {
   if (!store.selectedContribution) return
   store.approveContribution(
     store.selectedContribution.id,
-    { name: 'Sho Villalba', avatar: '/profile.png' },
+    { name: 'Sho Villalba', avatar: '/profile.svg' },
     'Approved! Ready to merge.'
   )
 }
@@ -130,7 +130,7 @@ function handleReject() {
   if (!store.selectedContribution) return
   store.rejectContribution(
     store.selectedContribution.id,
-    { name: 'Sho Villalba', avatar: '/profile.png' },
+    { name: 'Sho Villalba', avatar: '/profile.svg' },
     'Changes requested. Please address the feedback.'
   )
 }

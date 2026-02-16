@@ -163,7 +163,7 @@ function sendComment() {
       id: `c${Date.now()}`,
       author: {
         name: 'Sho Villalba',
-        avatar: '/profile.png'
+        avatar: '/profile.svg'
       },
       content: newComment.value,
       date: new Date().toISOString().split('T')[0] || new Date().toISOString()

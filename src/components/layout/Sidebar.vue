@@ -1,12 +1,7 @@
 <script setup lang="ts">
-import { ref, computed } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useComponentsStore } from '@/stores/components'
+import { ref } from 'vue'
+import { useRoute } from 'vue-router'
 import {
-  Layers,
-  Box,
-  LayoutGrid,
-  FileCode,
   LayoutDashboard,
   AlertTriangle,
   GitPullRequest,
@@ -15,22 +10,12 @@ import {
   ChevronLeft,
   ChevronRight,
   Bug,
-  BookOpen,
-  MessageSquare
+  BookOpen
 } from 'lucide-vue-next'
 
 const route = useRoute()
-const router = useRouter()
-const store = useComponentsStore()
 
 const collapsed = ref(false)
-
-const categories = computed(() => [
-  { id: 'foundations', name: 'Foundations', icon: Layers, count: store.categoryStats.foundations },
-  { id: 'components', name: 'Components', icon: Box, count: store.categoryStats.components },
-  { id: 'patterns', name: 'Patterns', icon: LayoutGrid, count: store.categoryStats.patterns },
-  { id: 'templates', name: 'Templates', icon: FileCode, count: store.categoryStats.templates }
-])
 
 const navigation = [
   { path: '/', name: 'Dashboard', icon: LayoutDashboard },
@@ -39,15 +24,8 @@ const navigation = [
   { path: '/requests', name: 'Requests', icon: GitPullRequest },
   { path: '/audit', name: 'Audit', icon: AlertTriangle },
   { path: '/analytics', name: 'Analytics', icon: BarChart3 },
-  { path: '/docs', name: 'Documentation', icon: BookOpen },
-  { path: '/chat', name: 'Chat', icon: MessageSquare }
+  { path: '/docs', name: 'Documentation', icon: BookOpen }
 ]
-
-function handleCategoryClick(categoryId: string) {
-  store.clearFilters()
-  store.toggleCategory(categoryId as any)
-  router.push('/')
-}
 
 function isActiveNav(path: string) {
   return route.path === path
@@ -109,43 +87,15 @@ function isActiveNav(path: string) {
           </li>
         </ul>
       </div>
-
-      <!-- Categories -->
-      <div class="px-3">
-        <p v-if="!collapsed" class="px-3 mb-3 text-[10px] font-semibold text-text-muted uppercase tracking-[0.15em]">
-          Categories
-        </p>
-        <ul class="space-y-0.5">
-          <li v-for="category in categories" :key="category.id">
-            <button
-              @click="handleCategoryClick(category.id)"
-              class="w-full flex items-center gap-3 px-3 py-2.5 rounded-xl transition-all duration-200 text-text-muted hover:bg-surface-700/40 hover:text-text-secondary"
-              :class="{ 'bg-surface-700/50 text-text-secondary': store.filters.categories.includes(category.id as any) }"
-              :title="collapsed ? category.name : ''"
-            >
-              <component :is="category.icon" class="w-[18px] h-[18px] shrink-0" />
-              <span v-if="!collapsed" class="text-sm font-medium flex-1 text-left">{{ category.name }}</span>
-              <span
-                v-if="!collapsed"
-                class="text-[11px] px-2 py-0.5 rounded-md bg-surface-600/50 text-text-muted font-mono"
-              >
-                {{ category.count }}
-              </span>
-            </button>
-          </li>
-        </ul>
-      </div>
     </nav>
 
     <!-- Footer -->
     <div v-if="!collapsed" class="p-4 border-t border-border">
       <div class="flex items-center gap-3">
         <div class="relative">
-          <img 
-            src="/profile.png" 
-            alt="Sho Villalba" 
-            class="w-9 h-9 rounded-xl object-cover ring-1 ring-border"
-          />
+          <div class="w-9 h-9 rounded-full bg-black flex items-center justify-center ring-1 ring-border">
+            <div class="w-2.5 h-2.5 rounded-full bg-white"></div>
+          </div>
           <span class="absolute -bottom-0.5 -right-0.5 w-2.5 h-2.5 bg-success-500 rounded-full ring-2 ring-surface-900"></span>
         </div>
         <div class="flex-1 min-w-0">
