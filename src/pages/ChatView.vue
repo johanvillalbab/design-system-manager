@@ -178,13 +178,14 @@ function formatTime(date: Date): string {
       <!-- Chat messages area -->
       <div
         ref="messagesContainer"
-        class="flex-1 overflow-y-auto relative z-[1]"
+        class="flex-1 relative z-[1]"
+        :class="chatStore.hasMessages ? 'overflow-y-auto' : 'overflow-hidden flex items-center justify-center'"
       >
-        <div class="max-w-3xl mx-auto px-6 py-8">
+        <div class="max-w-3xl mx-auto px-6" :class="chatStore.hasMessages ? 'py-8' : ''">
           <!-- Empty state -->
           <div
             v-if="!chatStore.hasMessages"
-            class="flex flex-col items-center justify-center min-h-[50vh]"
+            class="flex flex-col items-center justify-center"
           >
             <div class="text-center animate-fade-up">
               <div class="w-14 h-14 rounded-2xl bg-surface-700/60 border border-border flex items-center justify-center mx-auto mb-5">
