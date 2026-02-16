@@ -98,7 +98,7 @@ defineExpose({
     </Transition>
 
     <!-- Input area -->
-    <div class="bg-surface-800/60 border border-border rounded-2xl overflow-hidden focus-within:border-accent-500/30 focus-within:ring-1 focus-within:ring-accent-500/15 transition-all">
+    <div class="bg-surface-800/60 backdrop-blur-xl border border-border rounded-2xl overflow-hidden focus-within:border-accent-500/30 focus-within:ring-1 focus-within:ring-accent-500/15 transition-all">
       <div class="flex items-end gap-2 p-3">
         <textarea
           ref="inputRef"

@@ -5,7 +5,8 @@ import { useChatStore } from '@/stores/chat'
 import ChatMessage from '@/components/chat/ChatMessage.vue'
 import ChatInput from '@/components/chat/ChatInput.vue'
 import ChatTriggerCards from '@/components/chat/ChatTriggerCards.vue'
-import { LayoutDashboard, Trash2, Sparkles, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
+import { LayoutDashboard, Trash2, Plus, MessageSquare, Trash, PanelLeftClose, PanelLeft } from 'lucide-vue-next'
+import faviconUrl from '/favicon.svg?url'
 
 const router = useRouter()
 const chatStore = useChatStore()
@@ -132,11 +133,10 @@ function formatTime(date: Date): string {
     <!-- Main Chat Area -->
     <div class="flex-1 flex flex-col min-w-0 relative">
 
-      <div class="absolute inset-0 pointer-events-none opacity-[0.4]"
-        style="background-image: radial-gradient(circle, var(--color-surface-500) 0.5px, transparent 0.5px); background-size: 24px 24px;"
+      <div class="absolute inset-0 pointer-events-none opacity-[1.0]"
+        style="background-image: radial-gradient(circle, var(--color-surface-500) 0.8px, transparent 0.8px); background-size: 20px 20px;"
       ></div>
 
-      <div class="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-accent-500/30 to-transparent z-10"></div>
 
       <!-- Header -->
       <header class="relative z-10 flex items-center justify-between px-5 py-3.5 border-b border-border/50 glass">
@@ -189,7 +189,7 @@ function formatTime(date: Date): string {
           >
             <div class="text-center animate-fade-up">
               <div class="w-14 h-14 rounded-2xl bg-surface-700/60 border border-border flex items-center justify-center mx-auto mb-5">
-                <Sparkles class="w-7 h-7 text-text-muted" />
+                <img :src="faviconUrl" alt="DS Manager" class="w-8 h-8" />
               </div>
               <h2 class="text-2xl font-display font-bold text-text-primary tracking-tight mb-2">
                 Hola, Sho
@@ -229,8 +229,8 @@ function formatTime(date: Date): string {
       </div>
 
       <!-- Bottom: Triggers + Input -->
-      <div class="relative z-10 border-t border-border/50">
-        <div class="absolute -top-16 left-0 right-0 h-16 bg-gradient-to-t from-surface-950 to-transparent pointer-events-none"></div>
+      <div class="relative z-10">
+        <!-- gradient removed -->
 
         <div class="max-w-3xl mx-auto px-6 pt-4 pb-5">
           <div v-if="!chatStore.hasMessages" class="mb-4 animate-fade-up stagger-2">
