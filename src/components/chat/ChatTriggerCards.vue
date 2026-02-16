@@ -47,7 +47,7 @@ function getStyle(iconName: string) {
         v-for="suggestion in chatStore.suggestions"
         :key="suggestion.id"
         @click="emit('trigger', suggestion.trigger)"
-        class="group flex flex-col gap-2.5 p-4 bg-surface-800/40 border border-transparent rounded-2xl hover:bg-surface-800/70 hover:border-border-hover hover:[border-width:1.2px] transition-all duration-200 text-left"
+        class="group flex flex-col gap-2.5 p-4 bg-surface-800/40 border border-border/50 rounded-2xl hover:bg-surface-800/70 hover:border-border-hover transition-all duration-200 text-left"
       >
         <div
           class="w-8 h-8 rounded-xl flex items-center justify-center transition-all duration-200"

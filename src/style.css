@@ -8,24 +8,24 @@
 /* ── Light Mode (default) ── */
 :root {
   /* Semantic Tokens */
-  --background: oklch(0.9821 0 0);
+  --background: oklch(0.960 0 0);
   --foreground: oklch(0.2435 0 0);
-  --card: oklch(0.9911 0 0);
+  --card: oklch(0.9821 0 0);
   --card-foreground: oklch(0.2435 0 0);
-  --popover: oklch(0.9911 0 0);
+  --popover: oklch(0.9821 0 0);
   --popover-foreground: oklch(0.2435 0 0);
   --primary: oklch(0.4341 0.0392 41.9938);
   --primary-foreground: oklch(1.0000 0 0);
   --secondary: oklch(0.9200 0.0651 74.3695);
   --secondary-foreground: oklch(0.3499 0.0685 40.8288);
-  --muted: oklch(0.9521 0 0);
+  --muted: oklch(0.935 0 0);
   --muted-foreground: oklch(0.5032 0 0);
-  --accent: oklch(0.9310 0 0);
+  --accent: oklch(0.915 0 0);
   --accent-foreground: oklch(0.2435 0 0);
   --destructive: oklch(0.6271 0.1936 33.3390);
   --destructive-foreground: oklch(1.0000 0 0);
-  --border: oklch(0.8822 0 0);
-  --input: oklch(0.8822 0 0);
+  --border: oklch(0.870 0 0);
+  --input: oklch(0.870 0 0);
   --ring: oklch(0.4341 0.0392 41.9938);
 
   /* Charts */
@@ -36,23 +36,23 @@
   --chart-5: oklch(0.4338 0.0437 41.6746);
 
   /* Sidebar */
-  --sidebar: oklch(0.9881 0 0);
+  --sidebar: oklch(0.970 0 0);
   --sidebar-foreground: oklch(0.2645 0 0);
   --sidebar-primary: oklch(0.3250 0 0);
-  --sidebar-primary-foreground: oklch(0.9881 0 0);
-  --sidebar-accent: oklch(0.9761 0 0);
+  --sidebar-primary-foreground: oklch(0.970 0 0);
+  --sidebar-accent: oklch(0.958 0 0);
   --sidebar-accent-foreground: oklch(0.3250 0 0);
-  --sidebar-border: oklch(0.9401 0 0);
+  --sidebar-border: oklch(0.925 0 0);
   --sidebar-ring: oklch(0.7731 0 0);
 
   /* ── Bridge: Surface Scale (light) ── */
-  --ds-surface-950: oklch(0.9821 0 0);
-  --ds-surface-900: oklch(0.9881 0 0);
-  --ds-surface-800: oklch(0.9911 0 0);
-  --ds-surface-700: oklch(0.9521 0 0);
-  --ds-surface-600: oklch(0.9310 0 0);
-  --ds-surface-500: oklch(0.8822 0 0);
-  --ds-surface-400: oklch(0.8400 0 0);
+  --ds-surface-950: oklch(0.960 0 0);
+  --ds-surface-900: oklch(0.970 0 0);
+  --ds-surface-800: oklch(0.9821 0 0);
+  --ds-surface-700: oklch(0.935 0 0);
+  --ds-surface-600: oklch(0.915 0 0);
+  --ds-surface-500: oklch(0.870 0 0);
+  --ds-surface-400: oklch(0.830 0 0);
 
   /* ── Bridge: Accent Scale (light — warm brown hue ~42) ── */
   --ds-accent-50: oklch(0.97 0.008 42);
@@ -109,19 +109,19 @@
 /* ── Dark Mode ── */
 .dark {
   /* Semantic Tokens */
-  --background: oklch(0.1776 0 0);
+  --background: oklch(0.155 0 0);
   --foreground: oklch(0.9491 0 0);
-  --card: oklch(0.2134 0 0);
+  --card: oklch(0.195 0 0);
   --card-foreground: oklch(0.9491 0 0);
-  --popover: oklch(0.2134 0 0);
+  --popover: oklch(0.195 0 0);
   --popover-foreground: oklch(0.9491 0 0);
   --primary: oklch(0.9247 0.0524 66.1732);
   --primary-foreground: oklch(0.2029 0.0240 200.1962);
   --secondary: oklch(0.3163 0.0190 63.6992);
   --secondary-foreground: oklch(0.9247 0.0524 66.1732);
-  --muted: oklch(0.2520 0 0);
+  --muted: oklch(0.230 0 0);
   --muted-foreground: oklch(0.7699 0 0);
-  --accent: oklch(0.2850 0 0);
+  --accent: oklch(0.265 0 0);
   --accent-foreground: oklch(0.9491 0 0);
   --destructive: oklch(0.6271 0.1936 33.3390);
   --destructive-foreground: oklch(1.0000 0 0);
@@ -147,13 +147,13 @@
   --sidebar-ring: oklch(0.8711 0.0055 286.2860);
 
   /* ── Bridge: Surface Scale (dark) ── */
-  --ds-surface-950: oklch(0.1776 0 0);
-  --ds-surface-900: oklch(0.2000 0 0);
-  --ds-surface-800: oklch(0.2134 0 0);
-  --ds-surface-700: oklch(0.2520 0 0);
-  --ds-surface-600: oklch(0.2850 0 0);
-  --ds-surface-500: oklch(0.3500 0 0);
-  --ds-surface-400: oklch(0.4017 0 0);
+  --ds-surface-950: oklch(0.155 0 0);
+  --ds-surface-900: oklch(0.180 0 0);
+  --ds-surface-800: oklch(0.195 0 0);
+  --ds-surface-700: oklch(0.230 0 0);
+  --ds-surface-600: oklch(0.265 0 0);
+  --ds-surface-500: oklch(0.330 0 0);
+  --ds-surface-400: oklch(0.385 0 0);
 
   /* ── Bridge: Accent Scale (dark — warm cream hue ~66) ── */
   --ds-accent-50: oklch(0.98 0.010 66);
@@ -412,16 +412,16 @@ body {
 }
 
 .dark .glass {
-  background: oklch(0.1776 0 0 / 0.75);
+  background: oklch(0.155 0 0 / 0.75);
   border: 1px solid oklch(1 0 0 / 0.06);
 }
 
 .dark .glass-subtle {
-  background: oklch(0.1776 0 0 / 0.55);
+  background: oklch(0.155 0 0 / 0.55);
 }
 
 .dark .glass-elevated {
-  background: oklch(0.2134 0 0 / 0.85);
+  background: oklch(0.195 0 0 / 0.85);
   border: 1px solid oklch(1 0 0 / 0.08);
 }
 
@@ -431,7 +431,7 @@ body {
 }
 
 .dark .card-preview-gradient {
-  background: linear-gradient(to top, var(--color-surface-950) 0%, oklch(0.1776 0 0 / 0.2) 50%, transparent 100%);
+  background: linear-gradient(to top, var(--color-surface-950) 0%, oklch(0.155 0 0 / 0.2) 50%, transparent 100%);
 }
 
 /* ── Card Hover Glow ── */
