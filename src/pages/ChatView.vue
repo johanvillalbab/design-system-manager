@@ -195,7 +195,7 @@ function formatTime(date: Date): string {
                 Hola, Sho
               </h2>
               <p class="text-text-muted text-sm max-w-md leading-relaxed">
-                Soy tu asistente del Design System. Pregúntame sobre componentes, issues, métricas de adopción o cualquier cosa del sistema.
+                Pregúntame sobre componentes, issues, métricas de adopción o cualquier cosa del sistema.
               </p>
             </div>
           </div>
